@@ -1,0 +1,13 @@
+# Local IDE/agent artifacts
+.cursor/
+.windsurf/
+.kiro/
+
+# Runtime uploaded files
+springboot/files/
+
+# Env files that may contain secrets
+**/.env
+**/.env.*
+!**/.env.example
+!**/env-example.txt

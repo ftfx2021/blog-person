@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: springboot
+  
+  # 激活的配置文件
+  profiles:
+    active: dev  # 默认使用开发环境，生产环境时改为 prod
+    include: common  # 包含通用配置
+
+
+  main:
+    allow-bean-definition-overriding: true
+
+# 服务器配置
+server:
+  port: 1239
+  servlet:
+    context-path: /
+
+# MyBatis-Plus配置
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+# JWT配置
+jwt:
+  secret: ${JWT_SECRET:change_me_in_env}
+  expiration: 86400000  # 24小时（毫秒）
+  refresh-expiration: 604800000  # 7天（毫秒）
+  header: Authorization  # token头部名称
+  token-prefix: "Bearer "  # token前缀
+
+# 用户配置
+user:
+  defaultPassword: 123456

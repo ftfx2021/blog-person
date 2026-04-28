@@ -1,0 +1,83 @@
+spring:
+  # 数据源配置 - 开发环境
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/personal_blog?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true
+    username: root
+    password: ${DB_PASSWORD:}
+  elasticsearch:
+    host: 127.0.0.1  # 使用IP地址避免localhost解析问题
+    port: 9200
+    connection-timeout: 1  # 连接超时(秒)
+    socket-timeout: 30     # Socket超时(秒)
+
+
+  # 安全配置 - 开发环境
+  security:
+    user:
+      name: ${ADMIN_USERNAME:admin}
+      password: ${ADMIN_PASSWORD:}
+
+  # 邮件配置 - 开发环境
+  mail:
+    host: smtp.qq.com
+    username: 1796145608@qq.com
+    password: ${EMAIL_PASSWORD:}
+    default-encoding: utf-8
+    port: 587
+    properties:
+      mail:
+        debug: true  # 开发环境开启邮件调试
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+            protocols: TLSv1.2
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+            port: 465
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672  # AMQP 协议端口（应用连接）
+    username: admin
+    password: ${RABBITMQ_PASSWORD:}
+    listener:
+      simple:
+        auto-startup: false
+        missing-queues-fatal: false
+      direct:
+        auto-startup: false
+    connection-timeout: 3s
+    publisher-confirm-type: correlated  #发消息后，rabb会回一句是否收到
+    publisher-returns: true #rab收到消息后，若不知道放到哪个队列里，则回退给你
+    template:
+      mandatory: true   #开这个，publisher-returns 才会生效。不开就可能直接丢，不通知你
+
+
+
+# MyBatis-Plus配置 - 开发环境
+mybatis-plus:
+  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 开发环境显示SQL日志
+
+# SpringDoc配置 - 开发环境
+springdoc:
+  swagger-ui:
+    enabled: true  # 开发环境启用Swagger UI
+  api-docs:
+    enabled: true  # 开发环境启用API文档
+
+# Knife4j配置 - 开发环境
+knife4j:
+  enable: true  # 开发环境启用Knife4j
+
+# 用户配置 - 开发环境
+user:
+  fromEmail: 1796145608@qq.com
+
+# 日志配置 - 开发环境
+logging:
+  level:
+    org.example.springboot: info  # 开发环境显示debug日志
+    org.springframework.security: info
+    com.baomidou.mybatisplus: info

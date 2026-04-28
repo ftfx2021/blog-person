@@ -1,0 +1,125 @@
+spring:
+  # AI配置
+  ai:
+    vectorstore:
+      milvus:
+        client:
+          host: localhost
+          port: 19530
+          connect-timeout-ms: 10000
+          rpc-deadline-ms: 2000
+        database-name: "default"
+        collection-name: "blog"
+        embedding-dimension: 4096
+        index-type: ivf-flat
+        metric-type: cosine
+        # 集合不存在时自动初始化 schema（本项目同时在业务层做了兜底重试创建）
+        initialize-schema: true
+
+    openai:
+      chat:
+        options:
+          model: Pro/MiniMaxAI/MiniMax-M2.5
+        completions-path: /v1/chat/completions
+      api-key: ${OPENAI_API_KEY:}
+      base-url: https://api.siliconflow.cn
+      embedding:
+
+        options:
+          model: Qwen/Qwen3-Embedding-8B
+  # Web配置
+  mvc:
+    static-path-pattern: /**  # 允许根路径访问静态资源
+  web:
+    resources:
+      static-locations: classpath:/static/, file:./files/  # 添加files目录
+
+  # 文件上传配置
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1GB
+      max-request-size: 1GB
+
+  # JSON配置
+  jackson:
+    default-property-inclusion: non_empty
+
+# SpringDoc配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  enable-spring-security: false
+  paths-to-match: /**
+  packages-to-scan: org.example.springboot
+
+# Knife4j配置
+knife4j:
+  setting:
+    language: zh_cn
+  basic:
+    enable: true
+    username: admin
+    password: admin
+
+# 文件管理配置
+file:
+  upload:
+    path: ./files
+    maxSize: 1073741824  # 1GB
+milvus:
+  host: 127.0.0.1
+  port: 19530
+
+# 知识库配置
+knowledge:
+  auto-load: true  # 系统启动时自动从数据库加载文章到知识库
+  startup-delay-seconds: 10  # 启动延迟秒数，确保所有依赖服务（RabbitMQ、Milvus）就绪
+
+es:
+  init-on-startup: false
+
+# 学习版智能体工具配置
+agent:
+  learn:
+    orchestration:
+      fast-path-enabled: true
+      observe-skip-enabled: true
+      execution-fallback-enabled: true
+    tools:
+      web-search:
+        # 可选：serper / bing / searxng
+        provider: ${WEB_SEARCH_PROVIDER:serper}
+        timeout-ms: 5000
+        locale:
+          gl: cn
+          hl: zh-cn
+        serper:
+          # 建议通过环境变量注入
+          api-key: ${SERPER_API_KEY:}
+          base-url: https://google.serper.dev/search
+        bing:
+          # 建议通过环境变量注入
+          api-key: ${BING_SUBSCRIPTION_KEY:}
+          base-url: https://api.bing.microsoft.com/v7.0/search
+          mkt: zh-CN
+          set-lang: zh-Hans
+        searxng:
+          # 自建 SearXNG 通常可不填 key
+          api-key: ${SEARXNG_API_KEY:}
+          api-key-header: ${SEARXNG_API_KEY_HEADER:X-API-Key}
+          base-url: ${SEARXNG_BASE_URL:http://127.0.0.1:8080/search}
+          categories: general
+          language: zh-CN
+      web-parser:
+        timeout-ms: 8000
+        max-text-length: 6000
+        user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36
+      pdf-parser:
+        timeout-ms: 10000
+        max-text-length: 8000
+        max-pages: 20
