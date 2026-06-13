@@ -1,0 +1,41 @@
+# IDE
+.idea/
+.cursor/
+.windsurf/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Java / Maven / Gradle
+*.class
+*.jar
+*.war
+*.ear
+*.log
+target/
+build/
+.gradle/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Node
+node_modules/
+dist/
+.npm
+*.tgz
+
+# Kiro
+.kiro/
+
+# Misc
+*.swp
+*.swo
+*~

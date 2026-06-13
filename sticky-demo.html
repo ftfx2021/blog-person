@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticky粘性定位完整演示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        /* 顶部说明 */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background: #ffffff;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+            padding: 12px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 500;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 18px;
+            color: #667eea;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 16px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #555;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(102, 126, 234, 0.12);
+            color: #667eea;
+            transform: translateY(-1px);
+        }
+
+        /* 主容器 */
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 布局 */
+        .layout {
+            display: flex;
+            gap: 30px;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            flex: 1;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        /* 关键：父容器 - 决定sticky的作用范围 */
+        .sidebar-wrapper {
+            width: 300px;
+            /* ⚠️ 关键：不能设置 overflow: hidden/auto */
+            /* ⚠️ 关键：不能设置固定高度，让它自然增长 */
+        }
+
+        /* 关键：侧边栏 - 核心sticky实现 */
+        .sidebar {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            
+            /* ★★★ 核心代码 ★★★ */
+            position: sticky;
+            top: 70px;  /* 距离视口顶部70px，给导航栏留出空间 */
+            
+            /* 美化 */
+            transition: box-shadow 0.3s ease;
+        }
+
+        .sidebar.is-sticky {
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .sidebar h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 20px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .nav-list li:last-child {
+            border-bottom: none;
+        }
+
+        .nav-list a {
+            color: #666;
+            text-decoration: none;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-list a:hover {
+            background: #667eea;
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* 状态指示器 */
+        .status-indicator {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .status-indicator strong {
+            color: #856404;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .status-normal { background: #28a745; }
+        .status-sticky { background: #dc3545; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* 滚动进度条 */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+
+        .scroll-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 50px;
+            height: 50px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #764ba2;
+            transform: translateY(-5px);
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .layout {
+                flex-direction: column;
+            }
+            .sidebar-wrapper {
+                width: 100%;
+            }
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* 页脚 */
+        .footer {
+            margin-top: 60px;
+            padding: 30px 20px;
+            background: #1f1f25;
+            color: rgba(255,255,255,0.86);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <!-- 固定头部 -->
+    <div class="header">
+        <h1>🎯 Sticky粘性定位完整演示</h1>
+        <p>⬇️ 向下滚动，观察右侧侧边栏会"吸附"在距离顶部20px的位置 ⬇️</p>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">Sticky Demo</div>
+            <ul class="nav-links">
+                <li><a href="#top">回到顶部</a></li>
+                <li><a href="#section1">阶段一</a></li>
+                <li><a href="#section2">阶段二</a></li>
+                <li><a href="#section3">阶段三</a></li>
+                <li><a href="#section8">解除粘性</a></li>
+                <li><a href="#section10">兼容性</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 滚动进度条 -->
+    <div class="scroll-progress">
+        <div class="scroll-progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- 主容器 -->
+    <div class="container">
+        <div class="layout">
+            <!-- 主内容 -->
+            <main class="main-content" id="top">
+                <div class="section" id="section1">
+                    <h2>① 阶段一：页面加载</h2>
+                    <p>此时侧边栏处于文档流正常位置，position: sticky 已设置但尚未激活。</p>
+                    <p>它就像普通元素一样，占据着自己的空间位置。</p>
+                    <p><strong style="color: #dc3545; font-size: 18px;">🔽 开始向下滚动页面 🔽</strong></p>
+                    <p><strong style="color: #667eea;">观察右侧侧边栏：当它向上滚动到导航栏下方时，会"吸附"在距离顶部70px的位置！</strong></p>
+                </div>
+
+                <div class="section" id="section2">
+                    <h2>② 阶段二：触发粘性</h2>
+                    <p>当侧边栏的顶部触碰到设定位置时（距离视口顶部 70px 处，因为我们设置了 top: 70px），sticky 效果被触发。</p>
+                    <p>此时它会"吸附"在这个位置，看起来像是 position: fixed，但实际上仍然占据原始空间。</p>
+                    <p>这就是 sticky 的魔法：它结合了 relative 和 fixed 的优点！</p>
+                    <p><strong>👀 请看右侧侧边栏，状态指示器会变红并显示"粘性激活中"！</strong></p>
+                    <p><strong>💡 提示：</strong>侧边栏会停在导航栏下方，保持合适的间距。</p>
+                </div>
+
+                <div class="section" id="section3">
+                    <h2>③ 阶段三：保持粘性</h2>
+                    <p>继续向下滚动，侧边栏会一直保持在视口的固定位置。</p>
+                    <p>它会跟随页面滚动，但相对于视口的位置保持不变。</p>
+                    <p>这个阶段可以持续很久，直到父容器的边界出现...</p>
+                </div>
+
+                <div class="section">
+                    <h2>🎨 Sticky vs Fixed 区别</h2>
+                    <p><strong>Fixed：</strong>脱离文档流，不占据空间，永远固定在视口某个位置。</p>
+                    <p><strong>Sticky：</strong>保留在文档流中，占据空间，只在特定滚动范围内固定。</p>
+                    <p>Sticky 更智能，它知道自己的"家"在哪里，不会无限制地固定下去。</p>
+                </div>
+
+                <div class="section">
+                    <h2>💡 使用场景</h2>
+                    <p>1️⃣ 表格标题行 - 滚动时保持标题可见</p>
+                    <p>2️⃣ 导航栏 - 吸顶导航</p>
+                    <p>3️⃣ 侧边栏目录 - 本例演示的场景</p>
+                    <p>4️⃣ 页面段落标题 - 分组内容时的标题固定</p>
+                </div>
+
+                <div class="section">
+                    <h2>⚙️ 核心CSS代码</h2>
+                    <p style="font-family: 'Courier New', monospace; background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 6px;">
+                        .sidebar {<br>
+                        &nbsp;&nbsp;position: sticky;<br>
+                        &nbsp;&nbsp;top: 70px;  /* 关键参数：距离视口顶部70px */<br>
+                        }
+                    </p>
+                    <p>就这么简单！无需 JavaScript，纯 CSS 实现。</p>
+                    <p><strong>⚡ 提示：</strong>top值决定了吸附时距离视口顶部的距离。本例设置为70px，正好在导航栏（约50px高）下方留出舒适间距。</p>
+                </div>
+
+                <div class="section">
+                    <h2>🔍 注意事项</h2>
+                    <p>1. 父容器不能设置 overflow: hidden/auto（除了 visible）</p>
+                    <p>2. 父容器需要有足够的高度，否则 sticky 无法生效</p>
+                    <p>3. 必须指定 top/bottom/left/right 中的至少一个值</p>
+                    <p>4. 父容器滚动到底部时，sticky 元素会随之停止固定</p>
+                </div>
+
+                <div class="section" id="section8">
+                    <h2>④ 阶段四：解除粘性</h2>
+                    <p>当你滚动到页面底部，侧边栏的底部会触碰到父容器（.sidebar-wrapper）的底部。</p>
+                    <p>此时，sticky 效果自动解除，侧边栏回到正常文档流位置。</p>
+                    <p>它不会继续固定，而是跟随父容器一起滚出视口。</p>
+                </div>
+
+                <div class="section" id="section9">
+                    <h2>⑤ 阶段五：循环往复</h2>
+                    <p>向上滚动回到顶部，整个过程会重新开始。</p>
+                    <p>这就是 sticky 的完整生命周期！</p>
+                    <p>它像一个智能的哨兵，知道何时该固定，何时该放手。</p>
+                </div>
+
+                <div class="section" id="section10">
+                    <h2>🎓 浏览器兼容性</h2>
+                    <p>✅ Chrome 56+</p>
+                    <p>✅ Firefox 32+</p>
+                    <p>✅ Safari 13+</p>
+                    <p>✅ Edge 16+</p>
+                    <p>⚠️ IE 11 不支持（需要 polyfill）</p>
+                </div>
+
+                <div class="section" style="min-height: 600px;">
+                    <h2>📝 结语</h2>
+                    <p>Sticky 定位是现代 Web 开发中非常实用的特性。</p>
+                    <p>它让我们能够创建更好的用户体验，而无需复杂的 JavaScript 代码。</p>
+                    <p>继续滚动到底部，观察侧边栏如何优雅地"解除粘性"...</p>
+                    <p style="margin-top: 200px; text-align: center; font-size: 18px; color: #667eea;">
+                        🎉 感谢观看！现在试着向上滚动回到顶部吧！
+                    </p>
+                </div>
+            </main>
+
+            <!-- 侧边栏容器（父容器）-->
+            <div class="sidebar-wrapper">
+                <!-- 粘性侧边栏 -->
+                <aside class="sidebar" id="sidebar">
+                    <!-- 状态指示器 -->
+                    <div class="status-indicator" id="statusIndicator">
+                        <strong>当前状态：</strong>
+                        <span id="statusText">
+                            <span class="status-dot status-normal"></span>
+                            正常文档流
+                        </span>
+                    </div>
+
+                    <h3>📚 文章目录</h3>
+                    <ul class="nav-list">
+                        <li><a href="#section1">阶段一：页面加载</a></li>
+                        <li><a href="#section2">阶段二：触发粘性</a></li>
+                        <li><a href="#section3">阶段三：保持粘性</a></li>
+                        <li><a href="#section4">Sticky vs Fixed</a></li>
+                        <li><a href="#section5">使用场景</a></li>
+                        <li><a href="#section6">核心代码</a></li>
+                        <li><a href="#section7">注意事项</a></li>
+                        <li><a href="#section8">阶段四：解除粘性</a></li>
+                        <li><a href="#section9">阶段五：循环</a></li>
+                        <li><a href="#section10">浏览器兼容性</a></li>
+                    </ul>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop" title="返回顶部">↑</button>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <strong>Sticky Demo Playground</strong>
+                <div>一个用于演示 CSS <code>position: sticky</code> 生命周期的可交互页面。</div>
+            </div>
+            <div class="footer-links">
+                <a href="#top">返回顶部</a>
+                <a href="#section1">阶段概览</a>
+                <a href="#section4">Sticky 与 Fixed</a>
+                <a href="#section10">浏览器支持</a>
+            </div>
+            <div style="font-size: 13px; color: rgba(255,255,255,0.55);">
+                © 2025 Sticky Demo. Crafted for learning & fun.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 滚动进度条
+        function updateScrollProgress() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // 检测 sticky 状态
+        function checkStickyStatus() {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarRect = sidebar.getBoundingClientRect();
+            const statusText = document.getElementById('statusText');
+            
+            // 判断是否处于 sticky 状态
+            // 当元素距离视口顶部的距离等于设置的top值(70px)时，表示正在"粘住"
+            const isSticky = sidebarRect.top <= 71 && sidebarRect.top >= 69;
+            
+            if (isSticky) {
+                sidebar.classList.add('is-sticky');
+                statusText.innerHTML = '<span class="status-dot status-sticky"></span>🔥 粘性激活中！';
+            } else {
+                sidebar.classList.remove('is-sticky');
+                statusText.innerHTML = '<span class="status-dot status-normal"></span>正常文档流';
+            }
+        }
+
+        // 返回顶部按钮显示/隐藏
+        function toggleBackToTop() {
+            const backToTop = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        }
+
+        // 返回顶部功能
+        document.getElementById('backToTop').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 滚动事件监听
+        window.addEventListener('scroll', () => {
+            updateScrollProgress();
+            checkStickyStatus();
+            toggleBackToTop();
+        });
+
+        // 初始化
+        updateScrollProgress();
+        checkStickyStatus();
+    </script>
+</body>
+</html>

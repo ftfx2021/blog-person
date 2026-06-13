@@ -1,0 +1,61 @@
+/* 字体定义 */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('./font/JetBrainsMono-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PingFang SC';
+  src: url('./font/PingFangSC-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'dingding';
+  src: url('./font/DingTalk-JinBuTi.ttf') format('truetype');
+  font-weight: 1800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'dongqing';
+  src: url('./font/dongqing.ttf') format('truetype');
+  font-weight: 1800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 重置基础样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 设置根元素字体大小，方便使用 rem */
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: 'dongqing', 'PingFangSC-Medium', 'Microsoft YaHei', sans-serif;
+  color: #000;
+  
+  background-color: #fff;
+}
+
+/* 无下划线 */
+a {
+  text-decoration: none;
+}
+
+/* 鼠标样式 */
+.pointer {
+  cursor: pointer;
+}
