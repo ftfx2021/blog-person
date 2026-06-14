@@ -97,4 +97,4 @@ public class GlobalExceptionHandler {
         // 避免暴露系统内部错误信息给用户
         return Result.error(ResultCode.SYSTEM_ERROR.getCode(), "服务暂时不可用，请稍后重试");
     }
-} 
+}

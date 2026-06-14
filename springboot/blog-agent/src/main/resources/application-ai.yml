@@ -9,7 +9,7 @@ ai:
         chat: /chat/completions
     siliconflow:
       url: https://api.siliconflow.cn
-      api-key: sk-iosayicbnzehlibwyuibbdlezemrbvqmpkisxnfnotmacrzk
+      api-key: sk-ejdzbiugxyuzflbsyxzvjlipgyykmhlsvaopnbvtiakdkimn
       endpoints:
         chat: /v1/chat/completions
         embedding: /v1/embeddings
@@ -23,17 +23,16 @@ ai:
         image-gen: /api/v1/services/aigc/multimodal-generation/generation
         rerank: /api/v1/services/rerank/text-rerank/text-rerank
 
+  #熔断策略
+  selection:
+    failure-threshold: 2  #连续2次触发熔断
+    open-duration-ms: 30000 #熔断触发30s
 
-      #熔断策略
-      selection:
-        failure-threshold: 2  #连续2次触发熔断
-        open-duration-ms: 30000 #熔断触发30s
+  #流式配置
+  stream:
+    message-chunk-size: 1
 
-      #流式配置
-      stream:
-        message-chunk-size: 1
-
-#     #chat模型组
+  #chat模型组
   chat:
     #对应下面的模型id
     default-model: qwen3-max
@@ -85,8 +84,12 @@ ai:
         provider: bailian
         model: qwen3-rerank
         priority: 1
-      - id: rerank-noop
+      - id: bge-reranker
         provider: bge-reranker
         model: Pro/BAAI/bge-reranker-v2-m3
         priority: 2
+      - id: rerank-noop
+        provider: noop
+        model: noop
+        priority: 100          # 最低优先级，兜底
 

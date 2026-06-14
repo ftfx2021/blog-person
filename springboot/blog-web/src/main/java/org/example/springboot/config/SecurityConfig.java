@@ -2,6 +2,7 @@ package org.example.springboot.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -127,7 +128,8 @@ public class SecurityConfig {
     // ==================== 其它公开接口 ====================
     private static final String[] OTHER_PUBLIC_PATHS = {
         "/api/mytest/**",          // 测试
-        "/api/ws/**"          // 测试
+        "/api/ws/**",         // 测试
+        "/api/agent-test/**"          // 测试
     };
     
     // ==================== 静态资源路径 ====================
@@ -202,6 +204,18 @@ public class SecurityConfig {
      * @throws Exception 配置异常
      */
     @Bean
+    @Order(1)
+    public SecurityFilterChain docFilterChain(HttpSecurity http) throws Exception {
+        http
+            .securityMatcher("/doc.html", "/webjars/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/swagger-resources/**")
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
+
+        return http.build();
+    }
+
+    @Bean
+    @Order(2)
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             // 禁用CSRF保护（API服务通常不需要）

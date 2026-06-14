@@ -2,7 +2,9 @@ package org.example.springboot.embedding;
 
 import okhttp3.OkHttpClient;
 import org.example.springboot.emuns.ModelProvider;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SiliconFlowEmbeddingClient extends AbstractOpenAIStyleEmbeddingClient{
     protected SiliconFlowEmbeddingClient(OkHttpClient httpClient) {
         super(httpClient);

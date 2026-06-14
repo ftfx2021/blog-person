@@ -54,15 +54,16 @@ springdoc:
   api-docs:
     path: /v3/api-docs
   enable-spring-security: false
-  paths-to-match: /**
+  paths-to-match: /api/**
   packages-to-scan: org.example.springboot
+  override-with-generic-response: false
 
 # Knife4j配置
 knife4j:
   setting:
     language: zh_cn
   basic:
-    enable: true
+    enable: false
     username: admin
     password: admin
 
@@ -79,6 +80,12 @@ milvus:
 knowledge:
   auto-load: true  # 系统启动时自动从数据库加载文章到知识库
   startup-delay-seconds: 10  # 启动延迟秒数，确保所有依赖服务（RabbitMQ、Milvus）就绪
+
+rabbit:
+  listener:
+    lazy-start:
+      enabled: true
+      delay-seconds: 10
 
 es:
   init-on-startup: false

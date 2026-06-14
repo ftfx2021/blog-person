@@ -11,14 +11,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
-@Data
-@Component
-@RequiredArgsConstructor
 
 
 /*
   三态熔断器，用于保护系统不会持续调用已经故障的模型
  */
+@Data
+@Component
+@RequiredArgsConstructor
+
 public class ModelHealthStore {
 
     private  final AIModelProperties properties;
@@ -135,6 +136,7 @@ public class ModelHealthStore {
                 v.setOpenUntil(now+properties.getSelection().getOpenDurationMs());
                 v.setConsecutiveFailures(0);
                 v.setHalfOpenInFlight(false);
+                return v;
             }
             //CLOSE状态下失败（正常）-》失败次数加一，若超过阈值，则状态变更为OPEN
             v.setConsecutiveFailures(v.getConsecutiveFailures()+1);

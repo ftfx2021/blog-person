@@ -49,16 +49,24 @@ public final class OpenAIStyleSseParser {
         if(DONE_MARKER.equalsIgnoreCase(payload)){
             return ParsedEvent.done();
         }
-        //解析JSON ：把 payload 解析为 JsonObject，提取 choices[0]
+        //正式开始解析JSON ：把 payload 解析为 JsonObject，提取 choices[0]
         JsonObject object = gson.fromJson(payload, JsonObject.class);
+        //拿choices
         JsonArray choices = object.getAsJsonArray("choices");
         if(choices==null || choices.isEmpty()){
             return ParsedEvent.empty();
         }
-        //提取字段 ：从 choice0 中提取 content（增量内容）和 reasoning_content（思考内容，如果启用），检查 finish_reason 判断是否完成
+        //提取字段 ：从 choice[0] 中提取 content（增量内容）和 reasoning_content（思考内容，如果启用），检查 finish_reason 判断是否完成
         JsonObject choice0 = choices.get(0).getAsJsonObject();
         String content = extractText(choice0,"content");
+
         String reasoning = reasoningEnabled ? extractText(choice0,"reasoning_content") : null;
+        /*
+        模型停止生成 token 的原因。如果模型达到了自然停止点或提供了停止序列，则为 stop；
+        如果达到了请求中指定的全局最大 token 数，则为 length；
+        如果由于我们的内容过滤器标记而省略了内容，则为 content_filter；
+        如果模型调用了工具，则为 tool_calls；如果模型调用了函数（已弃用），则为 function_call。
+         */
         boolean completed = hasFinishReason(choice0);
         return new ParsedEvent(content, reasoning, completed);
 
@@ -84,14 +92,14 @@ public final class OpenAIStyleSseParser {
                     return value.getAsString();
                 }
             }
-            //路径二：从 message 中提取（兼容非标准行为）
-            if(choice.has("message")&&choice.get("message").isJsonObject()){
-                JsonObject message = choice.get("message").getAsJsonObject();
-                if(message.has(fieldName)){
-                    JsonElement value = message.get(fieldName);
-                    if(value!=null&&!value.isJsonNull()){
-                        return value.getAsString();
-                    }
+        }
+        //路径二：从 message 中提取（兼容非标准行为）
+        if(choice.has("message")&&choice.get("message").isJsonObject()){
+            JsonObject message = choice.get("message").getAsJsonObject();
+            if(message.has(fieldName)){
+                JsonElement value = message.get(fieldName);
+                if(value!=null&&!value.isJsonNull()){
+                    return value.getAsString();
                 }
             }
         }

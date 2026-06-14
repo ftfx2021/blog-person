@@ -1,18 +1,23 @@
 package org.example.springboot.embedding;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.example.springboot.emuns.ModelCapability;
 import org.example.springboot.exception.RemoteException;
 import org.example.springboot.model.ModelRoutingExecutor;
 import org.example.springboot.model.ModelSelector;
 import org.example.springboot.model.ModelTarget;
+import org.example.springboot.rerank.RerankClient;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
+@Slf4j
+@Service
 public class RoutingEmbeddingService implements EmbeddingService{
     private final ModelSelector modelSelector;
     private final ModelRoutingExecutor modelRoutingExecutor;
@@ -59,8 +64,7 @@ public class RoutingEmbeddingService implements EmbeddingService{
                 ModelCapability.EMBEDDED,
                 modelSelector.selectEmbeddingCandidates(),
                 this::resolveClient,
-                (client, target) -> client.embedBatch(texts,target))
-        ;
+                (client, target) -> client.embedBatch(texts,target));
     }
 
     @Override
@@ -73,9 +77,20 @@ public class RoutingEmbeddingService implements EmbeddingService{
         );
     }
 
+    /**
+     * 解析、提取客户端
+     * @param target 模型目标
+     * @return 客户端信息
+     */
     private EmbeddingClient resolveClient(ModelTarget target) {
-        return clientsByProvider.get(target.candidate().getProvider());
+        EmbeddingClient client = clientsByProvider.get(target.candidate().getProvider());
+        if (client == null) {
+            log.warn("{} 提供商客户端缺失: provider：{}，modelId：{}",
+                    ModelCapability.EMBEDDED.getDisplayName(), target.candidate().getProvider(), target.id());
+        }
+        return client;
     }
+
     private ModelTarget resolveTarget(String modelId) {
        if(StringUtils.isEmpty(modelId)) {
            throw new RemoteException("Embedding 模型ID不能为空");

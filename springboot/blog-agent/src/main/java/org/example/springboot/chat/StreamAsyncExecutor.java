@@ -2,9 +2,6 @@ package org.example.springboot.chat;
 
 import lombok.NoArgsConstructor;
 import okhttp3.Call;
-import org.example.springboot.dto.StreamCallback;
-import org.example.springboot.dto.StreamCancellationHandle;
-import org.example.springboot.dto.StreamCancellationHandles;
 import org.example.springboot.http.ModelClientErrorType;
 import org.example.springboot.http.ModelClientException;
 
@@ -18,7 +15,6 @@ import java.util.function.Consumer;
  * 异步提交,一个无状态的工具类，只有一个 submit 方法，职责单一：把阻塞式的流式读取任务提交到专用线程池异步执行，并构建取消句柄。
  */
 @NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
-//
 public final class StreamAsyncExecutor {
     /**
      * 如果线程池满了（所有线程都在处理其他流式请求），CompletableFuture.runAsync 会抛出 RejectedExecutionException。这时的降级逻辑：

@@ -48,7 +48,7 @@ public final class HttpResponseHelper {
     }
 
     /**
-     * 供应商配置校验
+     * 获取并对供应商配置校验
      * @param target 模型信息
      * @param label 标签
      * @return 如果正常就返回供应商信息

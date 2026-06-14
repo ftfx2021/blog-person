@@ -1,7 +1,6 @@
 package org.example.springboot.chat;
 
 import lombok.Getter;
-import org.example.springboot.dto.StreamCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +9,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+/**
+ * 可用于替换 FirstPacketAwaiter
+ */
 public class ProbeStreamBridge implements StreamCallback {
 
     private final StreamCallback downstream;

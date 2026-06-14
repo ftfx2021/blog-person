@@ -20,6 +20,7 @@
         <spring-boot.version>3.5.7</spring-boot.version>
         <spring-ai.version>1.1.0</spring-ai.version>
         <elasticsearch.version>8.18.1</elasticsearch.version>
+        <swagger-core.version>2.2.47</swagger-core.version>
     </properties>
 
 
@@ -56,6 +57,21 @@
 <!--                <artifactId>elasticsearch-java</artifactId>-->
 <!--                <version>${elasticsearch-java.version}</version>-->
 <!--            </dependency>-->
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-annotations-jakarta</artifactId>
+                <version>${swagger-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-core-jakarta</artifactId>
+                <version>${swagger-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-models-jakarta</artifactId>
+                <version>${swagger-core.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>

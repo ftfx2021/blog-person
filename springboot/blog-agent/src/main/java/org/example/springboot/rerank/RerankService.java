@@ -2,7 +2,10 @@ package org.example.springboot.rerank;
 
 import org.example.springboot.framework.RetrievedChunk;
 
+import java.util.List;
+
 public interface RerankService {
+
     /**
      * 对候选文档进行精排，按相关度重新排序，返回前 topN 条
      *
@@ -11,6 +14,4 @@ public interface RerankService {
      * @param topN       最终保留的条数
      * @return 精排后的前 topN 条文档
      */
-    List<RetrievedChunk> retrieveChunks(String query,List<RetrievedChunk> candidates,int topN);
-
-}
+    List<RetrievedChunk> rerank(String query, List<RetrievedChunk> candidates, int topN);}

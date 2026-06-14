@@ -1,6 +1,5 @@
 package org.example.springboot.chat;
 
-import org.example.springboot.dto.StreamCallback;
 import org.example.springboot.enums.BaseErrorCode;
 import org.example.springboot.exception.RemoteException;
 

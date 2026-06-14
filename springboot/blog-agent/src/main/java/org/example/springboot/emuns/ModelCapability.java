@@ -6,14 +6,16 @@ import lombok.Getter;
 
 @Getter
 public enum ModelCapability {
-    CHAT("chat"),
-    EMBEDDED("embedded"),
-    IMAGE_GEN("imageGen"),
-    RERANK("rerank"),;
-    private String displayName;
-    private ModelCapability() {
-    }
-    private ModelCapability(String displayName) {
+    CHAT("chat", "chat"),
+    EMBEDDED("embedded", "embedding"),
+    IMAGE_GEN("imageGen", "image-gen"),
+    RERANK("rerank", "rerank");
+
+    private final String displayName;
+    private final String endpointKey;
+
+    ModelCapability(String displayName, String endpointKey) {
         this.displayName = displayName;
+        this.endpointKey = endpointKey;
     }
 }

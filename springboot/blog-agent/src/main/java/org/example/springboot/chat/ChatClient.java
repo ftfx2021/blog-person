@@ -1,8 +1,6 @@
 package org.example.springboot.chat;
 
 import org.example.springboot.framework.ChatRequest;
-import org.example.springboot.dto.StreamCallback;
-import org.example.springboot.dto.StreamCancellationHandle;
 import org.example.springboot.model.ModelTarget;
 
 /**
@@ -16,10 +14,11 @@ public interface ChatClient {
 
     /**
      *
-     * @param request
-     * @param target
-     * @return
+     * @param request 请求
+     * @param target 一次请求所需要的完整模型信息
+     * @return 模型返回的文本
      */
     String chat(ChatRequest request, ModelTarget target);
+
     StreamCancellationHandle streamChat(ChatRequest request, StreamCallback callback, ModelTarget target);
 }

@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.extern.slf4j.Slf4j;
+
 import org.example.springboot.config.JwtConfig;
 import org.example.springboot.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;

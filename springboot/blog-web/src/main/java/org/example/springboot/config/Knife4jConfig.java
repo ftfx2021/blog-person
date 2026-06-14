@@ -2,6 +2,7 @@ package org.example.springboot.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,6 +27,15 @@ public class Knife4jConfig {
         return new OpenAPI()
                 // 配置接口文档基本信息
                 .info(this.getApiInfo());
+    }
+
+    @Bean
+    public GroupedOpenApi defaultApi() {
+        return GroupedOpenApi.builder()
+                .group("default")
+                .pathsToMatch("/api/**")
+                .packagesToScan("org.example.springboot.controller")
+                .build();
     }
 
     /**

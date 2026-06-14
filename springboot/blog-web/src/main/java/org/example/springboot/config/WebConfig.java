@@ -62,16 +62,13 @@ public class WebConfig implements WebMvcConfigurer {
      * 🎯 配置目标：
      * 1. 静态资源访问路径
      * 2. 文件上传目录访问
-     * 3. API文档相关资源
+     * 3. 避免与API路径冲突
      * 4. 避免与API路径冲突
      * 
      * 📁 资源映射规则：
      * - /static/** → classpath:/static/ (项目静态资源)
      * - /files/** → file:./files/ (文件上传目录)
-     * - /doc.html → Knife4j文档首页
-     * - /webjars/** → Maven webjars资源
-     * - /swagger-ui/** → Swagger UI资源
-     * - /v3/api-docs/** → OpenAPI文档
+     * API文档相关资源由 SpringDoc/Knife4j 自动配置。
      * 
      * @param registry 资源处理器注册表
      */
@@ -87,20 +84,5 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:./files/")
                 .setCachePeriod(86400); // 缓存24小时
         
-        // 2. API文档资源配置 - Knife4j/Swagger相关
-        registry.addResourceHandler("doc.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
-                
-        registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
-                
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
-                
-        registry.addResourceHandler("/swagger-ui/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/swagger-ui/");
-                
-        registry.addResourceHandler("/v3/api-docs/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 }

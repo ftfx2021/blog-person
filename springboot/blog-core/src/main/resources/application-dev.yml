@@ -2,7 +2,8 @@ spring:
   # 数据源配置 - 开发环境
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/personal_blog?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true
+#    url: jdbc:mysql://localhost:3306/personal_blog?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://8.155.161.166:3308/personal_blog?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true
     username: root
     password: jx152523
   elasticsearch:
@@ -70,6 +71,13 @@ springdoc:
 # Knife4j配置 - 开发环境
 knife4j:
   enable: true  # 开发环境启用Knife4j
+  basic:
+    enable: false
+
+rabbit:
+  listener:
+    lazy-start:
+      enabled: false
 
 # 用户配置 - 开发环境
 user:

@@ -10,12 +10,17 @@ public enum ModelProvider {
     /**
      * 阿里云百炼大模型平台
      */
-    BAI_LIAN("阿里百炼","bailian");
+    BAI_LIAN("阿里百炼","bailian"),
+
+    /**
+     * 空实现，用于测试或占位
+     */
+    NOOP("noop","noop");
     final String name;
     final String id;
     ModelProvider(String name, String id) {
-        this.name = this.name();
-        this.id = this.name();
+        this.name = name;
+        this.id = id;
     }
 
 }

@@ -1,8 +1,6 @@
 package org.example.springboot.chat;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.springboot.dto.StreamCallback;
-import org.example.springboot.dto.StreamCancellationHandle;
 import org.example.springboot.emuns.ModelCapability;
 import org.example.springboot.enums.BaseErrorCode;
 import org.example.springboot.exception.RemoteException;
@@ -11,8 +9,8 @@ import org.example.springboot.model.ModelHealthStore;
 import org.example.springboot.model.ModelRoutingExecutor;
 import org.example.springboot.model.ModelSelector;
 import org.example.springboot.model.ModelTarget;
+import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -20,6 +18,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Slf4j
+@Service
 public class RoutingLLMService implements LLMService {
     private static final int FIRST_PACKET_TIMEOUT_SECONDS = 60;
     private static final String STREAM_INTERRUPTED_MESSAGE = "流式请求被中断";
@@ -31,9 +30,6 @@ public class RoutingLLMService implements LLMService {
     private final ModelRoutingExecutor executor;
     private final ModelSelector selector;
     private final Map<String, ChatClient> clientsByProvider;
-
-
-    
     private final ModelHealthStore healthStore;
 
     public RoutingLLMService(ModelRoutingExecutor executor, ModelSelector selector, List<ChatClient> clients, ModelHealthStore healthStore) {
@@ -52,24 +48,33 @@ public class RoutingLLMService implements LLMService {
         return executor.executeWithFallback(
                 ModelCapability.CHAT,
                 selector.selectChatModel(Boolean.TRUE.equals(request.getThinking())),
-                modelTarget -> clientsByProvider.get(modelTarget.candidate().getProvider()),
+                this::resolveClient,
                 (client, target) -> client.chat(request, target)
 
 
         );
     }
 
+    /**
+     * 流式chat不走executeWithFallback
+     * @param request 请求
+     * @param callback 回调
+     * @return
+     */
     @Override
     public StreamCancellationHandle streamChat(ChatRequest request, StreamCallback callback) {
+        //找到完整的可用模型信息
         List<ModelTarget> modelTargets = selector.selectChatModel(Boolean.TRUE.equals(request.getThinking()));
-        if (!modelTargets.isEmpty()) {
+        if (modelTargets.isEmpty()) {
             throw new RuntimeException(STREAM_NO_PROVIDER_MESSAGE);
         }
         String displayName = ModelCapability.CHAT.getDisplayName();
         Throwable lastError = null;
 
+        //尝试每个可用调用模型目标
         for (ModelTarget modelTarget : modelTargets) {
-            ChatClient chatClient = resolveClient(modelTarget, displayName);
+            //
+            ChatClient chatClient = resolveClient(modelTarget);
             if (chatClient == null) {
                 continue;
             }
@@ -83,7 +88,7 @@ public class RoutingLLMService implements LLMService {
             StreamCancellationHandle handle;
             try{
                 //发起调用（立即返回，不阻塞）
-                handle = chatClient.streamChat(request, callback, modelTarget);
+                handle = chatClient.streamChat(request, wrapper, modelTarget);
                 
             }catch(Exception e){
                 healthStore.markFailure(modelTarget.id());
@@ -109,11 +114,16 @@ public class RoutingLLMService implements LLMService {
         throw notifyAllFailed(callback,lastError);
     }
 
-    private ChatClient resolveClient(ModelTarget target, String label) {
+    /**
+     * 解析、提取客户端
+     * @param target 模型目标
+     * @return 客户端信息
+     */
+    private ChatClient resolveClient(ModelTarget target) {
         ChatClient client = clientsByProvider.get(target.candidate().getProvider());
         if (client == null) {
             log.warn("{} 提供商客户端缺失: provider：{}，modelId：{}",
-                    label, target.candidate().getProvider(), target.id());
+                    ModelCapability.CHAT.getDisplayName(), target.candidate().getProvider(), target.id());
         }
         return client;
     }
@@ -123,7 +133,7 @@ public class RoutingLLMService implements LLMService {
      *     │
      *     ├── 正常情况
      *     │   ├── await() 超时        → return TIMEOUT
-     *     │   ├── await() 收到首包    → return SUCCESS ✅
+     *     │   ├── await() 收到首包    → return SUCCESS
      *     │   └── await() 无内容结束  → return NO_CONTENT
      *     │
      *     └── 被中断 (InterruptedException)

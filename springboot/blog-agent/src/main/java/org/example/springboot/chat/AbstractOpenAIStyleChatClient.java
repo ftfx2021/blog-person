@@ -10,15 +10,14 @@ import okhttp3.*;
 
 import okio.BufferedSource;
 import org.example.springboot.config.AIModelProperties;
-import org.example.springboot.dto.StreamCallback;
-import org.example.springboot.dto.StreamCancellationHandle;
 import org.example.springboot.framework.ChatMessage;
 import org.example.springboot.framework.ChatRequest;
 import org.example.springboot.emuns.ModelCapability;
 
 import org.example.springboot.http.*;
-import org.example.springboot.model.ModelRoutingExecutor;
 import org.example.springboot.model.ModelTarget;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,20 +28,22 @@ import java.util.function.Consumer;
 /**
  * 模板方法
  * 如果每个供应商都从头实现一遍 HTTP 请求构建、JSON 序列化、响应解析、错误处理，90% 的代码是重复的。
- * openai请求规范https://openai.apifox.cn/doc-2187082（Chat Completions API）
+ * openai请求规范 <a href="https://openai.apifox.cn/doc-2187082">...</a> （Chat Completions API）
  */
 @Slf4j
+@Component
 public abstract class   AbstractOpenAIStyleChatClient implements ChatClient {
-    protected final OkHttpClient httpClient;
-    protected  final   Executor modelStreamExecutor;
+
+    @Autowired
+    private   OkHttpClient syncHttpClient;
+    @Autowired
+    private   OkHttpClient streamHttpClient;
+    @Autowired
+    private    Executor modelStreamExecutor;
+
     protected final Gson gson  = new Gson();
 
-    protected AbstractOpenAIStyleChatClient(OkHttpClient httpClient, Executor modelStreamExecutor) {
-        this.httpClient = httpClient;
-        this.modelStreamExecutor = modelStreamExecutor;
 
-
-    }
     /**
      * 控制是否校验和携带 API Key。默认返回 true
      * Ollama 是本地部署的推理服务，没有云端认证机制，所以 OllamaChatClient 覆写为 false
@@ -60,7 +61,8 @@ public abstract class   AbstractOpenAIStyleChatClient implements ChatClient {
      * @param request 发送的请求
      */
     protected void customizeRequestBody(JsonObject body, ChatRequest request){
-        if(request.getThinking().equals(Boolean.TRUE)){
+        //把确定非空的对象放在 equals() 左边，避免 NullPointerException。
+        if(Boolean.TRUE.equals(request.getThinking())){
             body.addProperty("enable_thinking",request.getThinking());
         }
     }
@@ -94,7 +96,7 @@ public abstract class   AbstractOpenAIStyleChatClient implements ChatClient {
                 .addHeader("Accept","text/event-stream")
                 .build();
         //发起请求(准备执行的请求任务对象)
-        Call call = httpClient.newCall(streamRequest);
+        Call call = streamHttpClient.newCall(streamRequest);
         boolean reasoningEnabled = isReasoningEnabledForStream(request);
         //流式调用把 Call 对象交给异步执行器，自己立即返回一个取消句柄(异步执行)
         return StreamAsyncExecutor.submit(
@@ -137,6 +139,7 @@ public abstract class   AbstractOpenAIStyleChatClient implements ChatClient {
             BufferedSource source = body.source();
             boolean completed = false;
             while (!cancelled.get()) {
+
                 String line = source.readUtf8Line();
                 if(line == null){
                     break;
@@ -145,6 +148,7 @@ public abstract class   AbstractOpenAIStyleChatClient implements ChatClient {
                     continue;
                 }
                 try{
+                    //解析流式输出的每一行
                     OpenAIStyleSseParser.ParsedEvent event = OpenAIStyleSseParser.parseLine(line,gson,reasoningEnabled);
                     if(event.hasReasoning()){
                         callback.onThinking(event.reasoning());
@@ -203,7 +207,7 @@ public abstract class   AbstractOpenAIStyleChatClient implements ChatClient {
 
         JsonObject respJson;
         //httpClient.newCall(requestHttp).execute() 同步发送 HTTP 请求。用 try-with-resources 确保响应体关闭
-        try(Response response = httpClient.newCall(requestHttp).execute()){
+        try(Response response = syncHttpClient.newCall(requestHttp).execute()){
             if(!response.isSuccessful()){
                 String body = HttpResponseHelper.readBody(response.body());
                 log.info("{} 同步请求失败：status={}, body={}, ",provider(),response.code(),   body );

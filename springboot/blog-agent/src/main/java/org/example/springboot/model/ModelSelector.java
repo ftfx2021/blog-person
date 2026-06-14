@@ -31,7 +31,7 @@ public class ModelSelector {
      * @return 返回的可用模型
      */
     public List<ModelTarget> selectChatModel(boolean deepthinking){
-        AIModelProperties.ModelGroup chatGroup = properties.getChatModelGroup();
+        AIModelProperties.ModelGroup chatGroup = properties.getChat();
         if(chatGroup == null){
             return List.of();
         }
@@ -46,7 +46,7 @@ public class ModelSelector {
      * @return 返回的可用模型
      */
     public List<ModelTarget> selectEmbeddingCandidates() {
-        return selectCandidates(properties.getEmbeddingModelGroup());
+        return selectCandidates(properties.getEmbedding());
     }
 
     /**
@@ -54,7 +54,7 @@ public class ModelSelector {
      * @return 返回的可用模型
      */
     public List<ModelTarget> selectRerankCandidates() {
-        return selectCandidates(properties.getRerankModelGroup());
+        return selectCandidates(properties.getRerank());
     }
 
 
@@ -106,7 +106,7 @@ public class ModelSelector {
         return modelCandidateList.stream().map(
                 candidate ->
                         buildModelTarget(candidate, providers)
-        ).filter(Objects::isNull).toList();
+        ).filter(Objects::nonNull).toList();
 
 
     }
@@ -166,7 +166,7 @@ public class ModelSelector {
         }
         if(candidate.getId()!=null)return candidate.getId();
 
-        return String.format("%s::%s",candidate.getPriority(),candidate.getModel());
+        return String.format("%s::%s",candidate.getProvider(),candidate.getModel());
     }
 
 

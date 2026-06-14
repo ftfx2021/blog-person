@@ -30,7 +30,7 @@ public class ModelUrlResolver {
         }
 
         Map<String, String> endpoints = provider.getEndpoints();
-        String key = capability.name().toLowerCase();
+        String key = capability.getEndpointKey();
         String path = endpoints == null ? null : endpoints.get(key);
         if (path == null || path.isBlank()) {
             throw new IllegalStateException("Provider endpoint 不存在: " + key);

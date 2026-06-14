@@ -2,8 +2,7 @@ package org.example.springboot.config;
 
 
 import lombok.Data;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,18 +10,17 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-@Configuration
-@ConditionalOnProperty(prefix = "ai")
+@ConfigurationProperties(prefix = "ai")
 //YAML 和 Java 类是一一对应的
 public class AIModelProperties {
     //<供应商名称，供应商配置>
     private Map<String, ProviderConfig> providers = new HashMap<>();
     //聊天模型组
-    private ModelGroup chatModelGroup = new ModelGroup();
+    private ModelGroup chat = new ModelGroup();
     //嵌入模型组
-    private ModelGroup embeddingModelGroup = new ModelGroup();
+    private ModelGroup embedding = new ModelGroup();
     //重排序模型组
-    private ModelGroup rerankModelGroup = new ModelGroup();
+    private ModelGroup rerank = new ModelGroup();
     //熔断策略
     private Selection selection = new Selection();
     //流式输出配置
