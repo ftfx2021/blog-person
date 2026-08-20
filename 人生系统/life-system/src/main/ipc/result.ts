@@ -1,0 +1,5 @@
+import type { ApiResult, AppError } from '../../shared/contracts/common.js'
+import { failure, success } from '../../shared/contracts/common.js'
+import { ZodError } from 'zod'
+
+export async function toResult<T>(operation:()=>Promise<T>):Promise<ApiResult<T>>{try{return success(await operation())}catch(error){if(error instanceof ZodError)return failure('VALIDATION_ERROR','输入内容不符合要求',error.issues);const candidate=error as Error&{code?:string};const knownCodes:AppError['code'][]=['DB_UNAVAILABLE','NOT_FOUND','INVALID_STATE','CONFLICT','FILESYSTEM_ERROR','BACKUP_FAILED','RESTORE_FAILED'];if(knownCodes.includes(candidate.code as AppError['code']))return failure(candidate.code as AppError['code'],candidate.message);const databaseCodes=['ECONNREFUSED','ER_ACCESS_DENIED_ERROR','ER_BAD_DB_ERROR','PROTOCOL_CONNECTION_LOST','ETIMEDOUT'];if(candidate.code&&databaseCodes.includes(candidate.code))return failure('DB_UNAVAILABLE','无法连接 MySQL，请检查设置与服务状态');return failure('INTERNAL_ERROR',candidate.message||'系统操作失败')}}

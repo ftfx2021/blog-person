@@ -1,6 +1,6 @@
 import { readdir, readFile } from 'node:fs/promises'
 import { join } from 'node:path'
-import mysql from 'mysql2/promise'
+import mysql, { type RowDataPacket } from 'mysql2/promise'
 import type { MysqlConnectionConfiguration } from '../db/configuration.js'
 
 export interface MigrationResult {
@@ -26,7 +26,7 @@ export async function runMigrations(configuration: MysqlConnectionConfiguration,
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
     `)
 
-    const [rows] = await connection.query<Array<{ id: string }>>('SELECT id FROM schema_migrations')
+    const [rows] = await connection.query<Array<RowDataPacket & { id: string }>>('SELECT id FROM schema_migrations')
     const appliedIds = new Set(rows.map((row) => row.id))
     const files = (await readdir(directory)).filter((file) => /^\d+.*\.sql$/.test(file)).sort()
     const result: MigrationResult = { applied: [], skipped: [] }
