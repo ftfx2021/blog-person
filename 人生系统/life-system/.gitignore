@@ -4,3 +4,4 @@ release/
 coverage/
 .env
 *.log
+*.tsbuildinfo

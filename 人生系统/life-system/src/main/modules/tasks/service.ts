@@ -1,16 +1,127 @@
-import { randomUUID } from 'node:crypto'
-import type { RowDataPacket } from 'mysql2/promise'
-import type { TaskInput } from '../../../shared/contracts/entities.js'
-import { nextTaskStatus } from '../../../shared/domain/state-machines.js'
-import { inTransaction } from '../../infrastructure/db/transaction.js'
-import { cleanupEntityLinks, requireEntity, toMysqlDateTime, utcNow } from '../common/database.js'
+import { randomUUID } from "node:crypto";
+import type { RowDataPacket } from "mysql2/promise";
+import type { TaskInput } from "../../../shared/contracts/entities.js";
+import { nextTaskStatus } from "../../../shared/domain/state-machines.js";
+import { inTransaction } from "../../infrastructure/db/transaction.js";
+import {
+  cleanupEntityLinks,
+  requireEntity,
+  toMysqlDateTime,
+  utcNow,
+} from "../common/database.js";
 
-const select=`SELECT t.id,t.goal_id AS goalId,t.project_id AS projectId,t.title,t.note,t.due_date AS dueDate,t.status,t.completed_at AS completedAt,t.created_at AS createdAt,t.updated_at AS updatedAt,g.title AS goalTitle,p.title AS projectTitle FROM task t LEFT JOIN goal g ON g.id=t.goal_id LEFT JOIN project p ON p.id=t.project_id`
-export const taskService={
-  list:(filter:{status?:string;goalId?:string;projectId?:string;dateFrom?:string;dateTo?:string;sort:string})=>inTransaction(async(connection)=>{const where:string[]=[];const values:unknown[]=[];for(const[field,value]of [['t.status',filter.status],['t.goal_id',filter.goalId],['t.project_id',filter.projectId]] as const)if(value){where.push(`${field}=?`);values.push(value)}if(filter.dateFrom){where.push('t.due_date>=?');values.push(toMysqlDateTime(filter.dateFrom))}if(filter.dateTo){where.push('t.due_date<=?');values.push(toMysqlDateTime(filter.dateTo))}const order=filter.sort==='created_desc'?'t.created_at DESC':'t.due_date IS NULL,t.due_date,t.created_at DESC';const[rows]=await connection.query<RowDataPacket[]>(`${select} ${where.length?`WHERE ${where.join(' AND ')}`:''} ORDER BY ${order}`,values);return rows}),
-  get:(id:string)=>inTransaction(async(connection)=>{const[rows]=await connection.query<RowDataPacket[]>(`${select} WHERE t.id=?`,[id]);if(!rows[0])throw Object.assign(new Error('待办不存在'),{code:'NOT_FOUND'});return rows[0]}),
-  create:(input:TaskInput)=>inTransaction(async(connection)=>{if(input.goalId)await requireEntity(connection,'goal',input.goalId);if(input.projectId)await requireEntity(connection,'project',input.projectId);const id=randomUUID();const now=utcNow();await connection.query('INSERT INTO task (id,goal_id,project_id,title,note,due_date,status,completed_at,created_at,updated_at) VALUES (?,?,?,?,?,?,\'todo\',NULL,?,?)',[id,input.goalId??null,input.projectId??null,input.title,input.note,toMysqlDateTime(input.dueDate),now,now]);return{id}}),
-  update:(input:TaskInput&{id:string})=>inTransaction(async(connection)=>{const task=await requireEntity(connection,'task',input.id);if(task.status==='done')throw Object.assign(new Error('已完成待办请先撤销完成再编辑'),{code:'INVALID_STATE'});if(input.goalId)await requireEntity(connection,'goal',input.goalId);if(input.projectId)await requireEntity(connection,'project',input.projectId);await connection.query('UPDATE task SET goal_id=?,project_id=?,title=?,note=?,due_date=?,updated_at=? WHERE id=?',[input.goalId??null,input.projectId??null,input.title,input.note,toMysqlDateTime(input.dueDate),utcNow(),input.id]);return{id:input.id}}),
-  remove:(id:string)=>inTransaction(async(connection)=>{await requireEntity(connection,'task',id);await cleanupEntityLinks(connection,'task',id);await connection.query('DELETE FROM task WHERE id=?',[id]);return{id}}),
-  transition:(input:{id:string;action:'advance'|'undo'})=>inTransaction(async(connection)=>{const task=await requireEntity(connection,'task',input.id);const status=nextTaskStatus(task.status,input.action);const completedAt=status==='done'?utcNow():null;await connection.query('UPDATE task SET status=?,completed_at=?,updated_at=? WHERE id=?',[status,completedAt,utcNow(),input.id]);return{id:input.id,status}})
-}
+const select = `SELECT t.id,t.goal_id AS goalId,t.project_id AS projectId,t.title,t.note,t.due_date AS dueDate,t.status,t.completed_at AS completedAt,t.created_at AS createdAt,t.updated_at AS updatedAt,g.title AS goalTitle,p.title AS projectTitle FROM task t LEFT JOIN goal g ON g.id=t.goal_id LEFT JOIN project p ON p.id=t.project_id`;
+export const taskService = {
+  list: (filter: {
+    status?: string;
+    goalId?: string;
+    projectId?: string;
+    dateFrom?: string;
+    dateTo?: string;
+    sort: string;
+  }) =>
+    inTransaction(async (connection) => {
+      const where: string[] = [];
+      const values: unknown[] = [];
+      for (const [field, value] of [
+        ["t.status", filter.status],
+        ["t.goal_id", filter.goalId],
+        ["t.project_id", filter.projectId],
+      ] as const)
+        if (value) {
+          where.push(`${field}=?`);
+          values.push(value);
+        }
+      if (filter.dateFrom) {
+        where.push("t.due_date>=?");
+        values.push(toMysqlDateTime(filter.dateFrom));
+      }
+      if (filter.dateTo) {
+        where.push("t.due_date<=?");
+        values.push(toMysqlDateTime(filter.dateTo));
+      }
+      const order =
+        filter.sort === "created_desc"
+          ? "t.created_at DESC"
+          : "t.due_date IS NULL,t.due_date,t.created_at DESC";
+      const [rows] = await connection.query<RowDataPacket[]>(
+        `${select} ${where.length ? `WHERE ${where.join(" AND ")}` : ""} ORDER BY ${order}`,
+        values,
+      );
+      return rows;
+    }),
+  get: (id: string) =>
+    inTransaction(async (connection) => {
+      const [rows] = await connection.query<RowDataPacket[]>(
+        `${select} WHERE t.id=?`,
+        [id],
+      );
+      if (!rows[0])
+        throw Object.assign(new Error("待办不存在"), { code: "NOT_FOUND" });
+      return rows[0];
+    }),
+  create: (input: TaskInput) =>
+    inTransaction(async (connection) => {
+      if (input.goalId) await requireEntity(connection, "goal", input.goalId);
+      if (input.projectId)
+        await requireEntity(connection, "project", input.projectId);
+      const id = randomUUID();
+      const now = utcNow();
+      await connection.query(
+        "INSERT INTO task (id,goal_id,project_id,title,note,due_date,status,completed_at,created_at,updated_at) VALUES (?,?,?,?,?,?,'todo',NULL,?,?)",
+        [
+          id,
+          input.goalId ?? null,
+          input.projectId ?? null,
+          input.title,
+          input.note,
+          toMysqlDateTime(input.dueDate),
+          now,
+          now,
+        ],
+      );
+      return { id };
+    }),
+  update: (input: TaskInput & { id: string }) =>
+    inTransaction(async (connection) => {
+      const task = await requireEntity(connection, "task", input.id);
+      if (task.status === "done")
+        throw Object.assign(new Error("已完成待办请先撤销完成再编辑"), {
+          code: "INVALID_STATE",
+        });
+      if (input.goalId) await requireEntity(connection, "goal", input.goalId);
+      if (input.projectId)
+        await requireEntity(connection, "project", input.projectId);
+      await connection.query(
+        "UPDATE task SET goal_id=?,project_id=?,title=?,note=?,due_date=?,updated_at=? WHERE id=?",
+        [
+          input.goalId ?? null,
+          input.projectId ?? null,
+          input.title,
+          input.note,
+          toMysqlDateTime(input.dueDate),
+          utcNow(),
+          input.id,
+        ],
+      );
+      return { id: input.id };
+    }),
+  remove: (id: string) =>
+    inTransaction(async (connection) => {
+      await requireEntity(connection, "task", id);
+      await cleanupEntityLinks(connection, "task", id);
+      await connection.query("DELETE FROM task WHERE id=?", [id]);
+      return { id };
+    }),
+  transition: (input: { id: string; action: "advance" | "undo" }) =>
+    inTransaction(async (connection) => {
+      const task = await requireEntity(connection, "task", input.id);
+      const status = nextTaskStatus(task.status, input.action);
+      const completedAt = status === "done" ? utcNow() : null;
+      await connection.query(
+        "UPDATE task SET status=?,completed_at=?,updated_at=? WHERE id=?",
+        [status, completedAt, utcNow(), input.id],
+      );
+      return { id: input.id, status };
+    }),
+};

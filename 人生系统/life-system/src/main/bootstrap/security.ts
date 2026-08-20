@@ -1,4 +1,4 @@
-import { session } from 'electron'
+import { session } from "electron";
 
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
@@ -9,8 +9,8 @@ const CONTENT_SECURITY_POLICY = [
   "connect-src 'self' ws://localhost:*",
   "object-src 'none'",
   "base-uri 'self'",
-  "frame-ancestors 'none'"
-].join('; ')
+  "frame-ancestors 'none'",
+].join("; ");
 
 export function installSecurityPolicy(): void {
   // 主进程统一覆盖响应头，避免页面绕开 HTML 中的安全策略。
@@ -18,8 +18,8 @@ export function installSecurityPolicy(): void {
     callback({
       responseHeaders: {
         ...details.responseHeaders,
-        'Content-Security-Policy': [CONTENT_SECURITY_POLICY]
-      }
-    })
-  })
+        "Content-Security-Policy": [CONTENT_SECURITY_POLICY],
+      },
+    });
+  });
 }

@@ -1,9 +1,9 @@
-import type { LifeSystemApi } from '../preload/api/index.js'
+import type { LifeSystemApi } from "../preload/api/index.js";
 
 declare global {
   interface Window {
-    lifeSystem: LifeSystemApi
+    lifeSystem: LifeSystemApi;
   }
 }
 
-export {}
+export {};

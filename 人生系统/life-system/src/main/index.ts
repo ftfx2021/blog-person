@@ -1,4 +1,4 @@
-import { app } from 'electron'
-import { registerApplicationLifecycle } from './bootstrap/lifecycle.js'
+import { app } from "electron";
+import { registerApplicationLifecycle } from "./bootstrap/lifecycle.js";
 
-registerApplicationLifecycle(app)
+registerApplicationLifecycle(app);
