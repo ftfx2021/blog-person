@@ -1,3 +1,4 @@
+// 所有界面动作经窄 API 或原生对话框执行，避免渲染层越过进程边界。
 import { createRouter, createWebHashHistory } from "vue-router";
 import DashboardPage from "../features/dashboard/DashboardPage.vue";
 import GoalsPage from "../features/goals/GoalsPage.vue";
@@ -8,6 +9,7 @@ import HabitsPage from "../features/habits/HabitsPage.vue";
 import SettingsPage from "../features/settings/SettingsPage.vue";
 import SearchPage from "../features/search/SearchPage.vue";
 
+// 所有界面动作经窄 API 或原生对话框执行，避免渲染层越过进程边界。
 export const router = createRouter({
   history: createWebHashHistory(),
   routes: [

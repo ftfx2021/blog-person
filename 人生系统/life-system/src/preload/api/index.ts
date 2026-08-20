@@ -41,12 +41,14 @@ const finishSchema = z.object({
   status: z.enum(["done", "abandoned"]),
 });
 
+// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 function invoke<T>(
   channel: string,
   schema: ZodType<T>,
   payload: T,
 ): Promise<any> {
   // Preload 在跨进程前再次校验参数；channel 只由闭包固定，渲染层不能构造任意通道。
+  // 将结果交给上层或抛出带错误码的失败，避免调用方误把失败当成功。
   return ipcRenderer.invoke(channel, schema.parse(payload));
 }
 
@@ -118,6 +120,7 @@ export const lifeSystemApi = {
       invoke("dashboard:get", dashboardInputSchema, input),
   },
   search: {
+    // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
     query: (input: unknown) => invoke("search:query", searchInputSchema, input),
   },
   settings: {

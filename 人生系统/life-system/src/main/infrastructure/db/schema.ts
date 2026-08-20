@@ -120,3 +120,4 @@ export const appSettings = mysqlTable("app_setting", {
   valueJson: json("value_json").notNull(),
   updatedAt: datetime("updated_at", { mode: "string", fsp: 3 }).notNull(),
 });
+// Drizzle 类型定义与手写迁移共享同一字段事实源，特殊约束仍由 SQL 保证。

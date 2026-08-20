@@ -41,3 +41,4 @@ export const emptySchema = z.object({}).strict();
 
 export type MysqlSettings = z.infer<typeof mysqlSettingsSchema>;
 export type ReminderSettings = z.infer<typeof reminderSettingsSchema>;
+// 系统 IPC DTO 固化设置、搜索、备份参数，防止页面传入任意路径或配置键。

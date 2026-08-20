@@ -14,3 +14,4 @@ export const useSessionStore = defineStore("session", {
     },
   },
 });
+// Pinia 只保存 UI 会话状态，MySQL 仍是业务事实源。

@@ -42,6 +42,7 @@ export const goalInputSchema = z
   })
   .superRefine((value, context) => {
     const numeric = value.metricType === "numeric";
+    // 显式处理当前状态分支，非法路径必须返回可操作的结构化错误。
     if (
       numeric &&
       (value.startValue == null ||
@@ -53,6 +54,7 @@ export const goalInputSchema = z
         message: "数值型目标必须填写不同的起点值和目标值",
       });
     }
+    // 显式处理当前状态分支，非法路径必须返回可操作的结构化错误。
     if (!numeric && (value.startValue != null || value.targetValue != null)) {
       context.addIssue({
         code: "custom",
@@ -150,8 +152,10 @@ export const habitInputSchema = z
     weeklyTarget: z.number().int().min(1).max(7).nullable().optional(),
   })
   .superRefine((value, context) => {
+    // 显式处理当前状态分支，非法路径必须返回可操作的结构化错误。
     if (value.frequencyType === "daily" && value.weeklyTarget != null)
       context.addIssue({ code: "custom", message: "每日习惯不能设置每周次数" });
+    // 显式处理当前状态分支，非法路径必须返回可操作的结构化错误。
     if (value.frequencyType === "weekly_times" && value.weeklyTarget == null)
       context.addIssue({ code: "custom", message: "每周习惯必须设置目标次数" });
   });
@@ -173,3 +177,4 @@ export type GoalInput = z.infer<typeof goalInputSchema>;
 export type ProjectInput = z.infer<typeof projectInputSchema>;
 export type TaskInput = z.infer<typeof taskInputSchema>;
 export type HabitInput = z.infer<typeof habitInputSchema>;
+// 四类 P0 实体的输入 schema 同时承担边界校验和前后端契约说明。

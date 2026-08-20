@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// 页面统一呈现加载、错误和空状态，数据库断开时不会渲染误导性的空白。
 defineProps<{
   loading: boolean;
   error?: string | null;
