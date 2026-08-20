@@ -30,73 +30,51 @@ const health = ref<any>(),
   milvus = ref<any>(),
   tasks = ref<any[]>([]),
   busy = ref("");
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 async function load() {
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   const saved: any = await call(() => window.lifeSystem.settings.getMysql());
-  // 显式处理当前状态分支，非法路径必须返回可操作的结构化错误。
   if (saved) Object.assign(mysql, saved, { password: "" });
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   milvus.value = await call(() => window.lifeSystem.settings.milvusStatus());
-  // 显式处理当前状态分支，非法路径必须返回可操作的结构化错误。
   try {
     Object.assign(
       reminders,
-      // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
       await call(() => window.lifeSystem.settings.getReminders()),
     );
-    // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
     tasks.value = await call(() => window.lifeSystem.backup.tasks());
   } catch (caught) {
     console.warn("数据库未连接，系统任务将在连接后加载", caught);
   }
 }
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 async function test() {
   busy.value = "test";
-  // 显式处理当前状态分支，非法路径必须返回可操作的结构化错误。
   try {
-    // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
     health.value = await call(() =>
-      // 所有界面动作经窄 API 或原生对话框执行，避免渲染层越过进程边界。
       window.lifeSystem.settings.testMysql(mysql),
     );
   } finally {
     busy.value = "";
   }
 }
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 async function save() {
   busy.value = "save";
-  // 显式处理当前状态分支，非法路径必须返回可操作的结构化错误。
   try {
-    // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
     await call(() => window.lifeSystem.settings.saveMysql(mysql));
-    // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
     health.value = await call(() => window.lifeSystem.settings.health());
   } finally {
     busy.value = "";
   }
 }
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 async function saveReminders() {
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   await call(() => window.lifeSystem.settings.saveReminders(reminders));
 }
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 async function backup() {
   busy.value = "backup";
-  // 显式处理当前状态分支，非法路径必须返回可操作的结构化错误。
   try {
-    // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
     await call(() => window.lifeSystem.backup.create());
-    // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
     tasks.value = await call(() => window.lifeSystem.backup.tasks());
   } finally {
     busy.value = "";
   }
 }
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 async function restore() {
   // 恢复会覆盖当前数据库，先由用户明确确认，取消时不发送 IPC。
   let action: string;
@@ -116,18 +94,14 @@ async function restore() {
   // 只有确认结果为 confirm 时，才填写 restoreSchema 要求的确认文本。
   if (action !== "confirm") return;
   busy.value = "restore";
-  // 显式处理当前状态分支，非法路径必须返回可操作的结构化错误。
   try {
-    // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
     const result: any = await call(() =>
-      // 所有界面动作经窄 API 或原生对话框执行，避免渲染层越过进程边界。
       window.lifeSystem.backup.restore({
-        // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
+        // SELECT 是主进程约定的哨兵值，用来打开原生 manifest 文件选择框。
         manifestPath: "SELECT",
         confirmation: action === "confirm" ? "恢复" : "",
       }),
     );
-    // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
     tasks.value = await call(() => window.lifeSystem.backup.tasks());
     // 成功反馈包含主进程返回的安全点，便于用户留存恢复凭据。
     ElMessage.success(
@@ -143,14 +117,10 @@ async function restore() {
     busy.value = "";
   }
 }
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 async function exportData(format: "json" | "markdown" | "txt") {
   busy.value = format;
-  // 显式处理当前状态分支，非法路径必须返回可操作的结构化错误。
   try {
-    // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
     await call(() => window.lifeSystem.backup.export({ format }));
-    // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
     tasks.value = await call(() => window.lifeSystem.backup.tasks());
   } finally {
     busy.value = "";

@@ -45,7 +45,6 @@ const finish = z.object({
   id: entityIdSchema,
   status: z.enum(["done", "abandoned"]),
 });
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 export function registerP0Handlers(): void {
   registerHandler("goals:list", goalListSchema, goalService.list);
   registerHandler("goals:get", id, ({ id }) => goalService.get(id));
@@ -117,7 +116,6 @@ export function registerP0Handlers(): void {
   registerHandler("dashboard:get", dashboardInputSchema, ({ today }) =>
     dashboardService.get(today),
   );
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   registerHandler("search:query", searchInputSchema, searchService.search);
   registerHandler("settings:mysql:get", emptySchema, settingsService.getMysql);
   registerHandler(

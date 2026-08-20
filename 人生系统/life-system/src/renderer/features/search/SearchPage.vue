@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from "vue";
-// 所有界面动作经窄 API 或原生对话框执行，避免渲染层越过进程边界。
 import { useRoute, useRouter } from "vue-router";
 import { Search, Right } from "@element-plus/icons-vue";
 import PageState from "../../shared/PageState.vue";
 import { useApi } from "../../shared/api";
 const route = useRoute(),
-  // 所有界面动作经窄 API 或原生对话框执行，避免渲染层越过进程边界。
   router = useRouter(),
   { call } = useApi();
-// 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
 const keyword = ref(String(route.query.q || "")),
   types = ref<string[]>([]),
   data = ref<Record<string, any[]>>({}),
@@ -25,16 +22,11 @@ const labels: any = {
   habit: "习惯",
   document: "文档",
 };
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 async function search() {
-  // 显式处理当前状态分支，非法路径必须返回可操作的结构化错误。
   if (!keyword.value.trim()) return;
   loading.value = true;
-  // 显式处理当前状态分支，非法路径必须返回可操作的结构化错误。
   try {
-    // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
     data.value = await call(() =>
-      // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
       window.lifeSystem.search.query({
         keyword: keyword.value,
         types: types.value,
@@ -47,22 +39,15 @@ async function search() {
     loading.value = false;
   }
 }
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 function open(type: string, id: string) {
-  // 显式处理当前状态分支，非法路径必须返回可操作的结构化错误。
   if (type === "goal") router.push(`/goals/${id}`);
-  // 显式处理当前状态分支，非法路径必须返回可操作的结构化错误。
   else if (type === "project") router.push("/projects");
-  // 显式处理当前状态分支，非法路径必须返回可操作的结构化错误。
   else if (type === "task") router.push("/tasks");
-  // 显式处理当前状态分支，非法路径必须返回可操作的结构化错误。
   else if (type === "habit") router.push("/habits");
 }
 watch(
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   () => route.query.q,
   () => {
-    // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
     keyword.value = String(route.query.q || "");
     search();
   },

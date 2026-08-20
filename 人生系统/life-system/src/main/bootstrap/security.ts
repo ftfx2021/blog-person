@@ -12,7 +12,6 @@ const CONTENT_SECURITY_POLICY = [
   "frame-ancestors 'none'",
 ].join("; ");
 
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 export function installSecurityPolicy(): void {
   // 主进程统一覆盖响应头，避免页面绕开 HTML 中的安全策略。
   session.defaultSession.webRequest.onHeadersReceived((details, callback) => {

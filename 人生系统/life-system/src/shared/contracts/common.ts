@@ -32,19 +32,15 @@ export interface AppError {
 export type ApiResult<T> =
   { ok: true; data: T } | { ok: false; error: AppError };
 
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 export function success<T>(data: T): ApiResult<T> {
-  // 将结果交给上层或抛出带错误码的失败，避免调用方误把失败当成功。
   return { ok: true, data };
 }
 
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 export function failure<T>(
   code: AppError["code"],
   message: string,
   details?: unknown,
 ): ApiResult<T> {
-  // 将结果交给上层或抛出带错误码的失败，避免调用方误把失败当成功。
   return { ok: false, error: { code, message, details } };
 }
 // 公共错误码和结果包装让 DB_UNAVAILABLE 等故障在所有页面表现一致。

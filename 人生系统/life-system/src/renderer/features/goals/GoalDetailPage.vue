@@ -1,40 +1,28 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue";
-// 所有界面动作经窄 API 或原生对话框执行，避免渲染层越过进程边界。
 import { useRoute, useRouter } from "vue-router";
-// 所有界面动作经窄 API 或原生对话框执行，避免渲染层越过进程边界。
 import { ElMessageBox } from "element-plus";
 import { Back, Plus, Delete, Edit } from "@element-plus/icons-vue";
 import PageState from "../../shared/PageState.vue";
 import { useApi } from "../../shared/api";
 const route = useRoute();
-// 所有界面动作经窄 API 或原生对话框执行，避免渲染层越过进程边界。
 const router = useRouter();
 const { call } = useApi();
-// 保存当前业务事实或派生值，后续逻辑据此完成校验和状态更新。
 const goal = ref<any>();
 const loading = ref(true);
 const error = ref("");
-// 保存当前业务事实或派生值，后续逻辑据此完成校验和状态更新。
 const recordDialog = ref(false);
-// 保存当前业务事实或派生值，后续逻辑据此完成校验和状态更新。
 const milestoneDialog = ref(false);
-// 保存当前业务事实或派生值，后续逻辑据此完成校验和状态更新。
 const record = reactive({
   value: 0,
   note: "",
   recordedAt: new Date().toISOString().slice(0, 16),
 });
-// 保存当前业务事实或派生值，后续逻辑据此完成校验和状态更新。
 const milestone = reactive({ title: "", sortOrder: 0 });
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 async function load() {
   loading.value = true;
-  // 显式处理当前状态分支，非法路径必须返回可操作的结构化错误。
   try {
-    // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
     goal.value = await call(() =>
-      // 所有界面动作经窄 API 或原生对话框执行，避免渲染层越过进程边界。
       window.lifeSystem.goals.get(String(route.params.id)),
     );
   } catch (e: any) {
@@ -43,43 +31,30 @@ async function load() {
     loading.value = false;
   }
 }
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 async function finish(status: "done" | "abandoned") {
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   await ElMessageBox.confirm(
     status === "done" ? "确认将目标标记为完成？" : "确认放弃这个目标？",
     "目标将进入只读状态",
   );
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   await call(() =>
-    // 所有界面动作经窄 API 或原生对话框执行，避免渲染层越过进程边界。
     window.lifeSystem.goals.finish({ id: goal.value.id, status }),
   );
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   await load();
 }
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 async function remove() {
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   await ElMessageBox.confirm("删除后数据点与里程碑也会永久删除。", "确认删除", {
     type: "warning",
   });
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   await call(() => window.lifeSystem.goals.remove(goal.value.id));
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   await router.push("/goals");
 }
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 async function edit() {
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   const result = await ElMessageBox.prompt("修改目标标题", "编辑目标", {
     inputValue: goal.value.title,
     inputValidator: (value) =>
       value.trim().length > 0 ? true : "标题不能为空",
   });
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   await call(() =>
-    // 所有界面动作经窄 API 或原生对话框执行，避免渲染层越过进程边界。
     window.lifeSystem.goals.update({
       id: goal.value.id,
       title: result.value,
@@ -94,14 +69,10 @@ async function edit() {
       confirmRecalculate: false,
     }),
   );
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   await load();
 }
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 async function addRecord() {
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   await call(() =>
-    // 所有界面动作经窄 API 或原生对话框执行，避免渲染层越过进程边界。
     window.lifeSystem.goals.record({
       goalId: goal.value.id,
       value: Number(record.value),
@@ -110,14 +81,10 @@ async function addRecord() {
     }),
   );
   recordDialog.value = false;
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   await load();
 }
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 async function addMilestone() {
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   await call(() =>
-    // 所有界面动作经窄 API 或原生对话框执行，避免渲染层越过进程边界。
     window.lifeSystem.goals.createMilestone({
       goalId: goal.value.id,
       title: milestone.title,
@@ -126,29 +93,20 @@ async function addMilestone() {
   );
   milestoneDialog.value = false;
   milestone.title = "";
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   await load();
 }
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 async function toggle(item: any) {
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   await call(() =>
-    // 所有界面动作经窄 API 或原生对话框执行，避免渲染层越过进程边界。
     window.lifeSystem.goals.toggleMilestone({
       id: item.id,
       isDone: !item.isDone,
     }),
   );
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   await load();
 }
-// 封装这个业务步骤，保证规则在主进程集中执行并可由单元测试覆盖。
 async function removeMilestone(id: string) {
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   await ElMessageBox.confirm("确认删除这个里程碑？", "删除里程碑");
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   await call(() => window.lifeSystem.goals.removeMilestone(id));
-  // 这里执行持久化或事务步骤，确保数据库事实与界面状态保持一致。
   await load();
 }
 onMounted(load);
