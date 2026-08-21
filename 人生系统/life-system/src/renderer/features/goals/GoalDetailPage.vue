@@ -22,6 +22,9 @@ const recordSaving = ref(false);
 const milestoneSaving = ref(false);
 const editSaving = ref(false);
 const actionBusy = ref(false);
+const recordInitial = ref("");
+const milestoneInitial = ref("");
+const editInitial = ref("");
 const record = reactive({
   value: 0,
   note: "",
@@ -111,6 +114,72 @@ const milestoneRules: any = {
     { max: 100, message: "标题不能超过 100 个字符", trigger: "blur" },
   ],
 };
+function disablePastDate(date: Date) {
+  // 截止时间按本地日历日限制，今天可选，今天之前的日期不可选。
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return date.getTime() < today.getTime();
+}
+async function confirmClose(message: string, close: () => void) {
+  try {
+    await ElMessageBox.confirm(message, "确认关闭", {
+      type: "warning",
+      confirmButtonText: "关闭",
+      cancelButtonText: "继续编辑",
+    });
+    close();
+  } catch {
+    // 取消关闭时保留当前输入，不产生未处理的 Promise rejection。
+  }
+}
+function closeEditDialog() {
+  if (JSON.stringify(editForm) === editInitial.value) {
+    editDialog.value = false;
+    return;
+  }
+  void confirmClose("当前修改尚未保存，确定关闭吗？", () => {
+    editDialog.value = false;
+  });
+}
+function beforeCloseEdit(done: () => void) {
+  if (JSON.stringify(editForm) === editInitial.value) {
+    done();
+    return;
+  }
+  void confirmClose("当前修改尚未保存，确定关闭吗？", done);
+}
+function closeRecordDialog() {
+  if (JSON.stringify(record) === recordInitial.value) {
+    recordDialog.value = false;
+    return;
+  }
+  void confirmClose("当前记录尚未保存，确定关闭吗？", () => {
+    recordDialog.value = false;
+  });
+}
+function beforeCloseRecord(done: () => void) {
+  if (JSON.stringify(record) === recordInitial.value) {
+    done();
+    return;
+  }
+  void confirmClose("当前记录尚未保存，确定关闭吗？", done);
+}
+function closeMilestoneDialog() {
+  if (JSON.stringify(milestone) === milestoneInitial.value) {
+    milestoneDialog.value = false;
+    return;
+  }
+  void confirmClose("当前里程碑尚未保存，确定关闭吗？", () => {
+    milestoneDialog.value = false;
+  });
+}
+function beforeCloseMilestone(done: () => void) {
+  if (JSON.stringify(milestone) === milestoneInitial.value) {
+    done();
+    return;
+  }
+  void confirmClose("当前里程碑尚未保存，确定关闭吗？", done);
+}
 async function load() {
   // 详情与关联记录一并读取，减少页面出现半更新状态的时间窗口。
   loading.value = true;
@@ -185,6 +254,7 @@ function edit() {
     dueDate: toLocalInput(goal.value.dueDate),
     tags: [...(goal.value.tags || [])],
   });
+  editInitial.value = JSON.stringify(editForm);
   editDialog.value = true;
   nextTick(() => editFormRef.value?.clearValidate());
 }
@@ -248,6 +318,7 @@ function openRecord() {
     note: "",
     recordedAt: toLocalInput(new Date().toISOString()),
   });
+  recordInitial.value = JSON.stringify(record);
   recordDialog.value = true;
   nextTick(() => recordFormRef.value?.clearValidate());
 }
@@ -276,6 +347,7 @@ async function addRecord() {
 }
 function openMilestone() {
   Object.assign(milestone, { title: "", sortOrder: 0 });
+  milestoneInitial.value = JSON.stringify(milestone);
   milestoneDialog.value = true;
   nextTick(() => milestoneFormRef.value?.clearValidate());
 }
@@ -497,7 +569,12 @@ onMounted(load);
         >
       </div></template
     ></PageState
-  ><el-dialog v-model="editDialog" title="编辑目标" width="560px"
+  ><el-dialog
+    v-model="editDialog"
+    title="编辑目标"
+    width="560px"
+    :close-on-click-modal="false"
+    :before-close="beforeCloseEdit"
     ><el-form
       ref="editFormRef"
       :model="editForm"
@@ -564,6 +641,7 @@ onMounted(load);
           type="datetime"
           value-format="YYYY-MM-DDTHH:mm"
           placeholder="可选"
+          :disabled-date="disablePastDate"
           :disabled="goal?.status !== 'active'" /></el-form-item
       ><el-form-item label="说明"
         ><el-input
@@ -578,12 +656,17 @@ onMounted(load);
           allow-create
           default-first-option /></el-form-item></el-form
     ><template #footer
-      ><el-button @click="editDialog = false">取消</el-button
+      ><el-button @click="closeEditDialog">取消</el-button
       ><el-button type="primary" :loading="editSaving" @click="saveEdit"
         >保存</el-button
       ></template
     ></el-dialog
-  ><el-dialog v-model="recordDialog" title="记录真实数据" width="420px"
+  ><el-dialog
+    v-model="recordDialog"
+    title="记录真实数据"
+    width="420px"
+    :close-on-click-modal="false"
+    :before-close="beforeCloseRecord"
     ><el-form
       ref="recordFormRef"
       :model="record"
@@ -606,12 +689,17 @@ onMounted(load);
           show-word-limit
           :rows="3" /></el-form-item></el-form
     ><template #footer
-      ><el-button @click="recordDialog = false">取消</el-button
+      ><el-button @click="closeRecordDialog">取消</el-button
       ><el-button type="primary" :loading="recordSaving" @click="addRecord"
         >保存</el-button
       ></template
     ></el-dialog
-  ><el-dialog v-model="milestoneDialog" title="添加里程碑" width="420px"
+  ><el-dialog
+    v-model="milestoneDialog"
+    title="添加里程碑"
+    width="420px"
+    :close-on-click-modal="false"
+    :before-close="beforeCloseMilestone"
     ><el-form
       ref="milestoneFormRef"
       :model="milestone"
@@ -624,7 +712,7 @@ onMounted(load);
           show-word-limit
           placeholder="里程碑标题" /></el-form-item></el-form
     ><template #footer
-      ><el-button @click="milestoneDialog = false">取消</el-button
+      ><el-button @click="closeMilestoneDialog">取消</el-button
       ><el-button
         type="primary"
         :loading="milestoneSaving"

@@ -10,7 +10,7 @@ import {
   watch,
 } from "vue";
 import { Plus, ArrowRight } from "@element-plus/icons-vue";
-import { ElMessage } from "element-plus";
+import { ElMessage, ElMessageBox } from "element-plus";
 import { useRouter } from "vue-router";
 import PageState from "../../shared/PageState.vue";
 import { useApi, toUtc } from "../../shared/api";
@@ -25,7 +25,7 @@ const formRef = ref<any>();
 const keyword = ref("");
 const status = ref("");
 let searchTimer: ReturnType<typeof setTimeout> | undefined;
-const form = reactive<any>({
+const createDefaults = {
   title: "",
   description: "",
   period: "quarterly",
@@ -34,7 +34,10 @@ const form = reactive<any>({
   startValue: 0,
   targetValue: 100,
   dueDate: "",
-  tags: [],
+  tags: [] as string[],
+};
+const form = reactive<any>({
+  ...createDefaults,
 });
 const rules: any = {
   title: [{ required: true, message: "请输入标题", trigger: "blur" }],
@@ -93,6 +96,49 @@ function changeMetricType(value: string) {
   }
   nextTick(() => formRef.value?.clearValidate(["startValue", "targetValue"]));
 }
+function disablePastDate(date: Date) {
+  // 截止时间按本地日历日限制，今天可选，今天之前的日期不可选。
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return date.getTime() < today.getTime();
+}
+function isCreateDirty() {
+  return Object.keys(createDefaults).some((key) => {
+    const value = form[key];
+    const initial = createDefaults[key as keyof typeof createDefaults];
+    return Array.isArray(value)
+      ? JSON.stringify(value) !== JSON.stringify(initial)
+      : value !== initial;
+  });
+}
+async function confirmClose(message: string, close: () => void) {
+  try {
+    await ElMessageBox.confirm(message, "确认关闭", {
+      type: "warning",
+      confirmButtonText: "关闭",
+      cancelButtonText: "继续编辑",
+    });
+    close();
+  } catch {
+    // 取消关闭时保留当前输入，不产生未处理的 Promise rejection。
+  }
+}
+function closeCreateDialog() {
+  if (!isCreateDirty()) {
+    dialog.value = false;
+    return;
+  }
+  void confirmClose("当前填写内容尚未保存，确定关闭吗？", () => {
+    dialog.value = false;
+  });
+}
+function beforeCloseCreate(done: () => void) {
+  if (!isCreateDirty()) {
+    done();
+    return;
+  }
+  void confirmClose("当前填写内容尚未保存，确定关闭吗？", done);
+}
 async function load(filters: { status?: string; keyword?: string } = {}) {
   // 重新读取目标可得到最新进度与里程碑派生值。
   loading.value = true;
@@ -107,24 +153,18 @@ async function load(filters: { status?: string; keyword?: string } = {}) {
 }
 function open() {
   // 每次打开创建弹窗都重置表单，避免上次取消的输入被误作为新目标提交。
-  Object.assign(form, {
-    title: "",
-    description: "",
-    period: "quarterly",
-    metricType: "numeric",
-    unit: "",
-    startValue: 0,
-    targetValue: 100,
-    dueDate: "",
-    tags: [],
-  });
+  Object.assign(form, createDefaults, { tags: [] });
   dialog.value = true;
   // 清除上一次校验状态，避免新建弹窗刚打开就显示旧的错误提示。
   nextTick(() => formRef.value?.clearValidate());
 }
 async function save() {
   // 先定位到具体字段，避免无效请求关闭弹窗并丢失用户刚填写的内容。
-  const valid = await formRef.value?.validate().catch(() => false);
+  if (!formRef.value) {
+    ElMessage.warning("表单正在加载，请稍后再试");
+    return;
+  }
+  const valid = await formRef.value.validate().catch(() => false);
   if (!valid) return;
   saving.value = true;
   try {
@@ -255,7 +295,12 @@ onBeforeUnmount(() => {
         />
       </div></div
   ></PageState>
-  <el-dialog v-model="dialog" title="新建目标" width="560px"
+  <el-dialog
+    v-model="dialog"
+    title="新建目标"
+    width="560px"
+    :close-on-click-modal="false"
+    :before-close="beforeCloseCreate"
     ><el-form
       ref="formRef"
       :model="form"
@@ -301,6 +346,7 @@ onBeforeUnmount(() => {
           v-model="form.dueDate"
           type="datetime"
           value-format="YYYY-MM-DDTHH:mm"
+          :disabled-date="disablePastDate"
           placeholder="可选" /></el-form-item
       ><el-form-item label="说明"
         ><el-input
@@ -315,7 +361,7 @@ onBeforeUnmount(() => {
           allow-create
           default-first-option /></el-form-item></el-form
     ><template #footer
-      ><el-button @click="dialog = false">取消</el-button
+      ><el-button @click="closeCreateDialog">取消</el-button
       ><el-button type="primary" :loading="saving" @click="save"
         >创建</el-button
       ></template
