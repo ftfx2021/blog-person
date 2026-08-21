@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref } from "vue";
+// 详情页的写操作均通过 API 完成，保证记录、里程碑和状态变更走同一校验链。
+import { nextTick, onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { ElMessageBox } from "element-plus";
+import { ElMessage, ElMessageBox } from "element-plus";
 import { Back, Plus, Delete, Edit } from "@element-plus/icons-vue";
 import PageState from "../../shared/PageState.vue";
-import { useApi } from "../../shared/api";
+import { toLocalInput, toUtc, useApi } from "../../shared/api";
 const route = useRoute();
 const router = useRouter();
 const { call } = useApi();
@@ -13,14 +14,107 @@ const loading = ref(true);
 const error = ref("");
 const recordDialog = ref(false);
 const milestoneDialog = ref(false);
+const editDialog = ref(false);
+const recordFormRef = ref<any>();
+const milestoneFormRef = ref<any>();
+const editFormRef = ref<any>();
+const recordSaving = ref(false);
+const milestoneSaving = ref(false);
+const editSaving = ref(false);
+const actionBusy = ref(false);
 const record = reactive({
   value: 0,
   note: "",
-  recordedAt: new Date().toISOString().slice(0, 16),
+  recordedAt: toLocalInput(new Date().toISOString()),
 });
 const milestone = reactive({ title: "", sortOrder: 0 });
+const editForm = reactive<any>({
+  title: "",
+  description: "",
+  period: "quarterly",
+  metricType: "numeric",
+  unit: "",
+  startValue: null,
+  targetValue: null,
+  dueDate: "",
+  tags: [],
+});
+const editRules: any = {
+  title: [{ required: true, message: "请输入标题", trigger: "blur" }],
+  unit: [{ max: 32, message: "单位长度不能超过 32 个字符", trigger: "blur" }],
+  tags: [
+    {
+      type: "array",
+      max: 20,
+      message: "标签不能超过 20 个",
+      trigger: "change",
+    },
+  ],
+  startValue: [
+    {
+      trigger: "change",
+      validator: (
+        _rule: any,
+        value: number | null,
+        callback: (error?: Error) => void,
+      ) => {
+        if (editForm.metricType !== "numeric") return callback();
+        if (value == null || !Number.isFinite(Number(value)))
+          return callback(new Error("请输入起点值"));
+        if (Number(value) === Number(editForm.targetValue))
+          return callback(new Error("起点值不能等于目标值"));
+        callback();
+      },
+    },
+  ],
+  targetValue: [
+    {
+      trigger: "change",
+      validator: (
+        _rule: any,
+        value: number | null,
+        callback: (error?: Error) => void,
+      ) => {
+        if (editForm.metricType !== "numeric") return callback();
+        if (value == null || !Number.isFinite(Number(value)))
+          return callback(new Error("请输入目标值"));
+        if (Number(value) === Number(editForm.startValue))
+          return callback(new Error("目标值不能等于起点值"));
+        callback();
+      },
+    },
+  ],
+};
+const recordRules: any = {
+  value: [
+    {
+      trigger: "change",
+      validator: (
+        _rule: any,
+        value: number | null,
+        callback: (error?: Error) => void,
+      ) => {
+        if (value == null || !Number.isFinite(Number(value)))
+          return callback(new Error("请输入有效数值"));
+        callback();
+      },
+    },
+  ],
+  note: [{ max: 1000, message: "备注不能超过 1000 个字符", trigger: "blur" }],
+  recordedAt: [
+    { required: true, message: "请选择记录时间", trigger: "change" },
+  ],
+};
+const milestoneRules: any = {
+  title: [
+    { required: true, message: "请输入里程碑标题", trigger: "blur" },
+    { max: 100, message: "标题不能超过 100 个字符", trigger: "blur" },
+  ],
+};
 async function load() {
+  // 详情与关联记录一并读取，减少页面出现半更新状态的时间窗口。
   loading.value = true;
+  error.value = "";
   try {
     goal.value = await call(() =>
       window.lifeSystem.goals.get(String(route.params.id)),
@@ -32,83 +126,218 @@ async function load() {
   }
 }
 async function finish(status: "done" | "abandoned") {
-  await ElMessageBox.confirm(
-    status === "done" ? "确认将目标标记为完成？" : "确认放弃这个目标？",
-    "目标将进入只读状态",
-  );
-  await call(() =>
-    window.lifeSystem.goals.finish({ id: goal.value.id, status }),
-  );
-  await load();
+  // 完成或放弃前由服务层校验状态机，页面只传递用户选择。
+  try {
+    await ElMessageBox.confirm(
+      status === "done" ? "确认将目标标记为完成？" : "确认放弃这个目标？",
+      "目标将进入只读状态",
+    );
+  } catch {
+    return;
+  }
+  actionBusy.value = true;
+  try {
+    await call(() =>
+      window.lifeSystem.goals.finish({ id: goal.value.id, status }),
+    );
+    ElMessage.success(status === "done" ? "目标已完成" : "目标已放弃");
+    await load();
+  } catch {
+    // call 已展示错误；保留当前详情状态，避免失败时误更新页面快照。
+  } finally {
+    actionBusy.value = false;
+  }
 }
 async function remove() {
-  await ElMessageBox.confirm("删除后数据点与里程碑也会永久删除。", "确认删除", {
-    type: "warning",
-  });
-  await call(() => window.lifeSystem.goals.remove(goal.value.id));
-  await router.push("/goals");
+  // 目标删除会级联移除数据点和里程碑，因此要求明确确认后才发起请求。
+  try {
+    await ElMessageBox.confirm(
+      "删除后数据点与里程碑也会永久删除。",
+      "确认删除",
+      {
+        type: "warning",
+      },
+    );
+  } catch {
+    return;
+  }
+  actionBusy.value = true;
+  try {
+    await call(() => window.lifeSystem.goals.remove(goal.value.id));
+    ElMessage.success("已删除");
+    await router.push("/goals");
+  } catch {
+    // 删除失败时保留详情页，用户仍可查看并重试。
+  } finally {
+    actionBusy.value = false;
+  }
 }
-async function edit() {
-  const result = await ElMessageBox.prompt("修改目标标题", "编辑目标", {
-    inputValue: goal.value.title,
-    inputValidator: (value) =>
-      value.trim().length > 0 ? true : "标题不能为空",
+function edit() {
+  // 回填完整目标快照，尤其保留既有标签，避免编辑标题时覆盖标签关联。
+  Object.assign(editForm, {
+    title: goal.value.title,
+    description: goal.value.description || "",
+    period: goal.value.period,
+    metricType: goal.value.metricType,
+    unit: goal.value.unit || "",
+    startValue: goal.value.startValue,
+    targetValue: goal.value.targetValue,
+    dueDate: toLocalInput(goal.value.dueDate),
+    tags: [...(goal.value.tags || [])],
   });
-  await call(() =>
+  editDialog.value = true;
+  nextTick(() => editFormRef.value?.clearValidate());
+}
+async function saveEdit() {
+  const valid = await editFormRef.value?.validate().catch(() => false);
+  if (!valid) return;
+  editSaving.value = true;
+  const input = () =>
     window.lifeSystem.goals.update({
       id: goal.value.id,
-      title: result.value,
-      description: goal.value.description,
-      period: goal.value.period,
-      metricType: goal.value.metricType,
-      unit: goal.value.unit,
-      startValue: goal.value.startValue,
-      targetValue: goal.value.targetValue,
-      dueDate: goal.value.dueDate,
-      tags: [],
+      ...editForm,
+      unit: editForm.unit || null,
+      startValue:
+        editForm.metricType === "numeric" ? Number(editForm.startValue) : null,
+      targetValue:
+        editForm.metricType === "numeric" ? Number(editForm.targetValue) : null,
+      dueDate: toUtc(editForm.dueDate),
+      tags: editForm.tags,
       confirmRecalculate: false,
-    }),
-  );
-  await load();
+    });
+  try {
+    try {
+      await call(input);
+    } catch (caught: any) {
+      if (caught?.code !== "CONFLICT") throw caught;
+      // 服务端只在存在历史数据且公式变化时返回冲突，二次确认后才允许重算。
+      try {
+        await ElMessageBox.confirm(
+          "修改起点或目标值会重算历史进度，确认继续吗？",
+          "需确认重算",
+          { type: "warning" },
+        );
+      } catch {
+        return;
+      }
+      await call(() =>
+        window.lifeSystem.goals.update({
+          id: goal.value.id,
+          ...editForm,
+          unit: editForm.unit || null,
+          startValue: Number(editForm.startValue),
+          targetValue: Number(editForm.targetValue),
+          dueDate: toUtc(editForm.dueDate),
+          tags: editForm.tags,
+          confirmRecalculate: true,
+        }),
+      );
+    }
+    ElMessage.success("已保存");
+    editDialog.value = false;
+    await load();
+  } catch {
+    // call 已展示错误；保存失败时保留弹窗和全部输入，方便用户重试。
+  } finally {
+    editSaving.value = false;
+  }
+}
+function openRecord() {
+  Object.assign(record, {
+    value: 0,
+    note: "",
+    recordedAt: toLocalInput(new Date().toISOString()),
+  });
+  recordDialog.value = true;
+  nextTick(() => recordFormRef.value?.clearValidate());
 }
 async function addRecord() {
-  await call(() =>
-    window.lifeSystem.goals.record({
-      goalId: goal.value.id,
-      value: Number(record.value),
-      note: record.note || null,
-      recordedAt: new Date(record.recordedAt).toISOString(),
-    }),
-  );
-  recordDialog.value = false;
-  await load();
+  // 记录时间转换为 ISO 再提交，保持主进程以 UTC 规则验证“不得晚于现在”。
+  const valid = await recordFormRef.value?.validate().catch(() => false);
+  if (!valid) return;
+  recordSaving.value = true;
+  try {
+    await call(() =>
+      window.lifeSystem.goals.record({
+        goalId: goal.value.id,
+        value: Number(record.value),
+        note: record.note || null,
+        recordedAt: new Date(record.recordedAt).toISOString(),
+      }),
+    );
+    ElMessage.success("数据已记录");
+    recordDialog.value = false;
+    await load();
+  } catch {
+    // call 已展示错误；失败时保留弹窗和记录输入。
+  } finally {
+    recordSaving.value = false;
+  }
+}
+function openMilestone() {
+  Object.assign(milestone, { title: "", sortOrder: 0 });
+  milestoneDialog.value = true;
+  nextTick(() => milestoneFormRef.value?.clearValidate());
 }
 async function addMilestone() {
-  await call(() =>
-    window.lifeSystem.goals.createMilestone({
-      goalId: goal.value.id,
-      title: milestone.title,
-      sortOrder: goal.value.milestones.length,
-    }),
-  );
-  milestoneDialog.value = false;
-  milestone.title = "";
-  await load();
+  // 新里程碑默认排在现有项之后，排序权威仍由服务端持久化。
+  const valid = await milestoneFormRef.value?.validate().catch(() => false);
+  if (!valid) return;
+  milestoneSaving.value = true;
+  try {
+    await call(() =>
+      window.lifeSystem.goals.createMilestone({
+        goalId: goal.value.id,
+        title: milestone.title,
+        sortOrder: goal.value.milestones.length,
+      }),
+    );
+    ElMessage.success("里程碑已添加");
+    milestoneDialog.value = false;
+    await load();
+  } catch {
+    // call 已展示错误；失败时保留弹窗和标题输入。
+  } finally {
+    milestoneSaving.value = false;
+  }
 }
 async function toggle(item: any) {
-  await call(() =>
-    window.lifeSystem.goals.toggleMilestone({
-      id: item.id,
-      isDone: !item.isDone,
-    }),
-  );
-  await load();
+  // 复选框只反转当前完成态；服务端同步维护完成时间与目标状态限制。
+  actionBusy.value = true;
+  try {
+    await call(() =>
+      window.lifeSystem.goals.toggleMilestone({
+        id: item.id,
+        isDone: !item.isDone,
+      }),
+    );
+    ElMessage.success("里程碑状态已更新");
+    await load();
+  } catch {
+    // call 已展示错误；失败时重新保持服务端快照，不乐观修改复选框。
+  } finally {
+    actionBusy.value = false;
+  }
 }
 async function removeMilestone(id: string) {
-  await ElMessageBox.confirm("确认删除这个里程碑？", "删除里程碑");
-  await call(() => window.lifeSystem.goals.removeMilestone(id));
-  await load();
+  // 删除里程碑先确认，因为服务端会随即压实全部剩余排序序号。
+  try {
+    await ElMessageBox.confirm("确认删除这个里程碑？", "删除里程碑");
+  } catch {
+    return;
+  }
+  actionBusy.value = true;
+  try {
+    await call(() => window.lifeSystem.goals.removeMilestone(id));
+    ElMessage.success("里程碑已删除");
+    await load();
+  } catch {
+    // call 已展示错误；删除失败时保留当前详情状态。
+  } finally {
+    actionBusy.value = false;
+  }
 }
+// 路由参数已确定后加载详情，失败由 PageState 提供可重试入口。
 onMounted(load);
 </script>
 <template>
@@ -125,8 +354,12 @@ onMounted(load);
         <div class="row-actions">
           <el-button :icon="Edit" @click="edit">编辑</el-button>
           <template v-if="goal.status === 'active'">
-            <el-button @click="finish('abandoned')">放弃</el-button
-            ><el-button type="primary" @click="finish('done')"
+            <el-button :disabled="actionBusy" @click="finish('abandoned')"
+              >放弃</el-button
+            ><el-button
+              type="primary"
+              :loading="actionBusy"
+              @click="finish('done')"
               >标记完成</el-button
             >
           </template>
@@ -169,7 +402,8 @@ onMounted(load);
             v-if="goal.status === 'active'"
             type="primary"
             :icon="Plus"
-            @click="recordDialog = true"
+            :disabled="actionBusy"
+            @click="openRecord"
             >记录数据</el-button
           >
         </div>
@@ -197,7 +431,8 @@ onMounted(load);
             v-if="goal.status === 'active'"
             type="primary"
             :icon="Plus"
-            @click="milestoneDialog = true"
+            :disabled="actionBusy"
+            @click="openMilestone"
             >添加里程碑</el-button
           >
         </div>
@@ -205,7 +440,7 @@ onMounted(load);
           <div v-for="item in goal.milestones" :key="item.id" class="list-row">
             <el-checkbox
               :model-value="Boolean(item.isDone)"
-              :disabled="goal.status !== 'active'"
+              :disabled="goal.status !== 'active' || actionBusy"
               @change="toggle(item)"
             />
             <div class="list-main">
@@ -216,6 +451,7 @@ onMounted(load);
               text
               type="danger"
               :icon="Delete"
+              :disabled="actionBusy"
               title="删除"
               @click="removeMilestone(item.id)"
             />
@@ -251,36 +487,148 @@ onMounted(load);
         </div>
       </section>
       <div class="danger-zone">
-        <el-button type="danger" plain :icon="Delete" @click="remove"
+        <el-button
+          type="danger"
+          plain
+          :icon="Delete"
+          :loading="actionBusy"
+          @click="remove"
           >删除目标</el-button
         >
       </div></template
     ></PageState
+  ><el-dialog v-model="editDialog" title="编辑目标" width="560px"
+    ><el-form
+      ref="editFormRef"
+      :model="editForm"
+      :rules="editRules"
+      label-position="top"
+      class="dialog-form"
+      ><el-alert
+        v-if="goal?.status !== 'active'"
+        title="已结束目标只能修改说明和标签"
+        type="info"
+        :closable="false"
+        show-icon
+        class="form-notice" /><el-form-item label="标题" prop="title"
+        ><el-input
+          v-model="editForm.title"
+          maxlength="50"
+          show-word-limit
+          :disabled="goal?.status !== 'active'"
+      /></el-form-item>
+      <div class="inline-fields">
+        <el-form-item label="周期"
+          ><el-select
+            v-model="editForm.period"
+            :disabled="goal?.status !== 'active'"
+            ><el-option label="年度" value="annual" /><el-option
+              label="季度"
+              value="quarterly" /><el-option
+              label="月度"
+              value="monthly" /></el-select></el-form-item
+        ><el-form-item label="度量方式"
+          ><el-select
+            v-model="editForm.metricType"
+            :disabled="goal?.status !== 'active'"
+            ><el-option label="数值型" value="numeric" /><el-option
+              label="里程碑型"
+              value="milestone" /><el-option
+              label="状态型"
+              value="status" /></el-select
+        ></el-form-item>
+      </div>
+      <template v-if="editForm.metricType === 'numeric'"
+        ><el-form-item label="单位" prop="unit"
+          ><el-input
+            v-model="editForm.unit"
+            maxlength="32"
+            show-word-limit
+            :disabled="goal?.status !== 'active'"
+        /></el-form-item>
+        <div class="inline-fields">
+          <el-form-item label="起点值" prop="startValue"
+            ><el-input-number
+              v-model="editForm.startValue"
+              controls-position="right"
+              :disabled="goal?.status !== 'active'" /></el-form-item
+          ><el-form-item label="目标值" prop="targetValue"
+            ><el-input-number
+              v-model="editForm.targetValue"
+              controls-position="right"
+              :disabled="goal?.status !== 'active'"
+          /></el-form-item></div></template
+      ><el-form-item label="截止时间"
+        ><el-date-picker
+          v-model="editForm.dueDate"
+          type="datetime"
+          value-format="YYYY-MM-DDTHH:mm"
+          placeholder="可选"
+          :disabled="goal?.status !== 'active'" /></el-form-item
+      ><el-form-item label="说明"
+        ><el-input
+          v-model="editForm.description"
+          type="textarea"
+          :rows="3" /></el-form-item
+      ><el-form-item label="标签" prop="tags"
+        ><el-select
+          v-model="editForm.tags"
+          multiple
+          filterable
+          allow-create
+          default-first-option /></el-form-item></el-form
+    ><template #footer
+      ><el-button @click="editDialog = false">取消</el-button
+      ><el-button type="primary" :loading="editSaving" @click="saveEdit"
+        >保存</el-button
+      ></template
+    ></el-dialog
   ><el-dialog v-model="recordDialog" title="记录真实数据" width="420px"
-    ><el-form label-position="top"
-      ><el-form-item label="数值"
+    ><el-form
+      ref="recordFormRef"
+      :model="record"
+      :rules="recordRules"
+      label-position="top"
+      ><el-form-item label="数值" prop="value"
         ><el-input-number
           v-model="record.value"
           controls-position="right" /></el-form-item
-      ><el-form-item label="记录时间"
+      ><el-form-item label="记录时间" prop="recordedAt"
         ><el-date-picker
           v-model="record.recordedAt"
           type="datetime"
           value-format="YYYY-MM-DDTHH:mm" /></el-form-item
-      ><el-form-item label="备注"
-        ><el-input v-model="record.note" /></el-form-item></el-form
+      ><el-form-item label="备注" prop="note"
+        ><el-input
+          v-model="record.note"
+          type="textarea"
+          maxlength="1000"
+          show-word-limit
+          :rows="3" /></el-form-item></el-form
     ><template #footer
       ><el-button @click="recordDialog = false">取消</el-button
-      ><el-button type="primary" @click="addRecord">保存</el-button></template
+      ><el-button type="primary" :loading="recordSaving" @click="addRecord"
+        >保存</el-button
+      ></template
     ></el-dialog
   ><el-dialog v-model="milestoneDialog" title="添加里程碑" width="420px"
-    ><el-input
-      v-model="milestone.title"
-      maxlength="100"
-      placeholder="里程碑标题"
-    /><template #footer
+    ><el-form
+      ref="milestoneFormRef"
+      :model="milestone"
+      :rules="milestoneRules"
+      label-position="top"
+      ><el-form-item label="标题" prop="title"
+        ><el-input
+          v-model="milestone.title"
+          maxlength="100"
+          show-word-limit
+          placeholder="里程碑标题" /></el-form-item></el-form
+    ><template #footer
       ><el-button @click="milestoneDialog = false">取消</el-button
-      ><el-button type="primary" @click="addMilestone"
+      ><el-button
+        type="primary"
+        :loading="milestoneSaving"
+        @click="addMilestone"
         >添加</el-button
       ></template
     ></el-dialog
