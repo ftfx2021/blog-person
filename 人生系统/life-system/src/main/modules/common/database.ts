@@ -56,7 +56,7 @@ export async function replaceTags(
     }
     await connection.query(
       "INSERT INTO entity_tag (entity_type, entity_id, tag_id) VALUES (?, ?, ?)",
-      [entityType, entityId, tagRows[0]!.id],
+      [entityType, entityId, tagId],
     );
   }
 }
