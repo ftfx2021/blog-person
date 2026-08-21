@@ -25,6 +25,7 @@ const actionBusy = ref(false);
 const recordInitial = ref("");
 const milestoneInitial = ref("");
 const editInitial = ref("");
+const editingGoalId = ref("");
 const record = reactive({
   value: 0,
   note: "",
@@ -243,16 +244,23 @@ async function remove() {
 }
 function edit() {
   // 回填完整目标快照，尤其保留既有标签，避免编辑标题时覆盖标签关联。
+  const currentGoal = goal.value;
+  if (!currentGoal?.id) {
+    ElMessage.error("目标详情尚未加载完成，请稍后重试");
+    return;
+  }
+  // 打开弹窗时固定实体 ID，异步保存期间不依赖可能更新的详情响应式对象。
+  editingGoalId.value = currentGoal.id;
   Object.assign(editForm, {
-    title: goal.value.title,
-    description: goal.value.description || "",
-    period: goal.value.period,
-    metricType: goal.value.metricType,
-    unit: goal.value.unit || "",
-    startValue: goal.value.startValue,
-    targetValue: goal.value.targetValue,
-    dueDate: toLocalInput(goal.value.dueDate),
-    tags: [...(goal.value.tags || [])],
+    title: currentGoal.title,
+    description: currentGoal.description || "",
+    period: currentGoal.period,
+    metricType: currentGoal.metricType,
+    unit: currentGoal.unit || "",
+    startValue: currentGoal.startValue,
+    targetValue: currentGoal.targetValue,
+    dueDate: toLocalInput(currentGoal.dueDate),
+    tags: [...(currentGoal.tags || [])],
   });
   editInitial.value = JSON.stringify(editForm);
   editDialog.value = true;
@@ -261,10 +269,14 @@ function edit() {
 async function saveEdit() {
   const valid = await editFormRef.value?.validate().catch(() => false);
   if (!valid) return;
+  if (!editingGoalId.value) {
+    ElMessage.error("未找到正在编辑的目标，请重新打开编辑窗口");
+    return;
+  }
   editSaving.value = true;
   const buildInput = (confirmRecalculate: boolean) => ({
     // Context bridge 不能克隆 Vue Proxy；编辑表单的 tags 必须复制为普通数组。
-    id: goal.value.id,
+    id: editingGoalId.value,
     title: editForm.title,
     description: editForm.description || null,
     period: editForm.period,
@@ -298,6 +310,7 @@ async function saveEdit() {
     }
     ElMessage.success("已保存");
     editDialog.value = false;
+    editingGoalId.value = "";
     await load();
   } catch {
     // call 已展示错误；保存失败时保留弹窗和全部输入，方便用户重试。
