@@ -159,15 +159,22 @@ function open() {
   nextTick(() => formRef.value?.clearValidate());
 }
 async function save() {
-  // 先定位到具体字段，避免无效请求关闭弹窗并丢失用户刚填写的内容。
-  if (!formRef.value) {
-    ElMessage.warning("表单正在加载，请稍后再试");
-    return;
-  }
-  const valid = await formRef.value.validate().catch(() => false);
-  if (!valid) return;
   saving.value = true;
   try {
+    // 把校验放进 try，防止校验实例异常时点击处理器静默结束。
+    if (!formRef.value || typeof formRef.value.validate !== "function") {
+      ElMessage.warning("表单正在加载，请稍后再试");
+      return;
+    }
+    // Element Plus 校验失败会 reject 字段错误对象，这里转换为布尔值而不是当成创建异常。
+    const valid = await formRef.value.validate().then(
+      () => true,
+      () => false,
+    );
+    if (!valid) {
+      ElMessage.warning("请检查表单中的红色提示");
+      return;
+    }
     const result: any = await call(() =>
       window.lifeSystem.goals.create({
         ...form,
@@ -182,8 +189,12 @@ async function save() {
     ElMessage.success("目标已创建");
     dialog.value = false;
     await router.push(`/goals/${result.id}`);
-  } catch {
-    // call 已展示可读错误；保留弹窗和表单内容，方便用户修正后重试。
+  } catch (caught: any) {
+    // 保留输入并把异常显示出来，避免 IPC/schema 失败时只表现为按钮无反应。
+    console.error("创建目标失败", caught);
+    // call 对标准业务错误已经提示过；这里只补充校验、序列化等前端异常提示。
+    if (!caught?.code)
+      ElMessage.error(caught?.message || "目标创建失败，请重试");
   } finally {
     saving.value = false;
   }
