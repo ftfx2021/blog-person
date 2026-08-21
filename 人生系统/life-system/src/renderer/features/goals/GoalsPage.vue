@@ -175,17 +175,22 @@ async function save() {
       ElMessage.warning("请检查表单中的红色提示");
       return;
     }
-    const result: any = await call(() =>
-      window.lifeSystem.goals.create({
-        ...form,
-        unit: form.unit || null,
-        startValue:
-          form.metricType === "numeric" ? Number(form.startValue) : null,
-        targetValue:
-          form.metricType === "numeric" ? Number(form.targetValue) : null,
-        dueDate: toUtc(form.dueDate),
-      }),
-    );
+    // Context bridge 不能克隆 Vue Proxy；显式生成纯 DTO 后再调用 preload API。
+    const input = {
+      title: form.title,
+      description: form.description || null,
+      period: form.period,
+      metricType: form.metricType,
+      unit: form.unit || null,
+      startValue:
+        form.metricType === "numeric" ? Number(form.startValue) : null,
+      targetValue:
+        form.metricType === "numeric" ? Number(form.targetValue) : null,
+      dueDate: toUtc(form.dueDate),
+      tags: [...form.tags],
+      confirmRecalculate: false,
+    };
+    const result: any = await call(() => window.lifeSystem.goals.create(input));
     ElMessage.success("目标已创建");
     dialog.value = false;
     await router.push(`/goals/${result.id}`);

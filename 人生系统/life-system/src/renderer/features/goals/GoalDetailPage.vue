@@ -262,19 +262,23 @@ async function saveEdit() {
   const valid = await editFormRef.value?.validate().catch(() => false);
   if (!valid) return;
   editSaving.value = true;
-  const input = () =>
-    window.lifeSystem.goals.update({
-      id: goal.value.id,
-      ...editForm,
-      unit: editForm.unit || null,
-      startValue:
-        editForm.metricType === "numeric" ? Number(editForm.startValue) : null,
-      targetValue:
-        editForm.metricType === "numeric" ? Number(editForm.targetValue) : null,
-      dueDate: toUtc(editForm.dueDate),
-      tags: editForm.tags,
-      confirmRecalculate: false,
-    });
+  const buildInput = (confirmRecalculate: boolean) => ({
+    // Context bridge 不能克隆 Vue Proxy；编辑表单的 tags 必须复制为普通数组。
+    id: goal.value.id,
+    title: editForm.title,
+    description: editForm.description || null,
+    period: editForm.period,
+    metricType: editForm.metricType,
+    unit: editForm.unit || null,
+    startValue:
+      editForm.metricType === "numeric" ? Number(editForm.startValue) : null,
+    targetValue:
+      editForm.metricType === "numeric" ? Number(editForm.targetValue) : null,
+    dueDate: toUtc(editForm.dueDate),
+    tags: [...editForm.tags],
+    confirmRecalculate,
+  });
+  const input = () => window.lifeSystem.goals.update(buildInput(false));
   try {
     try {
       await call(input);
@@ -290,18 +294,7 @@ async function saveEdit() {
       } catch {
         return;
       }
-      await call(() =>
-        window.lifeSystem.goals.update({
-          id: goal.value.id,
-          ...editForm,
-          unit: editForm.unit || null,
-          startValue: Number(editForm.startValue),
-          targetValue: Number(editForm.targetValue),
-          dueDate: toUtc(editForm.dueDate),
-          tags: editForm.tags,
-          confirmRecalculate: true,
-        }),
-      );
+      await call(() => window.lifeSystem.goals.update(buildInput(true)));
     }
     ElMessage.success("已保存");
     editDialog.value = false;
