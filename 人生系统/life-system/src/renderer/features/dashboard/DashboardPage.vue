@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// 仪表盘仅编排聚合数据和快捷操作，统计口径由 dashboard 服务统一维护。
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { Plus, Right, Check } from "@element-plus/icons-vue";
@@ -9,11 +10,18 @@ const router = useRouter();
 const data = ref<any>(),
   loading = ref(true),
   error = ref("");
-async function load() {
+async function load(silent = false) {
+  // 仪表盘使用一个聚合接口，保证任务、习惯、目标和提醒来自同一日期快照。
+  // localToday 按本地日历生成，避免 UTC 转换让凌晨用户看到错误的今日行动。
+  // loading/error 状态交给 PageState，页面函数不复制一套空态渲染逻辑。
+  // 失败保留 error 供用户重试，而不是用空数组掩盖数据库不可用。
+  // finally 无论结果如何都结束加载状态，避免界面永久显示骨架屏。
+  // 聚合接口一次返回首屏所需数据，减少多个请求造成的闪烁。
   loading.value = true;
   try {
     data.value = await call(() =>
       window.lifeSystem.dashboard.get({ today: localToday() }),
+      { silent },
     );
   } catch (e: any) {
     error.value = e.message;
@@ -22,19 +30,31 @@ async function load() {
   }
 }
 async function task(item: any) {
+  // 快捷任务按钮提交推进动作，不在客户端直接修改 status。
+  // 服务端状态机决定 todo->doing 或 doing->done，非法状态会返回错误。
+  // 操作成功后重新加载聚合数据，任务计数和提醒同时更新。
+  // 失败时不修改本地 item，避免界面显示与数据库不一致。
+  // 快捷按钮始终请求“推进”而非本地改状态，确保仍受待办状态机约束。
   await call(() =>
     window.lifeSystem.tasks.transition({ id: item.id, action: "advance" }),
   );
   await load();
 }
 async function habit(item: any) {
+  // 仪表盘打卡只针对尚未完成的今日习惯，按钮禁用状态仅是体验保护。
+  // checkedOn 与 today 使用同一本地日期，服务端仍会再次拒绝未来日期。
+  // 成功后刷新聚合数据，使 streak、完成数量和提醒同步变化。
+  // 失败不篡改 checkedToday，用户可修复数据库后重试。
+  // 仪表盘打卡使用同一个本地日期作为 checkedOn 与 today，阻止跨日界面的歧义提交。
   const today = localToday();
   await call(() =>
     window.lifeSystem.habits.checkin({ id: item.id, checkedOn: today, today }),
   );
   await load();
 }
-onMounted(load);
+// 首屏挂载时拉取单一聚合接口，避免多个卡片分别完成造成数据时间不一致。
+// 首屏数据库未配置时静默跳转设置页，避免 Dashboard 与设置页各自弹出重复错误。
+onMounted(() => load(true));
 </script>
 <template>
   <div class="page-head">
@@ -55,7 +75,7 @@ onMounted(load);
       >新建待办</el-button
     >
   </div>
-  <PageState :loading="loading" :error="error" :empty="!data" @retry="load"
+  <PageState :loading="loading" :error="error" :empty="!data" @retry="() => load()"
     ><div v-if="data" class="dashboard-grid">
       <div>
         <div class="stats">

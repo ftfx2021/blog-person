@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// 搜索结果只展示主进程返回的统一摘要，避免渲染层拼接 SQL 条件。
 import { computed, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { Search, Right } from "@element-plus/icons-vue";
@@ -23,6 +24,12 @@ const labels: any = {
   document: "文档",
 };
 async function search() {
+  // 搜索先裁剪空白并阻止空关键词，避免无意义的全文或 LIKE 查询。
+  // 类型筛选通过 schema 传递，服务层仍会再次使用实体白名单。
+  // 搜索结果按实体分组保存，模板只负责展示，不拼接 SQL 或解析数据库字段。
+  // loading/error 由页面统一控制，失败可用 PageState 重试同一条件。
+  // 成功后 groups computed 自动过滤空分组，保持结果区域紧凑。
+  // 空关键词不发起查询，避免无意义的全表扫描。
   if (!keyword.value.trim()) return;
   loading.value = true;
   try {
@@ -40,6 +47,11 @@ async function search() {
   }
 }
 function open(type: string, id: string) {
+  // 结果跳转按实体类型映射到现有工作区，目标详情支持精确 ID 路由。
+  // 项目、待办和习惯当前跳转列表页，避免伪造尚未实现的详情路由。
+  // 文档结果没有 P0 详情页面，因此模板不显示打开按钮。
+  // 任何未知类型都不执行跳转，避免路由被搜索数据驱动到任意路径。
+  // 搜索结果按实体类型跳转到对应工作区；项目、待办和习惯当前使用各自列表页承接。
   if (type === "goal") router.push(`/goals/${id}`);
   else if (type === "project") router.push("/projects");
   else if (type === "task") router.push("/tasks");
@@ -52,6 +64,7 @@ watch(
     search();
   },
 );
+// 直接带 q 参数进入时立即搜索，使导航栏搜索与本页输入框行为一致。
 onMounted(search);
 </script>
 <template>

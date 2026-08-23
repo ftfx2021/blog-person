@@ -292,6 +292,13 @@ onBeforeUnmount(() => {
               :type="goal.status === 'active' ? 'success' : 'info'"
               >{{ statusLabel[goal.status] }}</el-tag
             >
+            <el-tag
+              v-for="tag in goal.tags || []"
+              :key="tag"
+              size="small"
+              effect="plain"
+              >{{ tag }}</el-tag
+            >
           </div>
         </div>
         <div class="progress-cell">

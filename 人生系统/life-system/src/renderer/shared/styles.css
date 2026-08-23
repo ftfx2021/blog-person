@@ -284,6 +284,11 @@ textarea {
   font-size: 13px;
   padding: 16px 0;
 }
+.ai-testing-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
 .tag-line {
   display: flex;
   gap: 6px;

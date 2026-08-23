@@ -3,6 +3,8 @@ export function calculateNumericProgress(
   targetValue: number,
   latestValue?: number,
 ): number | null {
+  // 该纯函数只接受目标事实与最新观测值，不读取数据库，方便所有服务复用同一口径。
+  // 返回 null 与 0 必须区分：null 表示尚无记录，0 才表示已记录但仍在起点。
   // 没有真实数据点时返回 null，界面应显示“尚未记录”，不能伪造零进度。
   if (latestValue == null) return null;
   // 公式天然支持递增和递减目标，再将越界结果限制为 0 到 100。
@@ -14,6 +16,8 @@ export function calculateMilestoneProgress(
   doneCount: number,
   totalCount: number,
 ): number | null {
+  // 里程碑进度按完成数量计算，不混入待办完成数，避免两种业务模型互相污染。
+  // 百分比保留两位小数，既能展示细粒度又避免浮点尾差直接出现在界面。
   // 没有里程碑时无法计算，不能用 0% 掩盖数据缺口。
   if (totalCount === 0) return null;
   return Math.round((doneCount / totalCount) * 10000) / 100;

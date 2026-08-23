@@ -428,6 +428,15 @@ onMounted(load);
           >
           <h1>{{ goal.title }}</h1>
           <p>{{ goal.description || "没有补充说明" }}</p>
+          <div v-if="goal.tags?.length" class="tag-line">
+            <el-tag
+              v-for="tag in goal.tags"
+              :key="tag"
+              size="small"
+              effect="plain"
+              >{{ tag }}</el-tag
+            >
+          </div>
         </div>
         <div class="row-actions">
           <el-button :icon="Edit" @click="edit">编辑</el-button>

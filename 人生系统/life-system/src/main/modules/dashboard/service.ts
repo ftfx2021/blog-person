@@ -7,6 +7,7 @@ import {
 
 export const dashboardService = {
   get: (today: string) =>
+    // 首屏聚合固定以调用方传入的 UTC 日期计算，避免客户端时区改变“今天”的统计口径。
     inTransaction(async (connection) => {
       // 今日行动包含全部未完成待办中的今日到期项，以及所有习惯的今日状态；两种实体不混表。
       const [tasks] = await connection.query<RowDataPacket[]>(

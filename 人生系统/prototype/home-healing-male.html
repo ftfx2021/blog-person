@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="人生系统桌面端首页高保真原型 · 男生向治愈风" />
+    <title>人生系统 - 今天</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800&family=Source+Serif+4:opsz,wght@8..60,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <style>
+      :root {
+        --canvas: #f1f3f6;
+        --canvas-2: #e8ecf2;
+        --panel: #ffffff;
+        --ink: #141d33;
+        --muted: #5e6b85;
+        --border: #dfe4ec;
+        --primary: #ff9f45;
+        --primary-deep: #e0842a;
+        --primary-pale: #fff0de;
+        --forest: #1e2a4a;
+        --forest-pale: #e2e7f2;
+        --navy: #1e2a4a;
+        --navy-pale: #e2e7f2;
+        --amber: #3a4a6b;
+        --amber-pale: #e6ebf5;
+        --grad-hero: linear-gradient(135deg, #141d33 0%, #1e2a4a 45%, #2a3b63 80%, #3a4a6b 100%);
+        --grad-btn: linear-gradient(120deg, #ff9f45 0%, #e0842a 100%);
+        --grad-progress: linear-gradient(90deg, #1e2a4a, #ff9f45);
+        --grad-divider: linear-gradient(90deg, transparent, #ff9f45 30%, #1e2a4a 70%, transparent);
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-width: 1180px;
+        background: var(--canvas);
+        color: var(--ink);
+        font-family: "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+        font-size: 14px;
+        background-image:
+          radial-gradient(circle at 12% 8%, rgba(200, 85, 61, .04) 0%, transparent 32%),
+          radial-gradient(circle at 88% 92%, rgba(45, 74, 62, .05) 0%, transparent 36%);
+      }
+      button, input { font: inherit; }
+      button { cursor: pointer; }
+      .serif { font-family: "Source Serif 4", "Noto Serif SC", serif; }
+      .app-shell { display: grid; grid-template-columns: 240px minmax(0, 1fr); min-height: 100vh; }
+      .left-rail { border-right: 1px solid var(--border); background: rgba(255,255,255,.78); padding: 18px 14px 16px; }
+      .topbar { height: 64px; border-bottom: 1px solid var(--border); background: rgba(255,255,255,.86); display: flex; align-items: center; justify-content: space-between; padding: 0 30px; }
+      .main { min-width: 0; }
+      .content { max-width: 1280px; margin: 0 auto; padding: 18px 22px 26px; }
+      .brand-mark { width: 36px; height: 36px; border-radius: 10px; background: var(--grad-btn); color: white; display: grid; place-items: center; box-shadow: 0 6px 14px rgba(200,85,61,.28); }
+      .rail-block { border-top: 1px solid var(--border); padding-top: 17px; margin-top: 17px; }
+      .rail-label { color: #6b7691; font-size: 11px; font-weight: 700; letter-spacing: .06em; }
+      .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 2px 10px rgba(80,60,40,.05); transition: box-shadow .18s, transform .18s; position: relative; overflow: hidden; isolation: isolate; }
+      .illu { position: absolute; right: 10px; bottom: 12px; width: 106px; height: auto; opacity: .9; pointer-events: none; }
+      .illu-2 { right: 8px; bottom: 10px; width: 96px; opacity: .85; }
+      .illu-3 { right: 8px; bottom: 10px; width: 80px; opacity: .85; }
+      .task-row-3 { min-height: 36px; }
+      .habit-action-3 { min-width: 46px; height: 24px; font-size: 11px; }
+      .icon-chip-3 { width: 26px; height: 26px; }
+      .quick-btn { display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: linear-gradient(135deg, #fff0de, #e2e7f2); border: 1px solid transparent; border-radius: 10px; font-size: 12px; font-weight: 700; color: #141d33; transition: transform .15s, border-color .15s; text-align: left; }
+      .quick-btn:hover { transform: translateY(-1px); border-color: #ff9f45; }
+      .quick-btn i { color: #ff9f45; }
+      .ai-link { display: flex; align-items: center; gap: 8px; width: 100%; padding: 7px 10px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 8px; color: rgba(255,255,255,.85); font-size: 12px; font-weight: 600; transition: background .15s; text-align: left; }
+      .ai-link:hover { background: rgba(255,255,255,.12); }
+      .ai-link i { color: #ff9f45; width: 14px; }
+      .asset-btn { display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: #f7f9fc; border: 1px solid #dfe4ec; border-radius: 10px; font-size: 12px; font-weight: 700; color: #141d33; transition: transform .15s, border-color .15s; text-align: left; }
+      .asset-btn:hover { transform: translateY(-1px); border-color: #1e2a4a; }
+      .asset-btn i { color: #1e2a4a; }
+      .asset-btn span:first-of-type { flex: 1; }
+      .panel:hover { box-shadow: 0 10px 24px rgba(80,60,40,.10); }
+      .nav-item { height: 64px; padding: 0 13px; color: var(--muted); font-size: 14px; font-weight: 700; position: relative; display: inline-flex; align-items: center; gap: 8px; transition: color .15s; }
+      .nav-item:hover { color: var(--forest); }
+      .nav-item.active { color: var(--forest); }
+      .nav-item.active::after { content: ""; position: absolute; bottom: 0; left: 12px; right: 12px; height: 3px; background: var(--grad-progress); border-radius: 3px 3px 0 0; }
+      .icon-button { width: 36px; height: 36px; border: 0; border-radius: 10px; background: transparent; color: var(--muted); display: inline-grid; place-items: center; transition: background .15s, color .15s; }
+      .icon-button:hover { background: var(--primary-pale); color: var(--primary); }
+      .search { height: 36px; width: 285px; border: 1px solid var(--border); background: #f7f9fc; border-radius: 10px; display: flex; align-items: center; padding: 0 12px; color: var(--muted); transition: border-color .15s, box-shadow .15s; }
+      .search:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-pale); }
+      .search input { border: 0; outline: 0; background: transparent; min-width: 0; width: 100%; color: var(--ink); padding: 0 8px; }
+      .kbd { font-size: 10px; border: 1px solid var(--border); color: #6b7691; background: white; padding: 1px 4px; border-radius: 4px; }
+      .summary-link, .rail-task { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--ink); text-align: left; background: transparent; border: 0; padding: 7px 0; transition: color .15s; }
+      .summary-link:hover, .rail-task:hover { color: var(--primary); }
+      .hero { min-height: 190px; border-radius: 18px; overflow: hidden; position: relative; background: var(--grad-hero); box-shadow: 0 14px 32px rgba(30,42,74,.22); }
+      .hero-mountain { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 90px; pointer-events: none; }
+      .hero-moon { position: absolute; right: 88px; top: 28px; opacity: .9; }
+      .hero-anim { position: absolute; right: 196px; top: 14px; width: 104px; height: 104px; opacity: .92; pointer-events: none; }
+      .hero-star { position: absolute; background: rgba(255,255,255,.7); border-radius: 50%; }
+      .focus-surface { position: relative; border: 1px solid rgba(255,255,255,.8); background: rgba(255,255,255,.95); border-radius: 12px; box-shadow: 0 14px 28px rgba(30,20,40,.16); }
+      .focus-surface::before { content: ""; position: absolute; left: 0; top: 17px; bottom: 17px; width: 4px; background: var(--grad-progress); border-radius: 0 4px 4px 0; }
+      .section-title { font-size: 15px; font-weight: 800; color: #141d33; display: flex; align-items: center; gap: 8px; }
+      .section-title svg { flex-shrink: 0; }
+      .subtle { color: var(--muted); }
+      .badge { display: inline-flex; align-items: center; gap: 5px; border-radius: 6px; padding: 3px 9px; font-size: 11px; font-weight: 700; letter-spacing: .02em; }
+      .badge-primary { color: var(--primary); background: var(--primary-pale); }
+      .badge-forest { color: var(--forest); background: var(--forest-pale); }
+      .badge-navy { color: var(--navy); background: var(--navy-pale); }
+      .badge-amber { color: var(--amber); background: var(--amber-pale); }
+      .primary { height: 38px; border: 0; border-radius: 10px; background: var(--grad-btn); color: white; font-weight: 700; padding: 0 16px; box-shadow: 0 6px 14px rgba(200,85,61,.30); transition: transform .15s, box-shadow .15s; }
+      .primary:hover { transform: translateY(-1px); box-shadow: 0 9px 18px rgba(200,85,61,.38); }
+      .text-action { border: 0; background: transparent; color: var(--primary); padding: 0; font-weight: 700; transition: color .15s; }
+      .text-action:hover { color: var(--primary-deep); }
+      .task-row { display: grid; grid-template-columns: 26px minmax(0,1fr) auto; align-items: center; gap: 7px; min-height: 40px; border-top: 1px solid #e6eaf2; }
+      .task-row:first-of-type { border-top: 0; }
+      .check { width: 20px; height: 20px; border: 2px solid #cdd5e0; border-radius: 6px; display: grid; place-items: center; color: transparent; background: white; transition: background .16s, border-color .16s, transform .16s; }
+      .check:hover { border-color: var(--forest); transform: scale(1.06); }
+      .check.done { background: var(--forest); border-color: var(--forest); color: white; }
+      .check.done + .task-name { color: #b3a8a8; text-decoration: line-through; }
+      .habit-action { min-width: 64px; height: 28px; border-radius: 8px; border: 1px solid #c9d6cc; background: white; color: var(--forest); font-size: 12px; font-weight: 700; transition: background .15s, transform .15s; }
+      .habit-action:hover { transform: translateY(-1px); }
+      .habit-action.done { border-color: transparent; background: var(--forest-pale); color: var(--forest); }
+      .mini-progress { height: 6px; background: #e6eaf2; border-radius: 6px; overflow: hidden; }
+      .mini-progress span { display: block; height: 100%; border-radius: inherit; background: var(--grad-progress); }
+      .metric-list > div + div { border-top: 1px solid #e6eaf2; }
+      .metric-row { padding: 12px 0; }
+      .timeline-item { border-left: 2px solid var(--primary-pale); padding: 0 0 16px 17px; position: relative; }
+      .timeline-item:last-child { padding-bottom: 0; }
+      .timeline-item::before { content: ""; position: absolute; width: 9px; height: 9px; left: -5px; top: 5px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 0 4px var(--primary-pale); }
+      .notification-drawer { position: fixed; z-index: 20; top: 74px; right: 28px; width: 340px; display: none; box-shadow: 0 16px 38px rgba(40,30,30,.16); }
+      .notification-drawer.open { display: block; }
+      .toast { position: fixed; z-index: 30; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(14px); opacity: 0; pointer-events: none; background: var(--ink); color: white; border-radius: 10px; padding: 11px 15px; transition: opacity .18s, transform .18s; }
+      .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+      .avatar { width: 31px; height: 31px; border-radius: 50%; background: var(--grad-btn); border: 2px solid white; box-shadow: 0 0 0 1px var(--border); display: grid; place-items: center; color: white; }
+      .icon-chip { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; flex-shrink: 0; }
+      .divider-grad { height: 1px; background: var(--grad-divider); border: 0; margin: 14px 0; }
+      .deco-mountain-bg { position: absolute; right: -20px; bottom: 0; opacity: .07; pointer-events: none; }
+      @media (max-width: 1240px) { .search { width: 208px; } .content { padding-left: 22px; padding-right: 22px; } }
+    </style>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="left-rail" aria-label="今日脉络">
+        <div class="flex items-center gap-3 px-1">
+          <div class="brand-mark">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M5 20V10l7-5 7 5v10"/><path d="M10 20v-6h4v6"/></svg>
+          </div>
+          <div>
+            <div class="font-extrabold text-[16px] tracking-tight">人生系统</div>
+            <div class="text-[11px] text-[#6b7691] mt-0.5">慢慢来，比较快。</div>
+          </div>
+        </div>
+
+        <section class="mt-5 px-1" aria-label="日期与今日概览">
+          <div class="text-[11px] font-bold text-[#6b7691]">2026 年 8 月 18 日 · 星期二</div>
+          <div class="serif text-[22px] font-semibold leading-tight mt-2 text-[#141d33]">把今天的事做扎实。</div>
+          <p class="subtle text-[12px] mt-2 mb-0">一件一件完成，就有了落点。</p>
+        </section>
+
+        <section class="rail-block" aria-label="今日状态">
+          <div class="rail-label mb-2">今日状态</div>
+          <button class="summary-link"><span><span class="inline-block w-2 h-2 rounded-full bg-[#ff9f45] mr-2 align-middle"></span>最重要</span><span class="subtle">1 项</span></button>
+          <button class="summary-link"><span><span class="inline-block w-2 h-2 rounded-full bg-[#fff0de] mr-2 align-middle" style="outline:1px solid #ff9f45;outline-offset:-1px"></span>必读</span><span class="subtle">2 项</span></button>
+          <button class="summary-link"><span><span class="inline-block w-2 h-2 rounded-full bg-[#1e2a4a] mr-2 align-middle"></span>进行中</span><span class="subtle">3 项</span></button>
+          <button class="summary-link"><span><span class="inline-block w-2 h-2 rounded-full bg-[#3a4a6b] mr-2 align-middle"></span>今日完成</span><span class="subtle">4 项</span></button>
+        </section>
+
+        <section class="rail-block" aria-label="待办预览">
+          <div class="flex items-center justify-between mb-2"><div class="rail-label">待办预览</div><button class="icon-button !w-6 !h-6" title="查看全部待办" aria-label="查看全部待办"><i class="fa-solid fa-arrow-up-right-from-square text-[11px]"></i></button></div>
+          <button class="rail-task"><span class="truncate"><i class="fa-regular fa-square mr-2 text-[#cdd5e0]"></i>整理本周材料</span><span class="text-[11px] text-[#3a4a6b] font-semibold">今天</span></button>
+          <button class="rail-task"><span class="truncate"><i class="fa-regular fa-square mr-2 text-[#cdd5e0]"></i>回复客户邮件</span><span class="text-[11px] text-[#6b7691]">18:00</span></button>
+          <button class="rail-task"><span class="truncate"><i class="fa-regular fa-square mr-2 text-[#cdd5e0]"></i>更新简历</span><span class="text-[11px] text-[#6b7691]">无日期</span></button>
+        </section>
+
+        <section class="rail-block" aria-label="提醒">
+          <div class="flex items-center justify-between mb-2"><div class="rail-label">提醒</div><button id="rail-notification" class="text-action text-[12px]">全部</button></div>
+          <button class="rail-task"><span><i class="fa-regular fa-bell mr-2 text-[#3a4a6b]"></i>体重目标将到期</span></button>
+          <button class="rail-task"><span><i class="fa-solid fa-repeat mr-2 text-[#1e2a4a]"></i>写作尚未打卡</span></button>
+          <button class="rail-task"><span><i class="fa-solid fa-bell-concierge mr-2 text-[#ff9f45]"></i>下周项目晨会</span></button>
+        </section>
+
+        <section class="rail-block" aria-label="数据状态">
+          <button class="summary-link"><span><i class="fa-solid fa-database mr-2 text-[#1e2a4a]"></i>本地数据正常</span><i class="fa-solid fa-angle-right text-[11px] text-[#9aa5bd]"></i></button>
+          <button class="summary-link"><span><i class="fa-solid fa-cloud-arrow-up mr-2 text-[#3a4a6b]"></i>上次备份 · 昨天</span><i class="fa-solid fa-angle-right text-[11px] text-[#9aa5bd]"></i></button>
+        </section>
+
+        <section class="rail-block mt-auto" aria-label="生活态度">
+          <div class="panel p-3" style="background:linear-gradient(135deg,#fff0de 0%,#e2e7f2 100%);border-color:transparent">
+            <div class="text-[12px] font-extrabold text-[#141d33]">把日子过成作品</div>
+            <div class="text-[11px] text-[#4a5570] mt-1">一步一步,都是你的。</div>
+            <div class="flex items-center gap-1 mt-2 text-[10px] text-[#3a4a6b]"><i class="fa-solid fa-fire"></i>连续深度使用 3 周</div>
+          </div>
+        </section>
+      </aside>
+
+      <div class="main">
+        <header class="topbar">
+          <nav class="flex items-center h-full" aria-label="主导航">
+            <button class="nav-item active" data-nav="今天"><i class="fa-solid fa-house"></i>今天</button>
+            <button class="nav-item" data-nav="行动"><i class="fa-regular fa-circle-check"></i>行动</button>
+            <button class="nav-item" data-nav="知识"><i class="fa-solid fa-book-open"></i>知识</button>
+            <button class="nav-item" data-nav="觉察"><i class="fa-regular fa-heart"></i>觉察</button>
+            <button class="nav-item" data-nav="交付"><i class="fa-solid fa-layer-group"></i>交付</button>
+          </nav>
+          <div class="flex items-center gap-2">
+            <label class="search" aria-label="全局搜索">
+              <i class="fa-solid fa-magnifying-glass text-[12px]"></i>
+              <input type="text" placeholder="搜索资料、目标、待办" />
+              <span class="kbd">⌘K</span>
+            </label>
+            <button id="notification-button" class="icon-button relative" title="站内提醒" aria-label="站内提醒"><i class="fa-regular fa-bell"></i><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-[#ff9f45] border-2 border-white"></span></button>
+            <button class="icon-button" title="设置" aria-label="设置"><i class="fa-solid fa-gear"></i></button>
+            <button class="avatar" title="个人菜单" aria-label="个人菜单"><i class="fa-solid fa-user text-[12px]"></i></button>
+          </div>
+        </header>
+
+        <main class="content" aria-label="今天">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <div class="text-[12px] subtle font-semibold tracking-wider">2026.08.18 · 今天</div>
+              <h1 class="m-0 text-[26px] leading-9 font-extrabold tracking-tight">慢慢来，把今天过好。</h1>
+            </div>
+            <button class="primary" id="new-task"><i class="fa-solid fa-plus mr-2"></i>新建待办</button>
+          </div>
+
+          <section class="hero" aria-labelledby="focus-title">
+            <svg class="hero-moon" width="46" height="46" viewBox="0 0 46 46">
+              <circle cx="23" cy="23" r="15" fill="#e6ebf5" opacity=".82"/>
+              <circle cx="29" cy="20" r="13" fill="#ff9f45" opacity=".55"/>
+            </svg>
+            <div id="hero-anim" class="hero-anim" aria-hidden="true"></div>
+            <div class="hero-star" style="width:3px;height:3px;top:48px;right:200px;"></div>
+            <div class="hero-star" style="width:2px;height:2px;top:32px;right:260px;"></div>
+            <div class="hero-star" style="width:3px;height:3px;top:72px;right:160px;"></div>
+            <div class="hero-star" style="width:2px;height:2px;top:18px;right:320px;"></div>
+            <div class="hero-star" style="width:2px;height:2px;top:90px;right:240px;"></div>
+
+            <svg class="hero-mountain" viewBox="0 0 600 90" preserveAspectRatio="none">
+              <path d="M0,90 L60,55 L120,75 L180,40 L240,68 L300,30 L360,62 L420,45 L480,72 L540,50 L600,68 L600,90 Z" fill="#141d33" opacity="0.55"/>
+              <path d="M0,90 L80,72 L150,82 L230,60 L300,78 L380,58 L460,76 L520,68 L600,80 L600,90 Z" fill="#2a3b63" opacity="0.7"/>
+            </svg>
+
+            <div class="relative z-10 p-6 h-full flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-2 text-[12px] text-white/85 font-bold tracking-wider"><i class="fa-solid fa-compass"></i>今日焦点</div>
+                <h2 id="focus-title" class="serif text-[30px] font-semibold leading-tight text-white mt-2 mb-1">把眼前这件事做完。</h2>
+                <p class="m-0 text-[13px] text-white/75">最早到期的行动就在这里。一件件来,就有了节奏。</p>
+              </div>
+              <div class="focus-surface max-w-[650px] px-6 py-4 mt-5 flex items-center justify-between gap-5">
+                <div class="min-w-0">
+                  <div class="flex items-center gap-2"><span class="badge badge-amber"><i class="fa-regular fa-calendar"></i>今天截止</span><span class="text-[11px] subtle">生活项目：人生系统整理</span></div>
+                  <div class="font-extrabold text-[16px] mt-2 truncate">整理本周材料,做一次真实复盘</div>
+                  <div class="text-[12px] subtle mt-1">把散落的笔记、决定和行动放回它们的位置。</div>
+                </div>
+                <button id="focus-complete" class="primary whitespace-nowrap"><i class="fa-solid fa-check mr-2"></i>完成这项</button>
+              </div>
+            </div>
+          </section>
+
+          <div class="grid grid-cols-3 gap-3.5 mt-5">
+            <section class="panel p-4" aria-labelledby="action-title">
+              <img class="illu illu-3" src="images/processed/desk.png" alt="" />
+              <div class="flex items-center justify-between mb-3">
+                <div class="section-title" id="action-title">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff9f45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                  今日执行
+                </div>
+                <div class="flex rounded-md overflow-hidden border border-[#dfe4ec] text-[11px]">
+                  <button class="px-2 h-6 bg-[#fff0de] text-[#ff9f45] font-bold">待办</button>
+                  <button class="px-2 h-6 bg-white text-[#6b7691]">习惯</button>
+                </div>
+              </div>
+              <div>
+                <div class="task-row task-row-3" data-task="整理本周材料"><button class="check" aria-label="完成整理本周材料"><i class="fa-solid fa-check text-[10px]"></i></button><span class="task-name">整理本周材料</span><span class="text-[11px] text-[#3a4a6b] font-semibold">今天</span></div>
+                <div class="task-row task-row-3" data-task="回复客户邮件"><button class="check" aria-label="完成回复客户邮件"><i class="fa-solid fa-check text-[10px]"></i></button><span class="task-name">回复客户邮件</span><span class="text-[11px] subtle">18:00</span></div>
+                <div class="task-row task-row-3" data-task="更新简历"><button class="check" aria-label="完成更新简历"><i class="fa-solid fa-check text-[10px]"></i></button><span class="task-name">更新简历</span><span class="text-[11px] subtle">无日期</span></div>
+              </div>
+              <hr class="divider-grad" />
+              <div class="flex items-center gap-1 flex-wrap text-[11px]">
+                <span class="font-bold text-[#4a5570] mr-1">习惯</span>
+                <span class="subtle">写作</span><button class="habit-action habit-action-3" data-habit="写作">打卡</button>
+                <span class="subtle ml-1">拉伸</span><button class="habit-action habit-action-3 done" data-habit="拉伸"><i class="fa-solid fa-check mr-1"></i>已</button>
+              </div>
+              <button class="text-action text-[11px] mt-3">查看全部 →</button>
+            </section>
+
+            <section class="panel p-4" aria-labelledby="project-title">
+              <img class="illu illu-3" src="images/processed/mountain.png" alt="" />
+              <div class="flex items-center justify-between mb-3">
+                <div class="section-title" id="project-title">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1e2a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M5 20V10l7-5 7 5v10"/></svg>
+                  当前项目
+                </div>
+                <button class="text-action text-[11px]">全部 →</button>
+              </div>
+              <div class="space-y-3 mt-2">
+                <div><div class="flex justify-between items-center"><div class="text-[13px] font-semibold truncate">人生系统整理</div><span class="text-[11px] font-extrabold text-[#ff9f45]">60%</span></div><div class="text-[10px] subtle">生活项目 · 5 项任务</div><div class="mini-progress mt-1.5"><span style="width:60%"></span></div></div>
+                <div><div class="flex justify-between items-center"><div class="text-[13px] font-semibold truncate">仓库管理系统 v2</div><span class="text-[11px] font-extrabold text-[#1e2a4a]">开发中</span></div><div class="text-[10px] subtle">开发项目 · 需求阶段</div><div class="mini-progress mt-1.5"><span style="width:30%;background:#3a4a6b"></span></div></div>
+                <div><div class="flex justify-between items-center"><div class="text-[13px] font-semibold truncate">表达能力提升</div><span class="text-[11px] font-extrabold text-[#1e2a4a]">2/5</span></div><div class="text-[10px] subtle">生活项目 · 里程碑</div><div class="mini-progress mt-1.5"><span style="width:40%"></span></div></div>
+              </div>
+              <button class="text-action text-[11px] mt-3">新建想法 →</button>
+            </section>
+
+            <section class="panel p-4" aria-labelledby="knowledge-title">
+              <img class="illu illu-3" src="images/processed/bookshelf.png" alt="" />
+              <div class="flex items-center justify-between mb-3">
+                <div class="section-title" id="knowledge-title">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#141d33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                  知识库
+                </div>
+                <button class="text-action text-[11px]">进入 →</button>
+              </div>
+              <div class="grid grid-cols-2 gap-y-2 mt-2">
+                <div><div class="text-[20px] font-extrabold text-[#ff9f45]">48</div><div class="text-[10px] subtle">已入库文档</div></div>
+                <div><div class="text-[20px] font-extrabold text-[#141d33]">12</div><div class="text-[10px] subtle">待处理收藏</div></div>
+                <div><div class="text-[20px] font-extrabold text-[#1e2a4a]">5</div><div class="text-[10px] subtle">Prompt 模板</div></div>
+                <div><div class="text-[20px] font-extrabold text-[#3a4a6b]">1</div><div class="text-[10px] subtle">索引中</div></div>
+              </div>
+              <div class="pt-2 mt-2 border-t border-[#e6eaf2]"><span class="badge badge-navy"><i class="fa-solid fa-circle-notch fa-spin"></i>《沟通技巧整理》索引中</span></div>
+              <button class="text-action text-[11px] mt-3">RAG 问答 →</button>
+            </section>
+
+            <section class="panel p-4" aria-labelledby="timeline-title">
+              <img class="illu illu-3" src="images/processed/notebook.png" alt="" />
+              <div class="flex items-center justify-between mb-3">
+                <div class="section-title" id="timeline-title">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1e2a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                  最近沉淀
+                </div>
+                <button class="text-action text-[11px]">时间线 →</button>
+              </div>
+              <div class="timeline-item"><div class="flex items-center gap-2"><span class="badge badge-primary">灵感</span><span class="text-[10px] subtle">10:22</span></div><div class="font-semibold text-[12px] mt-1.5">把"想做"写成可执行的下一步</div></div>
+              <div class="timeline-item"><div class="flex items-center gap-2"><span class="badge badge-navy">决策</span><span class="text-[10px] subtle">昨天</span></div><div class="font-semibold text-[12px] mt-1.5">先做本地优先,再考虑同步</div></div>
+              <div class="timeline-item"><div class="flex items-center gap-2"><span class="badge badge-forest">复盘</span><span class="text-[10px] subtle">8/16</span></div><div class="font-semibold text-[12px] mt-1.5">本周完成了 3 件小事</div></div>
+              <button class="text-action text-[11px] mt-3">写一条新沉淀 →</button>
+            </section>
+
+            <section class="panel p-4" aria-labelledby="goal-title">
+              <div class="flex items-center justify-between mb-3">
+                <div class="section-title" id="goal-title">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3a4a6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                  目标进展
+                </div>
+                <button class="text-action text-[11px]">全部 →</button>
+              </div>
+              <div class="metric-list mt-2">
+                <div class="metric-row metric-row-3"><div class="flex justify-between gap-2"><div><div class="font-semibold text-[12px]">体重回到 65 kg</div><div class="text-[10px] subtle">数值 · 下次 8/24</div></div><div class="text-[14px] font-extrabold text-[#ff9f45]">68%</div></div><div class="mini-progress mt-1.5"><span style="width:68%"></span></div></div>
+                <div class="metric-row metric-row-3"><div class="flex justify-between gap-2"><div><div class="font-semibold text-[12px]">表达能力提升</div><div class="text-[10px] subtle">里程碑 · 2/5</div></div><div class="text-[14px] font-extrabold text-[#1e2a4a]">40%</div></div><div class="mini-progress mt-1.5"><span style="width:40%"></span></div></div>
+                <div class="metric-row metric-row-3"><div class="flex justify-between gap-2"><div><div class="font-semibold text-[12px]">改善睡眠</div><div class="text-[10px] subtle">状态型</div></div><span class="badge badge-forest">进行中</span></div></div>
+              </div>
+              <button class="text-action text-[11px] mt-3">记录数据 →</button>
+            </section>
+
+            <section class="panel p-4" aria-labelledby="reminder-title">
+              <div class="flex items-center justify-between mb-3">
+                <div class="section-title" id="reminder-title">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1e2a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                  提醒 · 情绪
+                </div>
+                <button id="open-notification" class="text-action text-[11px]">全部 →</button>
+              </div>
+              <div class="space-y-2.5 mt-2">
+                <div class="flex gap-2.5"><div class="icon-chip icon-chip-3 bg-[#e6ebf5] text-[#3a4a6b]"><i class="fa-regular fa-flag text-[12px]"></i></div><div><div class="font-semibold text-[12px]">体重目标 3 天后到期</div><div class="text-[10px] subtle">可记录一次真实数据</div></div></div>
+                <div class="flex gap-2.5"><div class="icon-chip icon-chip-3 bg-[#e2e7f2] text-[#1e2a4a]"><i class="fa-solid fa-repeat text-[12px]"></i></div><div><div class="font-semibold text-[12px]">写作今天还没打卡</div><div class="text-[10px] subtle">不合适也可以留空</div></div></div>
+                <div class="flex gap-2.5 pt-2.5 border-t border-[#e6eaf2]"><div class="icon-chip icon-chip-3 bg-[#fff0de] text-[#ff9f45]"><i class="fa-regular fa-heart text-[12px]"></i></div><div><div class="font-semibold text-[12px]">最近情绪 · 周三</div><div class="text-[10px] subtle">"有点焦虑" · 强度 3</div></div></div>
+              </div>
+              <button class="text-action text-[11px] mt-3">记录情绪 →</button>
+            </section>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3.5 mt-5">
+            <section class="panel p-4" aria-label="快捷入口">
+              <div class="section-title mb-3">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff9f45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                快捷入口
+              </div>
+              <div class="grid grid-cols-2 gap-2 mt-2">
+                <button class="quick-btn"><i class="fa-solid fa-circle-check"></i><span>新建待办</span></button>
+                <button class="quick-btn"><i class="fa-solid fa-bullseye"></i><span>新建目标</span></button>
+                <button class="quick-btn"><i class="fa-solid fa-lightbulb"></i><span>新建想法</span></button>
+                <button class="quick-btn"><i class="fa-regular fa-heart"></i><span>记录情绪</span></button>
+                <button class="quick-btn col-span-2"><i class="fa-solid fa-book-open"></i><span>进入知识库 · 剪藏 / 导入 / 问答</span></button>
+              </div>
+            </section>
+
+            <section class="panel p-4" aria-label="AI 协作小助手" style="background:linear-gradient(135deg,#1e2a4a 0%,#141d33 100%);border-color:transparent">
+              <div class="flex items-center gap-2.5 mb-3">
+                <div class="w-10 h-10 rounded-full grid place-items-center text-[18px]" style="background:linear-gradient(135deg,#ff9f45,#e0842a)">★</div>
+                <div>
+                  <div class="text-[13px] font-extrabold text-white">AI 协作小助手</div>
+                  <div class="text-[10px] text-white/65">本地优先,需要时联网</div>
+                </div>
+                <span class="ml-auto text-[10px] text-[#3a4a6b] bg-[#fff0de] px-1.5 py-0.5 rounded-full font-bold">Beta</span>
+              </div>
+              <p class="text-[12px] text-white/85 leading-relaxed mb-3">"我能帮你梳理目标、整理复盘、从知识库里找答案。先试试看,不满意再调。"</p>
+              <div class="space-y-1.5">
+                <button class="ai-link"><i class="fa-solid fa-magnifying-glass"></i>问知识库 · 找之前的笔记</button>
+                <button class="ai-link"><i class="fa-solid fa-arrows-rotate"></i>生成本周复盘草稿</button>
+                <button class="ai-link"><i class="fa-regular fa-heart"></i>看我的情绪趋势</button>
+              </div>
+            </section>
+
+            <section class="panel p-4" aria-label="长期资产库">
+              <div class="section-title mb-3">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1e2a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                长期资产库
+              </div>
+              <div class="grid grid-cols-2 gap-2 mt-2">
+                <button class="asset-btn"><i class="fa-solid fa-database"></i><span>知识库</span><span class="text-[10px] text-[#6b7691]">48</span></button>
+                <button class="asset-btn"><i class="fa-solid fa-toolbox"></i><span>技能资产</span><span class="text-[10px] text-[#6b7691]">3</span></button>
+                <button class="asset-btn"><i class="fa-solid fa-keyboard"></i><span>Prompt</span><span class="text-[10px] text-[#6b7691]">5</span></button>
+                <button class="asset-btn"><i class="fa-solid fa-lightbulb"></i><span>想法漏斗</span><span class="text-[10px] text-[#6b7691]">2</span></button>
+              </div>
+            </section>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <aside id="notification-drawer" class="notification-drawer panel p-4" aria-label="站内提醒">
+      <div class="flex items-center justify-between"><div class="section-title">站内提醒</div><button id="close-notification" class="icon-button" aria-label="关闭提醒"><i class="fa-solid fa-xmark"></i></button></div>
+      <div class="mt-4 space-y-4">
+        <div class="border-l-2 border-[#3a4a6b] pl-3"><div class="font-semibold">体重目标将在 3 天后到期</div><div class="text-[12px] subtle mt-1">记录数据后,进度才会更新。</div></div>
+        <div class="border-l-2 border-[#1e2a4a] pl-3"><div class="font-semibold">写作尚未打卡</div><div class="text-[12px] subtle mt-1">这是一条提醒,不是要求。</div></div>
+        <div class="border-l-2 border-[#141d33] pl-3"><div class="font-semibold">《沟通技巧整理》已完成索引</div><div class="text-[12px] subtle mt-1">现在可以在问答中引用它。</div></div>
+      </div>
+    </aside>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      if (window.lottie) {
+        lottie.loadAnimation({
+          container: document.getElementById("hero-anim"),
+          renderer: "svg",
+          loop: true,
+          autoplay: true,
+          path: "lottie/demo.json"
+        });
+      }
+
+      const toast = document.getElementById("toast");
+      let toastTimer;
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+      }
+
+      document.querySelectorAll(".check").forEach((button) => {
+        button.addEventListener("click", () => {
+          button.classList.toggle("done");
+          const task = button.closest(".task-row").dataset.task;
+          showToast(button.classList.contains("done") ? `已完成「${task}」` : `已恢复「${task}」`);
+        });
+      });
+
+      document.getElementById("focus-complete").addEventListener("click", () => {
+        const focusTask = document.querySelector('[data-task="整理本周材料"] .check');
+        if (!focusTask.classList.contains("done")) focusTask.click();
+        else showToast("这项行动已经完成");
+      });
+
+      document.querySelectorAll(".habit-action").forEach((button) => {
+        button.addEventListener("click", () => {
+          const isDone = button.classList.toggle("done");
+          const habit = button.dataset.habit;
+          button.innerHTML = isDone ? '<i class="fa-solid fa-check mr-1"></i>已打卡' : "打卡";
+          showToast(isDone ? `已记录「${habit}」` : `已撤销「${habit}」打卡`);
+        });
+      });
+
+      document.querySelectorAll(".nav-item").forEach((button) => {
+        button.addEventListener("click", () => {
+          document.querySelectorAll(".nav-item").forEach((item) => item.classList.remove("active"));
+          button.classList.add("active");
+          showToast(`已切换到「${button.dataset.nav}」模块示意`);
+        });
+      });
+
+      const drawer = document.getElementById("notification-drawer");
+      function toggleDrawer(force) { drawer.classList.toggle("open", force); }
+      ["notification-button", "open-notification", "rail-notification"].forEach((id) => document.getElementById(id).addEventListener("click", () => toggleDrawer(true)));
+      document.getElementById("close-notification").addEventListener("click", () => toggleDrawer(false));
+      document.getElementById("new-task").addEventListener("click", () => showToast("此原型暂展示首页布局，新建待办将作为右侧抽屉出现。"));
+    </script>
+  </body>
+</html>

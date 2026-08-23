@@ -17,6 +17,8 @@ export type MysqlConnectionConfiguration = z.infer<
 >;
 
 export function parseMysqlUrl(url: string): MysqlConnectionConfiguration {
+  // URL 解析只接受 mysql 协议，阻止把任意 URI 当成驱动连接串解释。
+  // 最终仍交给 Zod schema 校验端口、库名与必填字段，避免解析结果绕过配置规则。
   const parsed = new URL(url);
   if (parsed.protocol !== "mysql:")
     throw new Error("连接地址必须使用 mysql:// 协议");

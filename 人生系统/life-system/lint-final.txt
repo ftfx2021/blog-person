@@ -1,0 +1,1427 @@
+
+> life-system@0.1.0 lint
+> eslint . && npm run lint:boundaries && npm run lint:ipc
+
+
+D:\javaweb\个人博客\人生系统\life-system\src\renderer\app\App.vue
+  53:33  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found     vue/singleline-html-element-content-newline
+  53:58  warning  Require self-closing on HTML elements (<span>)                                  vue/html-self-closing
+  53:70  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found   vue/singleline-html-element-content-newline
+  58:39  warning  Expected no line breaks before closing bracket, but 1 line break found          vue/html-closing-bracket-newline
+  63:11  warning  Disallow self-closing on HTML void elements (<input/>)                          vue/html-self-closing
+  72:26  warning  Expected 1 line break after opening tag (`<main>`), but no line breaks found    vue/singleline-html-element-content-newline
+  72:41  warning  Expected 1 line break before closing tag (`</main>`), but no line breaks found  vue/singleline-html-element-content-newline
+
+D:\javaweb\个人博客\人生系统\life-system\src\renderer\features\dashboard\DashboardPage.vue
+   72:31  warning  ':icon' should be on a new line                                                      vue/max-attributes-per-line
+   72:44  warning  '@click' should be on a new line                                                     vue/max-attributes-per-line
+   72:74  warning  Expected no line breaks before closing bracket, but 1 line break found               vue/html-closing-bracket-newline
+   73:1   warning  Expected indentation of 4 spaces but found 6 spaces                                  vue/html-indent
+   73:8   warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found    vue/multiline-html-element-content-newline
+   73:12  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found  vue/multiline-html-element-content-newline
+   73:23  warning  Expected no line breaks before closing bracket, but 1 line break found               vue/html-closing-bracket-newline
+   76:33  warning  ':error' should be on a new line                                                     vue/max-attributes-per-line
+   76:48  warning  ':empty' should be on a new line                                                     vue/max-attributes-per-line
+   76:63  warning  '@retry' should be on a new line                                                     vue/max-attributes-per-line
+   76:76  warning  Expected no line breaks before closing bracket, but 1 line break found               vue/html-closing-bracket-newline
+   77:1   warning  Expected indentation of 2 spaces but found 4 spaces                                  vue/html-indent
+   77:6   warning  Expected 1 line break after opening tag (`<PageState>`), but no line breaks found    vue/multiline-html-element-content-newline
+   77:23  warning  'class' should be on a new line                                                      vue/max-attributes-per-line
+   78:1   warning  Expected indentation of 4 spaces but found 6 spaces                                  vue/html-indent
+   79:1   warning  Expected indentation of 6 spaces but found 8 spaces                                  vue/html-indent
+   80:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+   81:1   warning  Expected indentation of 10 spaces but found 12 spaces                                vue/html-indent
+   81:57  warning  Expected no line breaks before closing bracket, but 1 line break found               vue/html-closing-bracket-newline
+   82:1   warning  Expected indentation of 10 spaces but found 12 spaces                                vue/html-indent
+   83:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+   84:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+   85:1   warning  Expected indentation of 10 spaces but found 12 spaces                                vue/html-indent
+   85:20  warning  Expected no line breaks before closing bracket, but 1 line break found               vue/html-closing-bracket-newline
+   86:1   warning  Expected indentation of 10 spaces but found 14 spaces                                vue/html-indent
+   87:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+   87:52  warning  Expected no line breaks before closing bracket, but 1 line break found               vue/html-closing-bracket-newline
+   88:1   warning  Expected indentation of 10 spaces but found 12 spaces                                vue/html-indent
+   89:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+   90:1   warning  Expected indentation of 6 spaces but found 8 spaces                                  vue/html-indent
+   91:1   warning  Expected indentation of 6 spaces but found 8 spaces                                  vue/html-indent
+   92:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+   92:37  warning  Expected 1 line break after opening tag (`<h2>`), but no line breaks found           vue/singleline-html-element-content-newline
+   92:41  warning  Expected 1 line break before closing tag (`</h2>`), but no line breaks found         vue/singleline-html-element-content-newline
+   93:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+   93:41  warning  'class' should be on a new line                                                      vue/max-attributes-per-line
+   94:1   warning  Expected indentation of 10 spaces but found 12 spaces                                vue/html-indent
+   94:45  warning  ':key' should be on a new line                                                       vue/max-attributes-per-line
+   94:60  warning  'class' should be on a new line                                                      vue/max-attributes-per-line
+   95:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+   96:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+   96:41  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found          vue/singleline-html-element-content-newline
+   96:57  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found        vue/singleline-html-element-content-newline
+   97:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+   98:1   warning  Expected indentation of 16 spaces but found 18 spaces                                vue/html-indent
+   99:1   warning  Expected indentation of 16 spaces but found 18 spaces                                vue/html-indent
+  100:1   warning  Expected indentation of 18 spaces but found 20 spaces                                vue/html-indent
+  101:1   warning  Expected indentation of 20 spaces but found 22 spaces                                vue/html-indent
+  102:1   warning  Expected indentation of 20 spaces but found 22 spaces                                vue/html-indent
+  103:1   warning  Expected indentation of 16 spaces but found 18 spaces                                vue/html-indent
+  104:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+  105:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  106:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  106:39  warning  ':icon' should be on a new line                                                      vue/max-attributes-per-line
+  106:53  warning  '@click' should be on a new line                                                     vue/max-attributes-per-line
+  106:73  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found    vue/multiline-html-element-content-newline
+  107:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+  108:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  108:17  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found  vue/multiline-html-element-content-newline
+  109:1   warning  Expected indentation of 10 spaces but found 12 spaces                                vue/html-indent
+  110:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+  111:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+  111:23  warning  'class' should be on a new line                                                      vue/max-attributes-per-line
+  112:1   warning  Expected indentation of 10 spaces but found 12 spaces                                vue/html-indent
+  113:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+  114:1   warning  Expected indentation of 6 spaces but found 8 spaces                                  vue/html-indent
+  115:1   warning  Expected indentation of 6 spaces but found 8 spaces                                  vue/html-indent
+  116:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+  116:37  warning  Expected 1 line break after opening tag (`<h2>`), but no line breaks found           vue/singleline-html-element-content-newline
+  116:39  warning  Expected 1 line break before closing tag (`</h2>`), but no line breaks found         vue/singleline-html-element-content-newline
+  117:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+  117:42  warning  'class' should be on a new line                                                      vue/max-attributes-per-line
+  118:1   warning  Expected indentation of 10 spaces but found 12 spaces                                vue/html-indent
+  118:46  warning  ':key' should be on a new line                                                       vue/max-attributes-per-line
+  118:61  warning  'class' should be on a new line                                                      vue/max-attributes-per-line
+  119:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  120:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+  120:41  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found          vue/singleline-html-element-content-newline
+  120:56  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found        vue/singleline-html-element-content-newline
+  121:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+  122:1   warning  Expected indentation of 16 spaces but found 18 spaces                                vue/html-indent
+  123:1   warning  Expected indentation of 16 spaces but found 18 spaces                                vue/html-indent
+  124:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+  125:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  126:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  127:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+  128:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+  129:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+  130:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+  131:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+  132:1   warning  Expected indentation of 12 spaces but found 16 spaces                                vue/html-indent
+  132:18  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found    vue/multiline-html-element-content-newline
+  132:56  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found  vue/multiline-html-element-content-newline
+  132:67  warning  Expected no line breaks before closing bracket, but 1 line break found               vue/html-closing-bracket-newline
+  133:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  134:1   warning  Expected indentation of 10 spaces but found 12 spaces                                vue/html-indent
+  135:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+  136:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+  136:23  warning  'class' should be on a new line                                                      vue/max-attributes-per-line
+  136:44  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found          vue/singleline-html-element-content-newline
+  136:50  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found        vue/singleline-html-element-content-newline
+  137:1   warning  Expected indentation of 6 spaces but found 8 spaces                                  vue/html-indent
+  138:1   warning  Expected indentation of 4 spaces but found 6 spaces                                  vue/html-indent
+  139:1   warning  Expected indentation of 4 spaces but found 6 spaces                                  vue/html-indent
+  140:1   warning  Expected indentation of 6 spaces but found 8 spaces                                  vue/html-indent
+  141:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+  142:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+  143:1   warning  Expected indentation of 10 spaces but found 12 spaces                                vue/html-indent
+  144:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  145:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  146:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  147:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  148:1   warning  Expected indentation of 10 spaces but found 12 spaces                                vue/html-indent
+  149:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  150:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+  150:41  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found          vue/singleline-html-element-content-newline
+  150:57  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found        vue/singleline-html-element-content-newline
+  151:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+  152:1   warning  Expected indentation of 16 spaces but found 18 spaces                                vue/html-indent
+  153:1   warning  Expected indentation of 16 spaces but found 18 spaces                                vue/html-indent
+  154:1   warning  Expected indentation of 16 spaces but found 18 spaces                                vue/html-indent
+  155:1   warning  Expected indentation of 16 spaces but found 18 spaces                                vue/html-indent
+  156:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+  157:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+  157:29  warning  'class' should be on a new line                                                      vue/max-attributes-per-line
+  158:1   warning  Expected indentation of 16 spaces but found 18 spaces                                vue/html-indent
+  159:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+  160:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  161:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  162:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+  163:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+  164:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+  165:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  166:1   warning  Expected indentation of 10 spaces but found 12 spaces                                vue/html-indent
+  167:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+  168:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+  168:23  warning  'class' should be on a new line                                                      vue/max-attributes-per-line
+  168:44  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found          vue/singleline-html-element-content-newline
+  168:52  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found        vue/singleline-html-element-content-newline
+  169:1   warning  Expected indentation of 6 spaces but found 8 spaces                                  vue/html-indent
+  170:1   warning  Expected indentation of 6 spaces but found 8 spaces                                  vue/html-indent
+  170:28  warning  'style' should be on a new line                                                      vue/max-attributes-per-line
+  171:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+  172:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+  173:1   warning  Expected indentation of 10 spaces but found 12 spaces                                vue/html-indent
+  174:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  175:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  176:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  177:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  178:1   warning  Expected indentation of 10 spaces but found 12 spaces                                vue/html-indent
+  179:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  180:1   warning  Expected indentation of 14 spaces but found 16 spaces                                vue/html-indent
+  180:41  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found          vue/singleline-html-element-content-newline
+  180:57  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found        vue/singleline-html-element-content-newline
+  181:1   warning  Expected indentation of 12 spaces but found 14 spaces                                vue/html-indent
+  182:1   warning  Expected indentation of 10 spaces but found 12 spaces                                vue/html-indent
+  183:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+  184:1   warning  Expected indentation of 8 spaces but found 10 spaces                                 vue/html-indent
+  184:23  warning  'class' should be on a new line                                                      vue/max-attributes-per-line
+  184:44  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found          vue/singleline-html-element-content-newline
+  184:49  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found        vue/singleline-html-element-content-newline
+  185:1   warning  Expected indentation of 6 spaces but found 8 spaces                                  vue/html-indent
+  186:1   warning  Expected indentation of 4 spaces but found 6 spaces                                  vue/html-indent
+  187:1   warning  Expected indentation of 2 spaces but found 4 spaces                                  vue/html-indent
+  187:11  warning  Expected 1 line break before closing tag (`</pagestate>`), but no line breaks found  vue/multiline-html-element-content-newline
+  187:22  warning  Expected no line breaks before closing bracket, but 1 line break found               vue/html-closing-bracket-newline
+
+D:\javaweb\个人博客\人生系统\life-system\src\renderer\features\goals\GoalDetailPage.vue
+  125:33  warning  ':error' should be on a new line                                                        vue/max-attributes-per-line
+  125:48  warning  ':empty' should be on a new line                                                        vue/max-attributes-per-line
+  125:63  warning  '@retry' should be on a new line                                                        vue/max-attributes-per-line
+  125:76  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  126:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  126:6   warning  Expected 1 line break after opening tag (`<PageState>`), but no line breaks found       vue/multiline-html-element-content-newline
+  126:27  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  127:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  127:8   warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found        vue/multiline-html-element-content-newline
+  128:1   warning  Expected indentation of 5 spaces but found 8 spaces                                     vue/html-indent
+  129:1   warning  Expected indentation of 7 spaces but found 10 spaces                                    vue/html-indent
+  129:27  warning  ':icon' should be on a new line                                                         vue/max-attributes-per-line
+  129:40  warning  '@click' should be on a new line                                                        vue/max-attributes-per-line
+  129:70  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  130:1   warning  Expected indentation of 7 spaces but found 12 spaces                                    vue/html-indent
+  130:14  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  130:18  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  130:29  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  131:1   warning  Expected indentation of 7 spaces but found 10 spaces                                    vue/html-indent
+  132:1   warning  Expected indentation of 7 spaces but found 10 spaces                                    vue/html-indent
+  133:1   warning  Expected indentation of 7 spaces but found 10 spaces                                    vue/html-indent
+  134:1   warning  Expected indentation of 5 spaces but found 8 spaces                                     vue/html-indent
+  135:1   warning  Expected indentation of 5 spaces but found 8 spaces                                     vue/html-indent
+  136:1   warning  Expected indentation of 7 spaces but found 10 spaces                                    vue/html-indent
+  136:35  warning  '@click' should be on a new line                                                        vue/max-attributes-per-line
+  136:49  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/singleline-html-element-content-newline
+  136:51  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/singleline-html-element-content-newline
+  137:1   warning  Expected indentation of 7 spaces but found 10 spaces                                    vue/html-indent
+  138:1   warning  Expected indentation of 9 spaces but found 12 spaces                                    vue/html-indent
+  138:53  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/singleline-html-element-content-newline
+  138:55  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/singleline-html-element-content-newline
+  138:66  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  139:1   warning  Expected indentation of 9 spaces but found 12 spaces                                    vue/html-indent
+  139:40  warning  '@click' should be on a new line                                                        vue/max-attributes-per-line
+  139:63  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  140:1   warning  Expected indentation of 9 spaces but found 14 spaces                                    vue/html-indent
+  140:16  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  140:20  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  140:31  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  141:1   warning  Expected indentation of 9 spaces but found 12 spaces                                    vue/html-indent
+  142:1   warning  Expected indentation of 7 spaces but found 10 spaces                                    vue/html-indent
+  143:1   warning  Expected indentation of 5 spaces but found 8 spaces                                     vue/html-indent
+  144:1   warning  Expected indentation of 3 spaces but found 6 spaces                                     vue/html-indent
+  145:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  146:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  147:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  148:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  149:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  150:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  150:23  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  151:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  152:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  153:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  154:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  155:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  156:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  157:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  158:1   warning  Expected indentation of 14 spaces but found 16 spaces                                   vue/html-indent
+  159:1   warning  Expected indentation of 14 spaces but found 16 spaces                                   vue/html-indent
+  160:1   warning  Expected indentation of 16 spaces but found 18 spaces                                   vue/html-indent
+  161:1   warning  Expected indentation of 16 spaces but found 18 spaces                                   vue/html-indent
+  162:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  162:23  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  163:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  164:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  165:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  166:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  167:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  168:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  169:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  170:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  171:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  172:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  172:53  warning  'class' should be on a new line                                                         vue/max-attributes-per-line
+  173:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  174:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  175:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  175:39  warning  Expected 1 line break after opening tag (`<h2>`), but no line breaks found              vue/singleline-html-element-content-newline
+  175:43  warning  Expected 1 line break before closing tag (`</h2>`), but no line breaks found            vue/singleline-html-element-content-newline
+  176:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  177:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  178:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  179:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  180:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  181:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  182:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  183:1   warning  Expected indentation of 8 spaces but found 12 spaces                                    vue/html-indent
+  183:14  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  183:18  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  183:29  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  184:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  185:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  186:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  186:41  warning  'class' should be on a new line                                                         vue/max-attributes-per-line
+  187:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  188:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  189:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  190:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  191:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  192:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  193:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  193:39  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found             vue/singleline-html-element-content-newline
+  193:71  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found           vue/singleline-html-element-content-newline
+  194:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  195:1   warning  Expected indentation of 14 spaces but found 16 spaces                                   vue/html-indent
+  196:1   warning  Expected indentation of 14 spaces but found 16 spaces                                   vue/html-indent
+  197:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  198:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  199:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  200:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  201:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  201:21  warning  'class' should be on a new line                                                         vue/max-attributes-per-line
+  201:42  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found             vue/singleline-html-element-content-newline
+  201:51  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found           vue/singleline-html-element-content-newline
+  202:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  203:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  203:55  warning  'class' should be on a new line                                                         vue/max-attributes-per-line
+  204:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  205:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  205:42  warning  Expected 1 line break after opening tag (`<h2>`), but no line breaks found              vue/singleline-html-element-content-newline
+  205:45  warning  Expected 1 line break before closing tag (`</h2>`), but no line breaks found            vue/singleline-html-element-content-newline
+  206:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  207:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  208:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  209:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  210:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  211:1   warning  Expected indentation of 8 spaces but found 12 spaces                                    vue/html-indent
+  211:14  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  211:19  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  211:30  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  212:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  213:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  214:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  214:44  warning  'class' should be on a new line                                                         vue/max-attributes-per-line
+  215:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  215:48  warning  ':key' should be on a new line                                                          vue/max-attributes-per-line
+  215:63  warning  'class' should be on a new line                                                         vue/max-attributes-per-line
+  216:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  217:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  218:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  219:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  220:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  221:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  222:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  222:39  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found             vue/singleline-html-element-content-newline
+  222:55  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found           vue/singleline-html-element-content-newline
+  223:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  224:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  225:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  226:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  227:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  228:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  229:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  230:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  231:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  232:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  233:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  234:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  234:21  warning  'class' should be on a new line                                                         vue/max-attributes-per-line
+  234:42  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found             vue/singleline-html-element-content-newline
+  234:49  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found           vue/singleline-html-element-content-newline
+  235:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  236:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  237:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  237:35  warning  Expected 1 line break after opening tag (`<h2>`), but no line breaks found              vue/singleline-html-element-content-newline
+  237:39  warning  Expected 1 line break before closing tag (`</h2>`), but no line breaks found            vue/singleline-html-element-content-newline
+  238:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  239:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  240:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  242:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  243:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  244:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  245:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  246:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  247:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  248:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  249:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  250:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  251:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  252:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  253:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  254:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  254:39  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found             vue/singleline-html-element-content-newline
+  254:55  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found           vue/singleline-html-element-content-newline
+  255:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  255:38  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found             vue/singleline-html-element-content-newline
+  255:55  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found           vue/singleline-html-element-content-newline
+  256:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  257:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  258:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  259:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  259:21  warning  'class' should be on a new line                                                         vue/max-attributes-per-line
+  260:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  261:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  262:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  263:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  264:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  264:34  warning  'plain' should be on a new line                                                         vue/max-attributes-per-line
+  264:40  warning  ':icon' should be on a new line                                                         vue/max-attributes-per-line
+  264:55  warning  '@click' should be on a new line                                                        vue/max-attributes-per-line
+  264:70  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  265:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  265:12  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  265:16  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  265:27  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  266:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  267:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  267:13  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found      vue/multiline-html-element-content-newline
+  267:23  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  268:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  268:6   warning  Expected 1 line break before closing tag (`</pagestate>`), but no line breaks found     vue/multiline-html-element-content-newline
+  268:17  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  269:38  warning  'title' should be on a new line                                                         vue/max-attributes-per-line
+  269:53  warning  'width' should be on a new line                                                         vue/max-attributes-per-line
+  269:66  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  270:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  270:6   warning  Expected 1 line break after opening tag (`<el-dialog>`), but no line breaks found       vue/multiline-html-element-content-newline
+  270:35  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  271:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  271:8   warning  Expected 1 line break after opening tag (`<el-form>`), but no line breaks found         vue/multiline-html-element-content-newline
+  271:32  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  272:1   warning  Expected indentation of 2 spaces but found 8 spaces                                     vue/html-indent
+  272:10  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  273:1   warning  Expected indentation of 4 spaces but found 10 spaces                                    vue/html-indent
+  274:1   warning  Expected indentation of 4 spaces but found 10 spaces                                    vue/html-indent
+  274:36  warning  Expected 1 line break before closing bracket, but no line breaks found                  vue/html-closing-bracket-newline
+  274:39  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  274:53  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  275:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  275:34  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  276:1   warning  Expected indentation of 2 spaces but found 8 spaces                                     vue/html-indent
+  276:10  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  277:1   warning  Expected indentation of 4 spaces but found 10 spaces                                    vue/html-indent
+  278:1   warning  Expected indentation of 4 spaces but found 10 spaces                                    vue/html-indent
+  279:1   warning  Expected indentation of 4 spaces but found 10 spaces                                    vue/html-indent
+  279:42  warning  Expected 1 line break before closing bracket, but no line breaks found                  vue/html-closing-bracket-newline
+  279:45  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  279:59  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  280:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  280:32  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  281:1   warning  Expected indentation of 2 spaces but found 8 spaces                                     vue/html-indent
+  281:10  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  281:44  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  281:59  warning  Expected 1 line break before closing tag (`</el-form>`), but no line breaks found       vue/multiline-html-element-content-newline
+  281:68  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  282:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  282:23  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  283:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  283:8   warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found        vue/multiline-html-element-content-newline
+  283:49  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/singleline-html-element-content-newline
+  283:51  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/singleline-html-element-content-newline
+  283:62  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  284:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  284:34  warning  '@click' should be on a new line                                                        vue/max-attributes-per-line
+  284:53  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/singleline-html-element-content-newline
+  284:55  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/singleline-html-element-content-newline
+  284:67  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found      vue/multiline-html-element-content-newline
+  284:77  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  285:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  285:6   warning  Expected 1 line break before closing tag (`</el-dialog>`), but no line breaks found     vue/multiline-html-element-content-newline
+  285:17  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  286:41  warning  'title' should be on a new line                                                         vue/max-attributes-per-line
+  286:55  warning  'width' should be on a new line                                                         vue/max-attributes-per-line
+  286:68  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  287:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  287:6   warning  Expected 1 line break after opening tag (`<el-dialog>`), but no line breaks found       vue/multiline-html-element-content-newline
+  288:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  289:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  290:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  291:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  291:24  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  292:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  292:8   warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found        vue/multiline-html-element-content-newline
+  292:52  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/singleline-html-element-content-newline
+  292:54  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/singleline-html-element-content-newline
+  292:65  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  293:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  293:34  warning  '@click' should be on a new line                                                        vue/max-attributes-per-line
+  293:55  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  294:1   warning  Expected indentation of 2 spaces but found 8 spaces                                     vue/html-indent
+  294:10  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  294:12  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  294:23  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  295:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  295:8   warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found      vue/multiline-html-element-content-newline
+  295:18  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  296:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  296:6   warning  Expected 1 line break before closing tag (`</el-dialog>`), but no line breaks found     vue/multiline-html-element-content-newline
+  296:17  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+
+D:\javaweb\个人博客\人生系统\life-system\src\renderer\features\goals\GoalsPage.vue
+   94:31  warning  ':icon' should be on a new line                                                         vue/max-attributes-per-line
+   94:44  warning  '@click' should be on a new line                                                        vue/max-attributes-per-line
+   94:58  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/singleline-html-element-content-newline
+   94:62  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/singleline-html-element-content-newline
+  102:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  102:6   warning  Expected 1 line break after opening tag (`<PageState>`), but no line breaks found       vue/multiline-html-element-content-newline
+  103:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  103:33  warning  ':key' should be on a new line                                                          vue/max-attributes-per-line
+  103:48  warning  'class' should be on a new line                                                         vue/max-attributes-per-line
+  104:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  105:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  105:35  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found             vue/singleline-html-element-content-newline
+  105:51  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found           vue/singleline-html-element-content-newline
+  106:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  107:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  107:34  warning  'effect' should be on a new line                                                        vue/max-attributes-per-line
+  107:49  warning  Expected 1 line break after opening tag (`<el-tag>`), but no line breaks found          vue/multiline-html-element-content-newline
+  108:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  109:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  109:15  warning  Expected 1 line break before closing tag (`</el-tag>`), but no line breaks found        vue/multiline-html-element-content-newline
+  109:23  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  110:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  110:35  warning  'type' should be on a new line                                                          vue/max-attributes-per-line
+  110:47  warning  'effect' should be on a new line                                                        vue/max-attributes-per-line
+  110:62  warning  Expected 1 line break after opening tag (`<el-tag>`), but no line breaks found          vue/multiline-html-element-content-newline
+  111:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  112:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  112:15  warning  Expected 1 line break before closing tag (`</el-tag>`), but no line breaks found        vue/multiline-html-element-content-newline
+  112:23  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  113:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  114:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  115:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  116:1   warning  Expected indentation of 10 spaces but found 14 spaces                                   vue/html-indent
+  116:16  warning  Expected 1 line break after opening tag (`<el-tag>`), but no line breaks found          vue/multiline-html-element-content-newline
+  116:46  warning  Expected 1 line break before closing tag (`</el-tag>`), but no line breaks found        vue/multiline-html-element-content-newline
+  116:54  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  117:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  118:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  119:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  120:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  121:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  122:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  123:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  124:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  125:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  125:26  warning  'class' should be on a new line                                                         vue/max-attributes-per-line
+  126:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  127:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  128:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  129:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  130:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  131:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  132:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  133:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  134:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  135:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  135:13  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found           vue/multiline-html-element-content-newline
+  135:18  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  136:4   warning  Expected 1 line break before closing tag (`</pagestate>`), but no line breaks found     vue/multiline-html-element-content-newline
+  137:31  warning  'title' should be on a new line                                                         vue/max-attributes-per-line
+  137:44  warning  'width' should be on a new line                                                         vue/max-attributes-per-line
+  137:57  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  138:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  138:6   warning  Expected 1 line break after opening tag (`<el-dialog>`), but no line breaks found       vue/multiline-html-element-content-newline
+  138:36  warning  'class' should be on a new line                                                         vue/max-attributes-per-line
+  138:55  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  139:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  139:8   warning  Expected 1 line break after opening tag (`<el-form>`), but no line breaks found         vue/multiline-html-element-content-newline
+  139:32  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  140:1   warning  Expected indentation of 3 spaces but found 8 spaces                                     vue/html-indent
+  140:10  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  140:41  warning  'maxlength' should be on a new line                                                     vue/max-attributes-per-line
+  140:56  warning  'show-word-limit' should be on a new line                                               vue/max-attributes-per-line
+  140:71  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  141:1   warning  Expected indentation of 3 spaces but found 6 spaces                                     vue/html-indent
+  141:9   warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  142:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  143:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  143:33  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  144:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  144:12  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  144:44  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  145:1   warning  Expected indentation of 6 spaces but found 12 spaces                                    vue/html-indent
+  145:14  warning  Expected 1 line break after opening tag (`<el-select>`), but no line breaks found       vue/multiline-html-element-content-newline
+  145:36  warning  'value' should be on a new line                                                         vue/max-attributes-per-line
+  146:1   warning  Expected indentation of 8 spaces but found 14 spaces                                    vue/html-indent
+  147:1   warning  Expected indentation of 8 spaces but found 14 spaces                                    vue/html-indent
+  147:32  warning  Expected 1 line break before closing bracket, but no line breaks found                  vue/html-closing-bracket-newline
+  148:1   warning  Expected indentation of 10 spaces but found 14 spaces                                   vue/html-indent
+  149:1   warning  Expected indentation of 10 spaces but found 14 spaces                                   vue/html-indent
+  149:30  warning  Expected 1 line break before closing bracket, but no line breaks found                  vue/html-closing-bracket-newline
+  149:33  warning  Expected 1 line break before closing tag (`</el-select>`), but no line breaks found     vue/multiline-html-element-content-newline
+  149:45  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  149:59  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  150:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  150:36  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  151:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  151:12  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  151:48  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  152:1   warning  Expected indentation of 6 spaces but found 12 spaces                                    vue/html-indent
+  152:14  warning  Expected 1 line break after opening tag (`<el-select>`), but no line breaks found       vue/multiline-html-element-content-newline
+  152:37  warning  'value' should be on a new line                                                         vue/max-attributes-per-line
+  153:1   warning  Expected indentation of 8 spaces but found 14 spaces                                    vue/html-indent
+  154:1   warning  Expected indentation of 8 spaces but found 14 spaces                                    vue/html-indent
+  154:32  warning  Expected 1 line break before closing bracket, but no line breaks found                  vue/html-closing-bracket-newline
+  155:1   warning  Expected indentation of 10 spaces but found 14 spaces                                   vue/html-indent
+  156:1   warning  Expected indentation of 10 spaces but found 14 spaces                                   vue/html-indent
+  156:29  warning  Expected 1 line break before closing bracket, but no line breaks found                  vue/html-closing-bracket-newline
+  156:32  warning  Expected 1 line break before closing tag (`</el-select>`), but no line breaks found     vue/multiline-html-element-content-newline
+  156:43  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  157:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  157:10  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  158:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  159:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  159:53  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  160:1   warning  Expected indentation of 4 spaces but found 8 spaces                                     vue/html-indent
+  160:10  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found        vue/multiline-html-element-content-newline
+  160:34  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  161:1   warning  Expected indentation of 5 spaces but found 10 spaces                                    vue/html-indent
+  161:12  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  161:41  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  162:1   warning  Expected indentation of 5 spaces but found 8 spaces                                     vue/html-indent
+  162:11  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  163:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  164:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  164:36  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  165:1   warning  Expected indentation of 8 spaces but found 12 spaces                                    vue/html-indent
+  165:14  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  166:1   warning  Expected indentation of 10 spaces but found 14 spaces                                   vue/html-indent
+  167:1   warning  Expected indentation of 10 spaces but found 14 spaces                                   vue/html-indent
+  167:40  warning  Expected 1 line break before closing bracket, but no line breaks found                  vue/html-closing-bracket-newline
+  167:43  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  167:57  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  168:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  168:37  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  169:1   warning  Expected indentation of 8 spaces but found 12 spaces                                    vue/html-indent
+  169:14  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  170:1   warning  Expected indentation of 10 spaces but found 14 spaces                                   vue/html-indent
+  171:1   warning  Expected indentation of 10 spaces but found 14 spaces                                   vue/html-indent
+  172:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  172:13  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  172:28  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found           vue/multiline-html-element-content-newline
+  172:34  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found      vue/multiline-html-element-content-newline
+  172:44  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  173:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  173:34  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  174:1   warning  Expected indentation of 4 spaces but found 8 spaces                                     vue/html-indent
+  174:10  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  175:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  176:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  177:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  178:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  178:27  warning  Expected 1 line break before closing bracket, but no line breaks found                  vue/html-closing-bracket-newline
+  178:30  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  178:44  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  179:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  179:32  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  180:1   warning  Expected indentation of 4 spaces but found 8 spaces                                     vue/html-indent
+  180:10  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  181:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  182:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  183:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  183:20  warning  Expected 1 line break before closing bracket, but no line breaks found                  vue/html-closing-bracket-newline
+  183:23  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  183:37  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  184:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  184:32  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  185:1   warning  Expected indentation of 4 spaces but found 8 spaces                                     vue/html-indent
+  185:10  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  186:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  187:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  188:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  189:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  190:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  190:31  warning  Expected 1 line break before closing bracket, but no line breaks found                  vue/html-closing-bracket-newline
+  190:34  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  190:49  warning  Expected 1 line break before closing tag (`</el-form>`), but no line breaks found       vue/multiline-html-element-content-newline
+  190:58  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  191:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  191:23  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  192:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  192:8   warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found        vue/multiline-html-element-content-newline
+  192:43  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/singleline-html-element-content-newline
+  192:45  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/singleline-html-element-content-newline
+  192:56  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  193:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  193:34  warning  ':loading' should be on a new line                                                      vue/max-attributes-per-line
+  193:52  warning  '@click' should be on a new line                                                        vue/max-attributes-per-line
+  193:65  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  194:1   warning  Expected indentation of 2 spaces but found 8 spaces                                     vue/html-indent
+  194:10  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  194:12  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  194:23  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  195:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  195:8   warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found      vue/multiline-html-element-content-newline
+  195:18  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  196:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  196:6   warning  Expected 1 line break before closing tag (`</el-dialog>`), but no line breaks found     vue/multiline-html-element-content-newline
+  196:17  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+
+D:\javaweb\个人博客\人生系统\life-system\src\renderer\features\habits\HabitsPage.vue
+  123:31  warning  ':icon' should be on a new line                                                         vue/max-attributes-per-line
+  123:44  warning  '@click' should be on a new line                                                        vue/max-attributes-per-line
+  123:66  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  124:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  124:8   warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  124:12  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  124:23  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  133:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  133:6   warning  Expected 1 line break after opening tag (`<PageState>`), but no line breaks found       vue/multiline-html-element-content-newline
+  134:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  134:33  warning  ':key' should be on a new line                                                          vue/max-attributes-per-line
+  134:48  warning  'class' should be on a new line                                                         vue/max-attributes-per-line
+  135:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  135:32  warning  '@click' should be on a new line                                                        vue/max-attributes-per-line
+  136:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  136:35  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found             vue/singleline-html-element-content-newline
+  136:50  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found           vue/singleline-html-element-content-newline
+  137:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  138:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  139:1   warning  Expected indentation of 12 spaces but found 14 spaces                                   vue/html-indent
+  140:1   warning  Expected indentation of 14 spaces but found 16 spaces                                   vue/html-indent
+  141:1   warning  Expected indentation of 14 spaces but found 16 spaces                                   vue/html-indent
+  142:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  143:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  144:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  145:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  146:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  147:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  148:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  149:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  150:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  151:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  151:12  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  151:49  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  151:60  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  152:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  153:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  154:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  155:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  156:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  157:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  158:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  159:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  160:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  161:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  162:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  163:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  164:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  164:13  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found           vue/multiline-html-element-content-newline
+  164:18  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  165:4   warning  Expected 1 line break before closing tag (`</pagestate>`), but no line breaks found     vue/multiline-html-element-content-newline
+  166:31  warning  'title' should be on a new line                                                         vue/max-attributes-per-line
+  166:44  warning  'width' should be on a new line                                                         vue/max-attributes-per-line
+  166:57  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  167:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  167:6   warning  Expected 1 line break after opening tag (`<el-dialog>`), but no line breaks found       vue/multiline-html-element-content-newline
+  167:35  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  168:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  168:8   warning  Expected 1 line break after opening tag (`<el-form>`), but no line breaks found         vue/multiline-html-element-content-newline
+  168:32  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  169:1   warning  Expected indentation of 2 spaces but found 8 spaces                                     vue/html-indent
+  169:10  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  169:40  warning  'maxlength' should be on a new line                                                     vue/max-attributes-per-line
+  169:57  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  169:71  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  170:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  170:32  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  171:1   warning  Expected indentation of 2 spaces but found 8 spaces                                     vue/html-indent
+  171:10  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  172:1   warning  Expected indentation of 4 spaces but found 10 spaces                                    vue/html-indent
+  173:1   warning  Expected indentation of 4 spaces but found 10 spaces                                    vue/html-indent
+  174:1   warning  Expected indentation of 6 spaces but found 12 spaces                                    vue/html-indent
+  175:1   warning  Expected indentation of 6 spaces but found 12 spaces                                    vue/html-indent
+  176:1   warning  Expected indentation of 4 spaces but found 10 spaces                                    vue/html-indent
+  176:13  warning  Expected 1 line break before closing bracket, but no line breaks found                  vue/html-closing-bracket-newline
+  176:16  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  176:30  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  177:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  178:1   warning  Expected indentation of 4 spaces but found 8 spaces                                     vue/html-indent
+  179:1   warning  Expected indentation of 4 spaces but found 8 spaces                                     vue/html-indent
+  180:1   warning  Expected indentation of 2 spaces but found 8 spaces                                     vue/html-indent
+  180:10  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  181:1   warning  Expected indentation of 4 spaces but found 10 spaces                                    vue/html-indent
+  182:1   warning  Expected indentation of 4 spaces but found 10 spaces                                    vue/html-indent
+  183:1   warning  Expected indentation of 4 spaces but found 10 spaces                                    vue/html-indent
+  183:19  warning  Expected 1 line break before closing bracket, but no line breaks found                  vue/html-closing-bracket-newline
+  183:22  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  183:36  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  184:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  184:32  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  185:1   warning  Expected indentation of 2 spaces but found 8 spaces                                     vue/html-indent
+  185:10  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  186:1   warning  Expected indentation of 4 spaces but found 10 spaces                                    vue/html-indent
+  187:1   warning  Expected indentation of 4 spaces but found 10 spaces                                    vue/html-indent
+  187:26  warning  Expected 1 line break before closing bracket, but no line breaks found                  vue/html-closing-bracket-newline
+  187:29  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  187:44  warning  Expected 1 line break before closing tag (`</el-form>`), but no line breaks found       vue/multiline-html-element-content-newline
+  187:53  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  188:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  188:23  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  189:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  189:8   warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found        vue/multiline-html-element-content-newline
+  189:43  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/singleline-html-element-content-newline
+  189:45  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/singleline-html-element-content-newline
+  189:56  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  190:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  190:34  warning  '@click' should be on a new line                                                        vue/max-attributes-per-line
+  190:48  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/singleline-html-element-content-newline
+  190:50  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/singleline-html-element-content-newline
+  190:62  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found      vue/multiline-html-element-content-newline
+  190:72  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  191:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  191:6   warning  Expected 1 line break before closing tag (`</el-dialog>`), but no line breaks found     vue/multiline-html-element-content-newline
+  191:17  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  193:38  warning  'title' should be on a new line                                                         vue/max-attributes-per-line
+  193:51  warning  'width' should be on a new line                                                         vue/max-attributes-per-line
+  193:64  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  194:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  194:6   warning  Expected 1 line break after opening tag (`<el-dialog>`), but no line breaks found       vue/multiline-html-element-content-newline
+  194:43  warning  'class' should be on a new line                                                         vue/max-attributes-per-line
+  195:1   warning  Expected indentation of 5 spaces but found 6 spaces                                     vue/html-indent
+  195:45  warning  ':key' should be on a new line                                                          vue/max-attributes-per-line
+  195:60  warning  'class' should be on a new line                                                         vue/max-attributes-per-line
+  196:1   warning  Expected indentation of 7 spaces but found 8 spaces                                     vue/html-indent
+  196:33  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found             vue/singleline-html-element-content-newline
+  196:74  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found           vue/singleline-html-element-content-newline
+  197:1   warning  Expected indentation of 5 spaces but found 6 spaces                                     vue/html-indent
+  198:1   warning  Expected indentation of 3 spaces but found 4 spaces                                     vue/html-indent
+  199:22  warning  'description' should be on a new line                                                   vue/max-attributes-per-line
+  199:42  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  200:1   warning  Expected indentation of 4 spaces but found 2 spaces                                     vue/html-indent
+  200:5   warning  Expected 1 line break before closing tag (`</el-dialog>`), but no line breaks found     vue/multiline-html-element-content-newline
+
+D:\javaweb\个人博客\人生系统\life-system\src\renderer\features\projects\ProjectsPage.vue
+   94:31  warning  ':icon' should be on a new line                                                         vue/max-attributes-per-line
+   94:44  warning  '@click' should be on a new line                                                        vue/max-attributes-per-line
+   94:66  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+   95:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+   95:8   warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+   95:12  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+   95:23  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  104:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  104:6   warning  Expected 1 line break after opening tag (`<PageState>`), but no line breaks found       vue/multiline-html-element-content-newline
+  105:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  105:33  warning  ':key' should be on a new line                                                          vue/max-attributes-per-line
+  105:48  warning  'class' should be on a new line                                                         vue/max-attributes-per-line
+  106:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  107:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  107:35  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found             vue/singleline-html-element-content-newline
+  107:51  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found           vue/singleline-html-element-content-newline
+  108:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  109:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  110:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  111:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  112:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  113:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  114:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  115:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  116:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  117:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  118:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  119:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  119:12  warning  Expected 1 line break after opening tag (`<el-select>`), but no line breaks found       vue/multiline-html-element-content-newline
+  119:35  warning  'value' should be on a new line                                                         vue/max-attributes-per-line
+  120:1   warning  Expected indentation of 8 spaces but found 12 spaces                                    vue/html-indent
+  121:1   warning  Expected indentation of 8 spaces but found 12 spaces                                    vue/html-indent
+  121:27  warning  Expected 1 line break before closing bracket, but no line breaks found                  vue/html-closing-bracket-newline
+  122:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  123:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  123:25  warning  Expected 1 line break before closing bracket, but no line breaks found                  vue/html-closing-bracket-newline
+  123:28  warning  Expected 1 line break before closing tag (`</el-select>`), but no line breaks found     vue/multiline-html-element-content-newline
+  123:39  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  124:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  125:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  126:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  127:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  128:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  129:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  130:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  131:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  132:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  133:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  134:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  135:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  136:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  136:13  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found           vue/multiline-html-element-content-newline
+  136:19  warning  Expected 1 line break before closing tag (`</pagestate>`), but no line breaks found     vue/multiline-html-element-content-newline
+  136:30  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  137:32  warning  'title' should be on a new line                                                         vue/max-attributes-per-line
+  137:47  warning  'width' should be on a new line                                                         vue/max-attributes-per-line
+  137:60  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  138:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  138:6   warning  Expected 1 line break after opening tag (`<el-dialog>`), but no line breaks found       vue/multiline-html-element-content-newline
+  138:35  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  139:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  139:8   warning  Expected 1 line break after opening tag (`<el-form>`), but no line breaks found         vue/multiline-html-element-content-newline
+  139:32  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  140:1   warning  Expected indentation of 3 spaces but found 8 spaces                                     vue/html-indent
+  140:10  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  140:41  warning  'maxlength' should be on a new line                                                     vue/max-attributes-per-line
+  140:58  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  140:72  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  141:1   warning  Expected indentation of 3 spaces but found 6 spaces                                     vue/html-indent
+  141:34  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  142:1   warning  Expected indentation of 3 spaces but found 8 spaces                                     vue/html-indent
+  142:10  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  142:43  warning  'clearable' should be on a new line                                                     vue/max-attributes-per-line
+  142:53  warning  'style' should be on a new line                                                         vue/max-attributes-per-line
+  142:72  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  143:1   warning  Expected indentation of 3 spaces but found 10 spaces                                    vue/html-indent
+  143:12  warning  Expected 1 line break after opening tag (`<el-select>`), but no line breaks found       vue/multiline-html-element-content-newline
+  144:1   warning  Expected indentation of 5 spaces but found 12 spaces                                    vue/html-indent
+  145:1   warning  Expected indentation of 5 spaces but found 12 spaces                                    vue/html-indent
+  146:1   warning  Expected indentation of 5 spaces but found 12 spaces                                    vue/html-indent
+  147:1   warning  Expected indentation of 5 spaces but found 12 spaces                                    vue/html-indent
+  147:29  warning  Expected 1 line break before closing bracket, but no line breaks found                  vue/html-closing-bracket-newline
+  147:32  warning  Expected 1 line break before closing tag (`</el-select>`), but no line breaks found     vue/multiline-html-element-content-newline
+  147:43  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  148:1   warning  Expected indentation of 3 spaces but found 6 spaces                                     vue/html-indent
+  148:8   warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  149:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  150:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  150:35  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  151:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  151:12  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  152:1   warning  Expected indentation of 8 spaces but found 12 spaces                                    vue/html-indent
+  153:1   warning  Expected indentation of 8 spaces but found 12 spaces                                    vue/html-indent
+  154:1   warning  Expected indentation of 8 spaces but found 12 spaces                                    vue/html-indent
+  154:44  warning  Expected 1 line break before closing bracket, but no line breaks found                  vue/html-closing-bracket-newline
+  154:47  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  154:61  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  155:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  155:36  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  156:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  156:12  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  157:1   warning  Expected indentation of 8 spaces but found 12 spaces                                    vue/html-indent
+  158:1   warning  Expected indentation of 8 spaces but found 12 spaces                                    vue/html-indent
+  159:1   warning  Expected indentation of 8 spaces but found 12 spaces                                    vue/html-indent
+  160:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  160:11  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  161:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  162:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  162:31  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  163:1   warning  Expected indentation of 4 spaces but found 8 spaces                                     vue/html-indent
+  163:10  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  163:47  warning  'type' should be on a new line                                                          vue/max-attributes-per-line
+  163:65  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  163:79  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  164:1   warning  Expected indentation of 4 spaces but found 6 spaces                                     vue/html-indent
+  164:32  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  165:1   warning  Expected indentation of 4 spaces but found 8 spaces                                     vue/html-indent
+  165:10  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  166:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  167:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  168:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  169:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  169:23  warning  Expected 1 line break before closing bracket, but no line breaks found                  vue/html-closing-bracket-newline
+  169:26  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  169:41  warning  Expected 1 line break before closing tag (`</el-form>`), but no line breaks found       vue/multiline-html-element-content-newline
+  169:50  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  170:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  170:23  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  171:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  171:8   warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found        vue/multiline-html-element-content-newline
+  171:43  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/singleline-html-element-content-newline
+  171:45  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/singleline-html-element-content-newline
+  171:56  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  172:1   warning  Expected indentation of 2 spaces but found 6 spaces                                     vue/html-indent
+  172:34  warning  '@click' should be on a new line                                                        vue/max-attributes-per-line
+  172:48  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/singleline-html-element-content-newline
+  172:50  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/singleline-html-element-content-newline
+  172:62  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found      vue/multiline-html-element-content-newline
+  172:72  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  173:1   warning  Expected indentation of 2 spaces but found 4 spaces                                     vue/html-indent
+  173:6   warning  Expected 1 line break before closing tag (`</el-dialog>`), but no line breaks found     vue/multiline-html-element-content-newline
+  173:17  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+
+D:\javaweb\个人博客\人生系统\life-system\src\renderer\features\search\SearchPage.vue
+   84:33  warning  'size' should be on a new line                                                                vue/max-attributes-per-line
+   84:46  warning  '@click' should be on a new line                                                              vue/max-attributes-per-line
+   84:62  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found             vue/singleline-html-element-content-newline
+   84:64  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found           vue/singleline-html-element-content-newline
+   86:38  warning  'class' should be on a new line                                                               vue/max-attributes-per-line
+   86:53  warning  Expected no line breaks before closing bracket, but 1 line break found                        vue/html-closing-bracket-newline
+   87:1   warning  Expected indentation of 2 spaces but found 4 spaces                                           vue/html-indent
+   87:6   warning  Expected 1 line break after opening tag (`<el-checkbox-group>`), but no line breaks found     vue/multiline-html-element-content-newline
+   87:39  warning  Expected 1 line break after opening tag (`<el-checkbox-button>`), but no line breaks found    vue/singleline-html-element-content-newline
+   87:41  warning  Expected 1 line break before closing tag (`</el-checkbox-button>`), but no line breaks found  vue/singleline-html-element-content-newline
+   87:61  warning  Expected no line breaks before closing bracket, but 1 line break found                        vue/html-closing-bracket-newline
+   88:1   warning  Expected indentation of 2 spaces but found 4 spaces                                           vue/html-indent
+   88:42  warning  Expected 1 line break after opening tag (`<el-checkbox-button>`), but no line breaks found    vue/singleline-html-element-content-newline
+   88:44  warning  Expected 1 line break before closing tag (`</el-checkbox-button>`), but no line breaks found  vue/singleline-html-element-content-newline
+   88:64  warning  Expected no line breaks before closing bracket, but 1 line break found                        vue/html-closing-bracket-newline
+   89:1   warning  Expected indentation of 2 spaces but found 4 spaces                                           vue/html-indent
+   89:39  warning  Expected 1 line break after opening tag (`<el-checkbox-button>`), but no line breaks found    vue/singleline-html-element-content-newline
+   89:41  warning  Expected 1 line break before closing tag (`</el-checkbox-button>`), but no line breaks found  vue/singleline-html-element-content-newline
+   89:61  warning  Expected no line breaks before closing bracket, but 1 line break found                        vue/html-closing-bracket-newline
+   90:1   warning  Expected indentation of 2 spaces but found 4 spaces                                           vue/html-indent
+   90:40  warning  Expected 1 line break after opening tag (`<el-checkbox-button>`), but no line breaks found    vue/singleline-html-element-content-newline
+   90:42  warning  Expected 1 line break before closing tag (`</el-checkbox-button>`), but no line breaks found  vue/singleline-html-element-content-newline
+   90:62  warning  Expected no line breaks before closing bracket, but 1 line break found                        vue/html-closing-bracket-newline
+   91:1   warning  Expected indentation of 2 spaces but found 4 spaces                                           vue/html-indent
+   91:42  warning  Expected no line breaks before closing bracket, but 1 line break found                        vue/html-closing-bracket-newline
+   92:1   warning  Expected indentation of 2 spaces but found 6 spaces                                           vue/html-indent
+   92:8   warning  Expected 1 line break after opening tag (`<el-checkbox-button>`), but no line breaks found    vue/multiline-html-element-content-newline
+   92:10  warning  Expected 1 line break before closing tag (`</el-checkbox-button>`), but no line breaks found  vue/multiline-html-element-content-newline
+   92:30  warning  Expected no line breaks before closing bracket, but 1 line break found                        vue/html-closing-bracket-newline
+   93:1   warning  Expected indentation of 2 spaces but found 4 spaces                                           vue/html-indent
+   93:6   warning  Expected 1 line break before closing tag (`</el-checkbox-group>`), but no line breaks found   vue/multiline-html-element-content-newline
+   93:25  warning  Expected no line breaks before closing bracket, but 1 line break found                        vue/html-closing-bracket-newline
+  100:1   warning  Expected indentation of 2 spaces but found 4 spaces                                           vue/html-indent
+  100:6   warning  Expected 1 line break after opening tag (`<PageState>`), but no line breaks found             vue/multiline-html-element-content-newline
+  100:46  warning  ':key' should be on a new line                                                                vue/max-attributes-per-line
+  100:58  warning  'class' should be on a new line                                                               vue/max-attributes-per-line
+  101:1   warning  Expected indentation of 4 spaces but found 6 spaces                                           vue/html-indent
+  101:33  warning  Expected 1 line break after opening tag (`<h2>`), but no line breaks found                    vue/singleline-html-element-content-newline
+  101:71  warning  Expected 1 line break before closing tag (`</h2>`), but no line breaks found                  vue/singleline-html-element-content-newline
+  102:1   warning  Expected indentation of 4 spaces but found 6 spaces                                           vue/html-indent
+  103:1   warning  Expected indentation of 6 spaces but found 8 spaces                                           vue/html-indent
+  103:35  warning  ':key' should be on a new line                                                                vue/max-attributes-per-line
+  103:50  warning  'class' should be on a new line                                                               vue/max-attributes-per-line
+  104:1   warning  Expected indentation of 8 spaces but found 10 spaces                                          vue/html-indent
+  105:1   warning  Expected indentation of 10 spaces but found 12 spaces                                         vue/html-indent
+  105:37  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found                   vue/singleline-html-element-content-newline
+  105:53  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found                 vue/singleline-html-element-content-newline
+  106:1   warning  Expected indentation of 10 spaces but found 12 spaces                                         vue/html-indent
+  107:1   warning  Expected indentation of 12 spaces but found 14 spaces                                         vue/html-indent
+  108:1   warning  Expected indentation of 14 spaces but found 16 spaces                                         vue/html-indent
+  111:1   warning  Expected indentation of 12 spaces but found 14 spaces                                         vue/html-indent
+  112:1   warning  Expected indentation of 10 spaces but found 12 spaces                                         vue/html-indent
+  113:1   warning  Expected indentation of 8 spaces but found 10 spaces                                          vue/html-indent
+  114:1   warning  Expected indentation of 8 spaces but found 10 spaces                                          vue/html-indent
+  115:1   warning  Expected indentation of 10 spaces but found 12 spaces                                         vue/html-indent
+  116:1   warning  Expected indentation of 10 spaces but found 12 spaces                                         vue/html-indent
+  117:1   warning  Expected indentation of 10 spaces but found 12 spaces                                         vue/html-indent
+  118:1   warning  Expected indentation of 10 spaces but found 12 spaces                                         vue/html-indent
+  119:1   warning  Expected indentation of 8 spaces but found 10 spaces                                          vue/html-indent
+  120:1   warning  Expected indentation of 6 spaces but found 8 spaces                                           vue/html-indent
+  121:1   warning  Expected indentation of 4 spaces but found 6 spaces                                           vue/html-indent
+  121:13  warning  Expected 1 line break before closing tag (`</section>`), but no line breaks found             vue/multiline-html-element-content-newline
+  121:22  warning  Expected no line breaks before closing bracket, but 1 line break found                        vue/html-closing-bracket-newline
+  122:4   warning  Expected 1 line break before closing tag (`</pagestate>`), but no line breaks found           vue/multiline-html-element-content-newline
+
+D:\javaweb\个人博客\人生系统\life-system\src\renderer\features\settings\SettingsPage.vue
+  283:36  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  284:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  284:10  warning  Expected 1 line break after opening tag (`<el-form>`), but no line breaks found         vue/multiline-html-element-content-newline
+  285:1   warning  Expected indentation of 9 spaces but found 10 spaces                                    vue/html-indent
+  285:35  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  286:1   warning  Expected indentation of 9 spaces but found 12 spaces                                    vue/html-indent
+  286:14  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  286:47  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  286:61  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  287:1   warning  Expected indentation of 9 spaces but found 10 spaces                                    vue/html-indent
+  287:36  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  288:1   warning  Expected indentation of 9 spaces but found 12 spaces                                    vue/html-indent
+  288:14  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  288:52  warning  ':controls' should be on a new line                                                     vue/max-attributes-per-line
+  288:69  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  289:1   warning  Expected indentation of 9 spaces but found 10 spaces                                    vue/html-indent
+  289:13  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  290:1   warning  Expected indentation of 7 spaces but found 8 spaces                                     vue/html-indent
+  292:36  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  293:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  293:14  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  293:47  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  293:61  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  294:37  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  295:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  295:14  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  295:48  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  296:13  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  298:33  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  299:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  299:12  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  299:47  warning  'type' should be on a new line                                                          vue/max-attributes-per-line
+  299:63  warning  'show-password' should be on a new line                                                 vue/max-attributes-per-line
+  299:76  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  300:11  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  302:41  warning  ':loading' should be on a new line                                                      vue/max-attributes-per-line
+  302:68  warning  '@click' should be on a new line                                                        vue/max-attributes-per-line
+  302:81  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  303:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  303:14  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  303:18  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  303:29  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  304:38  warning  ':loading' should be on a new line                                                      vue/max-attributes-per-line
+  304:65  warning  '@click' should be on a new line                                                        vue/max-attributes-per-line
+  304:78  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  305:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  305:14  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  305:19  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  305:30  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  314:1   warning  Expected indentation of 8 spaces but found 6 spaces                                     vue/html-indent
+  314:9   warning  Expected 1 line break before closing tag (`</el-form>`), but no line breaks found       vue/multiline-html-element-content-newline
+  332:13  warning  Attribute "style" should go before "@change"                                            vue/attributes-order
+  342:39  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  343:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  343:12  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  343:43  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  344:11  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  345:38  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  346:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  346:12  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  346:43  warning  'type' should be on a new line                                                          vue/max-attributes-per-line
+  346:59  warning  'show-password' should be on a new line                                                 vue/max-attributes-per-line
+  346:72  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  347:11  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  348:33  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  349:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  349:12  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  349:41  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  350:11  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  352:53  warning  '@click' should be on a new line                                                        vue/max-attributes-per-line
+  352:69  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  353:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  353:14  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  353:18  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  353:29  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  359:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  359:14  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  359:16  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  359:27  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  381:40  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  382:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  382:12  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  382:49  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  383:11  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  384:33  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  385:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  385:12  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  388:17  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  388:31  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  391:59  warning  '@click' should be on a new line                                                        vue/max-attributes-per-line
+  391:81  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  392:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  392:14  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  392:18  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  392:29  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  398:1   warning  Expected indentation of 10 spaces but found 12 spaces                                   vue/html-indent
+  398:14  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  398:16  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  398:27  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  419:38  warning  'label-width' should be on a new line                                                   vue/max-attributes-per-line
+  419:57  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  420:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  420:10  warning  Expected 1 line break after opening tag (`<el-form>`), but no line breaks found         vue/multiline-html-element-content-newline
+  420:36  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  421:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  421:12  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  421:61  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  421:75  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  422:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  422:36  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  423:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  423:12  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  423:61  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  423:75  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  424:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  424:36  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  425:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  425:12  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  426:1   warning  Expected indentation of 8 spaces but found 12 spaces                                    vue/html-indent
+  427:1   warning  Expected indentation of 8 spaces but found 12 spaces                                    vue/html-indent
+  428:1   warning  Expected indentation of 6 spaces but found 12 spaces                                    vue/html-indent
+  428:24  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  429:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  429:12  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  429:26  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  430:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  430:40  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  431:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  431:12  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  432:1   warning  Expected indentation of 8 spaces but found 12 spaces                                    vue/html-indent
+  433:1   warning  Expected indentation of 8 spaces but found 12 spaces                                    vue/html-indent
+  434:1   warning  Expected indentation of 8 spaces but found 12 spaces                                    vue/html-indent
+  434:24  warning  Expected 1 line break before closing bracket, but no line breaks found                  vue/html-closing-bracket-newline
+  434:27  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  434:41  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  435:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  435:39  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  436:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  436:12  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  437:1   warning  Expected indentation of 8 spaces but found 12 spaces                                    vue/html-indent
+  438:1   warning  Expected indentation of 8 spaces but found 12 spaces                                    vue/html-indent
+  439:1   warning  Expected indentation of 8 spaces but found 12 spaces                                    vue/html-indent
+  439:23  warning  Expected 1 line break before closing bracket, but no line breaks found                  vue/html-closing-bracket-newline
+  439:26  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  439:40  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  440:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  440:36  warning  '@click' should be on a new line                                                        vue/max-attributes-per-line
+  440:58  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  441:1   warning  Expected indentation of 6 spaces but found 10 spaces                                    vue/html-indent
+  441:12  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  441:18  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  441:29  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  442:1   warning  Expected indentation of 6 spaces but found 8 spaces                                     vue/html-indent
+  442:10  warning  Expected 1 line break before closing tag (`</el-form>`), but no line breaks found       vue/multiline-html-element-content-newline
+  442:19  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  447:32  warning  'style' should be on a new line                                                         vue/max-attributes-per-line
+  448:37  warning  ':loading' should be on a new line                                                      vue/max-attributes-per-line
+  448:66  warning  '@click' should be on a new line                                                        vue/max-attributes-per-line
+  448:81  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  449:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  449:12  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  449:16  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  449:27  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  454:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  454:12  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  454:16  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  454:27  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  459:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  459:12  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  459:19  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  459:30  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  464:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  464:12  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  464:23  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  464:34  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  469:1   warning  Expected indentation of 8 spaces but found 10 spaces                                    vue/html-indent
+  469:12  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found       vue/multiline-html-element-content-newline
+  469:18  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found     vue/multiline-html-element-content-newline
+  469:29  warning  Expected no line breaks before closing bracket, but 1 line break found                  vue/html-closing-bracket-newline
+  473:33  warning  Expected 1 line break after opening tag (`<h3>`), but no line breaks found              vue/singleline-html-element-content-newline
+  473:39  warning  Expected 1 line break before closing tag (`</h3>`), but no line breaks found            vue/singleline-html-element-content-newline
+  474:32  warning  'class' should be on a new line                                                         vue/max-attributes-per-line
+  475:36  warning  ':key' should be on a new line                                                          vue/max-attributes-per-line
+  475:51  warning  'class' should be on a new line                                                         vue/max-attributes-per-line
+  477:37  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found             vue/singleline-html-element-content-newline
+  477:71  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found           vue/singleline-html-element-content-newline
+  480:45  warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found        vue/singleline-html-element-content-newline
+  480:64  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found      vue/singleline-html-element-content-newline
+  497:19  warning  'class' should be on a new line                                                         vue/max-attributes-per-line
+  497:40  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found             vue/singleline-html-element-content-newline
+  497:47  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found           vue/singleline-html-element-content-newline
+
+D:\javaweb\个人博客\人生系统\life-system\src\renderer\features\tasks\TasksPage.vue
+  100:31  warning  ':icon' should be on a new line                                                             vue/max-attributes-per-line
+  100:44  warning  '@click' should be on a new line                                                            vue/max-attributes-per-line
+  100:66  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  101:1   warning  Expected indentation of 4 spaces but found 6 spaces                                         vue/html-indent
+  101:8   warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found           vue/multiline-html-element-content-newline
+  101:12  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found         vue/multiline-html-element-content-newline
+  101:23  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  122:1   warning  Expected indentation of 2 spaces but found 4 spaces                                         vue/html-indent
+  122:6   warning  Expected 1 line break after opening tag (`<PageState>`), but no line breaks found           vue/multiline-html-element-content-newline
+  123:1   warning  Expected indentation of 4 spaces but found 6 spaces                                         vue/html-indent
+  123:33  warning  ':key' should be on a new line                                                              vue/max-attributes-per-line
+  123:48  warning  'class' should be on a new line                                                             vue/max-attributes-per-line
+  124:1   warning  Expected indentation of 6 spaces but found 8 spaces                                         vue/html-indent
+  125:1   warning  Expected indentation of 8 spaces but found 10 spaces                                        vue/html-indent
+  126:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  127:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  128:1   warning  Expected indentation of 12 spaces but found 14 spaces                                       vue/html-indent
+  129:1   warning  Expected indentation of 14 spaces but found 16 spaces                                       vue/html-indent
+  130:1   warning  Expected indentation of 14 spaces but found 16 spaces                                       vue/html-indent
+  131:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  132:1   warning  Expected indentation of 8 spaces but found 10 spaces                                        vue/html-indent
+  133:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  134:1   warning  Expected indentation of 8 spaces but found 10 spaces                                        vue/html-indent
+  135:1   warning  Expected indentation of 8 spaces but found 10 spaces                                        vue/html-indent
+  136:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  137:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  138:1   warning  Expected indentation of 12 spaces but found 14 spaces                                       vue/html-indent
+  139:1   warning  Expected indentation of 14 spaces but found 16 spaces                                       vue/html-indent
+  140:1   warning  Expected indentation of 14 spaces but found 16 spaces                                       vue/html-indent
+  141:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  142:1   warning  Expected indentation of 12 spaces but found 14 spaces                                       vue/html-indent
+  142:40  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found          vue/multiline-html-element-content-newline
+  142:50  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  143:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  144:1   warning  Expected indentation of 12 spaces but found 14 spaces                                       vue/html-indent
+  144:43  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found          vue/multiline-html-element-content-newline
+  144:53  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  145:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  146:1   warning  Expected indentation of 8 spaces but found 10 spaces                                        vue/html-indent
+  147:1   warning  Expected indentation of 6 spaces but found 8 spaces                                         vue/html-indent
+  148:1   warning  Expected indentation of 6 spaces but found 8 spaces                                         vue/html-indent
+  149:1   warning  Expected indentation of 8 spaces but found 10 spaces                                        vue/html-indent
+  150:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  151:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  152:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  153:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  154:1   warning  Expected indentation of 8 spaces but found 12 spaces                                        vue/html-indent
+  154:14  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found           vue/multiline-html-element-content-newline
+  154:56  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found         vue/multiline-html-element-content-newline
+  154:67  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  155:1   warning  Expected indentation of 8 spaces but found 10 spaces                                        vue/html-indent
+  156:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  157:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  158:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  159:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  160:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  161:1   warning  Expected indentation of 8 spaces but found 10 spaces                                        vue/html-indent
+  162:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  163:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  164:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  165:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  166:1   warning  Expected indentation of 8 spaces but found 12 spaces                                        vue/html-indent
+  166:14  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found           vue/multiline-html-element-content-newline
+  166:18  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found         vue/multiline-html-element-content-newline
+  166:29  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  167:1   warning  Expected indentation of 8 spaces but found 10 spaces                                        vue/html-indent
+  168:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  169:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  170:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  171:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  172:1   warning  Expected indentation of 10 spaces but found 12 spaces                                       vue/html-indent
+  173:1   warning  Expected indentation of 8 spaces but found 10 spaces                                        vue/html-indent
+  174:1   warning  Expected indentation of 6 spaces but found 8 spaces                                         vue/html-indent
+  175:1   warning  Expected indentation of 4 spaces but found 6 spaces                                         vue/html-indent
+  175:13  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found               vue/multiline-html-element-content-newline
+  175:19  warning  Expected 1 line break before closing tag (`</pagestate>`), but no line breaks found         vue/multiline-html-element-content-newline
+  175:30  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  176:32  warning  'title' should be on a new line                                                             vue/max-attributes-per-line
+  176:45  warning  'width' should be on a new line                                                             vue/max-attributes-per-line
+  176:58  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  177:1   warning  Expected indentation of 2 spaces but found 4 spaces                                         vue/html-indent
+  177:6   warning  Expected 1 line break after opening tag (`<el-dialog>`), but no line breaks found           vue/multiline-html-element-content-newline
+  177:35  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  178:1   warning  Expected indentation of 2 spaces but found 6 spaces                                         vue/html-indent
+  178:8   warning  Expected 1 line break after opening tag (`<el-form>`), but no line breaks found             vue/multiline-html-element-content-newline
+  178:32  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  179:1   warning  Expected indentation of 2 spaces but found 8 spaces                                         vue/html-indent
+  179:10  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found        vue/multiline-html-element-content-newline
+  179:41  warning  'maxlength' should be on a new line                                                         vue/max-attributes-per-line
+  179:59  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found      vue/multiline-html-element-content-newline
+  179:73  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  180:1   warning  Expected indentation of 2 spaces but found 6 spaces                                         vue/html-indent
+  180:34  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  181:1   warning  Expected indentation of 2 spaces but found 8 spaces                                         vue/html-indent
+  181:10  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found        vue/multiline-html-element-content-newline
+  182:1   warning  Expected indentation of 4 spaces but found 10 spaces                                        vue/html-indent
+  183:1   warning  Expected indentation of 4 spaces but found 10 spaces                                        vue/html-indent
+  184:1   warning  Expected indentation of 4 spaces but found 10 spaces                                        vue/html-indent
+  184:42  warning  Expected 1 line break before closing bracket, but no line breaks found                      vue/html-closing-bracket-newline
+  184:45  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found      vue/multiline-html-element-content-newline
+  184:59  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  185:1   warning  Expected indentation of 2 spaces but found 6 spaces                                         vue/html-indent
+  185:32  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  186:1   warning  Expected indentation of 2 spaces but found 8 spaces                                         vue/html-indent
+  186:10  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found        vue/multiline-html-element-content-newline
+  186:40  warning  'type' should be on a new line                                                              vue/max-attributes-per-line
+  186:58  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found      vue/multiline-html-element-content-newline
+  186:72  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  187:1   warning  Expected indentation of 2 spaces but found 6 spaces                                         vue/html-indent
+  187:20  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  188:1   warning  Expected indentation of 2 spaces but found 8 spaces                                         vue/html-indent
+  188:10  warning  Expected 1 line break after opening tag (`<el-collapse>`), but no line breaks found         vue/multiline-html-element-content-newline
+  188:43  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  189:1   warning  Expected indentation of 2 spaces but found 10 spaces                                        vue/html-indent
+  189:12  warning  Expected 1 line break after opening tag (`<el-collapse-item>`), but no line breaks found    vue/multiline-html-element-content-newline
+  189:36  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  190:1   warning  Expected indentation of 2 spaces but found 12 spaces                                        vue/html-indent
+  190:14  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found        vue/multiline-html-element-content-newline
+  190:47  warning  'clearable' should be on a new line                                                         vue/max-attributes-per-line
+  190:57  warning  'style' should be on a new line                                                             vue/max-attributes-per-line
+  190:76  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  191:1   warning  Expected indentation of 2 spaces but found 14 spaces                                        vue/html-indent
+  191:16  warning  Expected 1 line break after opening tag (`<el-select>`), but no line breaks found           vue/multiline-html-element-content-newline
+  192:1   warning  Expected indentation of 4 spaces but found 16 spaces                                        vue/html-indent
+  193:1   warning  Expected indentation of 4 spaces but found 16 spaces                                        vue/html-indent
+  194:1   warning  Expected indentation of 4 spaces but found 16 spaces                                        vue/html-indent
+  195:1   warning  Expected indentation of 4 spaces but found 16 spaces                                        vue/html-indent
+  195:33  warning  Expected 1 line break before closing bracket, but no line breaks found                      vue/html-closing-bracket-newline
+  195:36  warning  Expected 1 line break before closing tag (`</el-select>`), but no line breaks found         vue/multiline-html-element-content-newline
+  195:48  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found      vue/multiline-html-element-content-newline
+  195:62  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  196:1   warning  Expected indentation of 2 spaces but found 10 spaces                                        vue/html-indent
+  196:38  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  197:1   warning  Expected indentation of 2 spaces but found 12 spaces                                        vue/html-indent
+  197:14  warning  Expected 1 line break after opening tag (`<el-form-item>`), but no line breaks found        vue/multiline-html-element-content-newline
+  197:50  warning  'clearable' should be on a new line                                                         vue/max-attributes-per-line
+  197:60  warning  'style' should be on a new line                                                             vue/max-attributes-per-line
+  197:79  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  198:1   warning  Expected indentation of 2 spaces but found 14 spaces                                        vue/html-indent
+  198:16  warning  Expected 1 line break after opening tag (`<el-select>`), but no line breaks found           vue/multiline-html-element-content-newline
+  199:1   warning  Expected indentation of 4 spaces but found 16 spaces                                        vue/html-indent
+  200:1   warning  Expected indentation of 4 spaces but found 16 spaces                                        vue/html-indent
+  201:1   warning  Expected indentation of 4 spaces but found 16 spaces                                        vue/html-indent
+  202:1   warning  Expected indentation of 4 spaces but found 16 spaces                                        vue/html-indent
+  203:1   warning  Expected indentation of 6 spaces but found 18 spaces                                        vue/html-indent
+  204:1   warning  Expected indentation of 4 spaces but found 16 spaces                                        vue/html-indent
+  204:18  warning  Expected 1 line break before closing bracket, but no line breaks found                      vue/html-closing-bracket-newline
+  204:21  warning  Expected 1 line break before closing tag (`</el-select>`), but no line breaks found         vue/multiline-html-element-content-newline
+  204:33  warning  Expected 1 line break before closing tag (`</el-form-item>`), but no line breaks found      vue/multiline-html-element-content-newline
+  204:48  warning  Expected 1 line break before closing tag (`</el-collapse-item>`), but no line breaks found  vue/multiline-html-element-content-newline
+  204:67  warning  Expected 1 line break before closing tag (`</el-collapse>`), but no line breaks found       vue/multiline-html-element-content-newline
+  204:81  warning  Expected 1 line break before closing tag (`</el-form>`), but no line breaks found           vue/multiline-html-element-content-newline
+  204:90  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  205:1   warning  Expected indentation of 2 spaces but found 4 spaces                                         vue/html-indent
+  205:23  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  206:1   warning  Expected indentation of 2 spaces but found 6 spaces                                         vue/html-indent
+  206:8   warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found            vue/multiline-html-element-content-newline
+  206:43  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found           vue/singleline-html-element-content-newline
+  206:45  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found         vue/singleline-html-element-content-newline
+  206:56  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  207:1   warning  Expected indentation of 2 spaces but found 6 spaces                                         vue/html-indent
+  207:34  warning  '@click' should be on a new line                                                            vue/max-attributes-per-line
+  207:48  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found           vue/singleline-html-element-content-newline
+  207:50  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found         vue/singleline-html-element-content-newline
+  207:62  warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found          vue/multiline-html-element-content-newline
+  207:72  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+  208:1   warning  Expected indentation of 2 spaces but found 4 spaces                                         vue/html-indent
+  208:6   warning  Expected 1 line break before closing tag (`</el-dialog>`), but no line breaks found         vue/multiline-html-element-content-newline
+  208:17  warning  Expected no line breaks before closing bracket, but 1 line break found                      vue/html-closing-bracket-newline
+
+D:\javaweb\个人博客\人生系统\life-system\src\renderer\shared\PageState.vue
+  12:23  warning  'class' should be on a new line                                                      vue/max-attributes-per-line
+  12:37  warning  Expected 1 line break after opening tag (`<div>`), but no line breaks found          vue/singleline-html-element-content-newline
+  12:60  warning  'animated' should be on a new line                                                   vue/max-attributes-per-line
+  12:71  warning  Expected 1 line break before closing tag (`</div>`), but no line breaks found        vue/singleline-html-element-content-newline
+  13:32  warning  'icon' should be on a new line                                                       vue/max-attributes-per-line
+  13:45  warning  'title' should be on a new line                                                      vue/max-attributes-per-line
+  13:58  warning  ':sub-title' should be on a new line                                                 vue/max-attributes-per-line
+  13:76  warning  Expected no line breaks before closing bracket, but 1 line break found               vue/html-closing-bracket-newline
+  14:1   warning  Expected indentation of 2 spaces but found 4 spaces                                  vue/html-indent
+  14:6   warning  Expected 1 line break after opening tag (`<el-result>`), but no line breaks found    vue/multiline-html-element-content-newline
+  14:22  warning  Expected no line breaks before closing bracket, but 1 line break found               vue/html-closing-bracket-newline
+  15:1   warning  Expected indentation of 2 spaces but found 6 spaces                                  vue/html-indent
+  15:8   warning  Expected 1 line break after opening tag (`<template>`), but no line breaks found     vue/multiline-html-element-content-newline
+  15:43  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found    vue/singleline-html-element-content-newline
+  15:45  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found  vue/singleline-html-element-content-newline
+  15:56  warning  Expected no line breaks before closing bracket, but 1 line break found               vue/html-closing-bracket-newline
+  16:1   warning  Expected indentation of 2 spaces but found 6 spaces                                  vue/html-indent
+  16:34  warning  '@click' should be on a new line                                                     vue/max-attributes-per-line
+  16:68  warning  Expected no line breaks before closing bracket, but 1 line break found               vue/html-closing-bracket-newline
+  17:1   warning  Expected indentation of 2 spaces but found 8 spaces                                  vue/html-indent
+  17:10  warning  Expected 1 line break after opening tag (`<el-button>`), but no line breaks found    vue/multiline-html-element-content-newline
+  17:14  warning  Expected 1 line break before closing tag (`</el-button>`), but no line breaks found  vue/multiline-html-element-content-newline
+  17:25  warning  Expected no line breaks before closing bracket, but 1 line break found               vue/html-closing-bracket-newline
+  18:1   warning  Expected indentation of 2 spaces but found 6 spaces                                  vue/html-indent
+  18:8   warning  Expected 1 line break before closing tag (`</template>`), but no line breaks found   vue/multiline-html-element-content-newline
+  18:18  warning  Expected no line breaks before closing bracket, but 1 line break found               vue/html-closing-bracket-newline
+  19:1   warning  Expected indentation of 2 spaces but found 4 spaces                                  vue/html-indent
+  19:6   warning  Expected 1 line break before closing tag (`</el-result>`), but no line breaks found  vue/multiline-html-element-content-newline
+  19:17  warning  Expected no line breaks before closing bracket, but 1 line break found               vue/html-closing-bracket-newline
+  20:32  warning  ':description' should be on a new line                                               vue/max-attributes-per-line
+
+✖ 1389 problems (0 errors, 1389 warnings)
+  0 errors and 1344 warnings potentially fixable with the `--fix` option.
+
+
+> life-system@0.1.0 lint:boundaries
+> node scripts/check-boundaries.mjs
+
+进程边界检查通过
+
+> life-system@0.1.0 lint:ipc
+> node scripts/check-ipc-schemas.mjs
+
+IPC schema 检查通过

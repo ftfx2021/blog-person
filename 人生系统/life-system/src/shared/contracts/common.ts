@@ -21,6 +21,11 @@ export const errorCodeSchema = z.enum([
   "BACKUP_FAILED",
   "RESTORE_FAILED",
   "INTERNAL_ERROR",
+  "AI_UNAVAILABLE",
+  "INGEST_UNAVAILABLE",
+  "VECTOR_DB_UNAVAILABLE",
+  "AI_AUTH_ERROR",
+  "AI_TIMEOUT",
 ]);
 
 export interface AppError {

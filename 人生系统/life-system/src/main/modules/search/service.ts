@@ -9,6 +9,7 @@ export const searchService = {
     tags: string[];
     status?: string;
   }) =>
+    // 仅接受白名单实体类型并分别构造查询，防止动态表名成为注入入口。
     inTransaction(async (connection) => {
       const selected = input.types.length
         ? allowedTypes.filter((type) => input.types.includes(type))

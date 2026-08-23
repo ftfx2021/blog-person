@@ -22,6 +22,8 @@ export default defineConfig({
     },
   },
   renderer: {
+    // Vditor 运行时按 cdn/dist 动态加载 Lute，公开其本地安装目录以满足 Electron 的 self CSP。
+    publicDir: resolve(__dirname, "node_modules/vditor"),
     resolve: {
       alias: {
         "@renderer": resolve(__dirname, "src/renderer"),

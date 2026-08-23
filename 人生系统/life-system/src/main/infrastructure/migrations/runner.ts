@@ -12,6 +12,8 @@ export async function runMigrations(
   configuration: MysqlConnectionConfiguration,
   directory: string,
 ): Promise<MigrationResult> {
+  // 迁移使用独立短连接，避免在应用连接池尚未完全建立时混入业务事务。
+  // 返回 applied/skipped 清单，使设置页能区分首次建库和重复执行的结果。
   const connection = await mysql.createConnection({
     ...configuration,
     charset: "utf8mb4",
