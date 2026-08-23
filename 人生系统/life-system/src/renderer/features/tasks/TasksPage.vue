@@ -1,14 +1,50 @@
 <script setup lang="ts">
-// 页面只负责表单状态和筛选参数，写入校验仍交给主进程和共享 schema。
+// 页面只负责表单状态、分组视图和筛选参数，period 与截止时间仍由共享契约校验。
 import { computed, nextTick, onMounted, reactive, ref } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { Delete, Edit, Plus, RefreshLeft, Right } from "@element-plus/icons-vue";
 import PageState from "../../shared/PageState.vue";
-import { toLocalInput, toUtc, useApi } from "../../shared/api";
+import { toUtc, useApi } from "../../shared/api";
+
+const periodOrder = ["day", "week", "month", "semester", "other"] as const;
+type TaskPeriod = (typeof periodOrder)[number];
+type TaskRow = {
+  id: string;
+  title: string;
+  note?: string | null;
+  dueDate?: string | null;
+  goalId?: string | null;
+  projectId?: string | null;
+  status: "todo" | "doing" | "done";
+  period?: TaskPeriod | string | null;
+  goalTitle?: string | null;
+  projectTitle?: string | null;
+};
+type TaskGroup = {
+  period: TaskPeriod;
+  title: string;
+  count: number;
+  items: TaskRow[];
+};
+
+const periodSelectLabels: Record<TaskPeriod, string> = {
+  day: "日",
+  week: "周",
+  month: "月",
+  semester: "学期",
+  other: "其它",
+};
+const periodGroupLabels: Record<TaskPeriod, string> = {
+  day: "今日",
+  week: "本周",
+  month: "本月",
+  semester: "本学期",
+  other: "其它",
+};
 
 const { call } = useApi();
 
-const rows = ref<any[]>([]);
+const rows = ref<TaskRow[]>([]);
 const goals = ref<any[]>([]);
 const projects = ref<any[]>([]);
 const loading = ref(true);
@@ -23,17 +59,20 @@ const dateRange = ref<[string, string] | null>(null);
 const editingTaskId = ref<string | null>(null);
 const deletingId = ref<string | null>(null);
 const transitioningIds = reactive<Record<string, boolean>>({});
+const dueDateTouched = ref(false);
+const dueDateSyncLock = ref(false);
 
 const form = reactive({
   title: "",
   note: "",
   dueDate: "",
+  period: "other" as TaskPeriod,
   goalId: null as string | null,
   projectId: null as string | null,
 });
 
 const formRules = {
-  // 标题必须先在前端拦住空白字符串，避免空提交来回占用一次 IPC 往返。
+  // 标题先在前端拦住空白字符串，避免无意义请求打到主进程后才失败。
   title: [
     {
       trigger: "blur",
@@ -43,7 +82,7 @@ const formRules = {
           : callback(new Error("请输入标题")),
     },
   ],
-  // 备注长度与服务端 optionalText 保持一致，防止超长内容到主进程才失败。
+  // 备注长度与共享合同保持一致，避免提交时才发现文本超长。
   note: [{ max: 2000, message: "备注不能超过 2000 个字符", trigger: "blur" }],
 };
 
@@ -59,6 +98,21 @@ const hasFilters = computed(
 const emptyText = computed(() =>
   hasFilters.value ? "当前筛选下没有待办" : "还没有待办",
 );
+const groupedRows = computed<TaskGroup[]>(() =>
+  periodOrder
+    .map((period) => {
+      const items = rows.value.filter((item) => normalizePeriod(item.period) === period);
+      return items.length
+        ? {
+            period,
+            title: periodGroupLabels[period],
+            count: items.length,
+            items,
+          }
+        : null;
+    })
+    .filter(Boolean) as TaskGroup[],
+);
 
 const labels: Record<string, string> = {
   todo: "待处理",
@@ -66,20 +120,91 @@ const labels: Record<string, string> = {
   done: "已完成",
 };
 
+const periodOptions = periodOrder.map((value) => ({
+  label: periodSelectLabels[value],
+  value,
+}));
+
+function normalizePeriod(value: unknown): TaskPeriod {
+  return periodOrder.includes(value as TaskPeriod) ? (value as TaskPeriod) : "other";
+}
+
 function resetForm() {
   Object.assign(form, {
     title: "",
     note: "",
     dueDate: "",
+    period: "other",
     goalId: null,
     projectId: null,
   });
+  dueDateTouched.value = false;
+  dueDateSyncLock.value = false;
 }
 
 function closeDialog() {
   dialogVisible.value = false;
   editingTaskId.value = null;
   resetForm();
+}
+
+function formatLocalInput(value: string | null | undefined): string {
+  if (!value) return "";
+  const date = new Date(value);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hour = String(date.getHours()).padStart(2, "0");
+  const minute = String(date.getMinutes()).padStart(2, "0");
+  return `${year}-${month}-${day}T${hour}:${minute}`;
+}
+
+function formatDueDate(value: string | null | undefined): string {
+  return value ? new Date(value).toLocaleString() : "无截止时间";
+}
+
+function endOfLocalDay(base = new Date()) {
+  const date = new Date(base);
+  date.setHours(23, 59, 0, 0);
+  return date;
+}
+
+function formatInputFromDate(date: Date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hour = String(date.getHours()).padStart(2, "0");
+  const minute = String(date.getMinutes()).padStart(2, "0");
+  return `${year}-${month}-${day}T${hour}:${minute}`;
+}
+
+function suggestDueDate(period: TaskPeriod): string {
+  const today = new Date();
+  if (period === "day") return formatInputFromDate(endOfLocalDay(today));
+  if (period === "week") {
+    const date = endOfLocalDay(today);
+    const offset = (7 - date.getDay()) % 7;
+    date.setDate(date.getDate() + offset);
+    return formatInputFromDate(date);
+  }
+  if (period === "month") {
+    const date = new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 0, 0);
+    return formatInputFromDate(date);
+  }
+  return "";
+}
+
+function maybeApplyPeriodSuggestion(period: TaskPeriod) {
+  const suggestion = suggestDueDate(period);
+  if (!suggestion) return;
+  if (dueDateTouched.value && form.dueDate) return;
+  // 选中短周期时给一个本地截止时间建议，既省输入也不强制绑定到 period。
+  dueDateSyncLock.value = true;
+  form.dueDate = suggestion;
+  dueDateTouched.value = false;
+  void nextTick(() => {
+    dueDateSyncLock.value = false;
+  });
 }
 
 function openCreate() {
@@ -89,15 +214,18 @@ function openCreate() {
   nextTick(() => formRef.value?.clearValidate());
 }
 
-function openEdit(item: any) {
+function openEdit(item: TaskRow) {
   editingTaskId.value = item.id;
   Object.assign(form, {
     title: item.title || "",
     note: item.note || "",
-    dueDate: item.dueDate ? toLocalInput(item.dueDate) : "",
+    dueDate: formatLocalInput(item.dueDate),
+    period: normalizePeriod(item.period),
     goalId: item.goalId ?? null,
     projectId: item.projectId ?? null,
   });
+  dueDateTouched.value = false;
+  dueDateSyncLock.value = false;
   dialogVisible.value = true;
   nextTick(() => formRef.value?.clearValidate());
 }
@@ -108,39 +236,21 @@ function buildListFilter() {
   if (goalFilter.value) filter.goalId = goalFilter.value;
   if (projectFilter.value) filter.projectId = projectFilter.value;
   if (dateRange.value?.[0] && dateRange.value?.[1]) {
-    // 日期范围按本地日历日取 UTC 边界，和服务端的 datetime 过滤保持同一口径。
-    filter.dateFrom = toUtcDayStart(dateRange.value[0]);
-    filter.dateTo = toUtcDayEnd(dateRange.value[1]);
+    // 日期范围按本地日历日转 UTC 边界，和服务端的 DATETIME 口径保持一致。
+    const dateFrom = toUtc(`${dateRange.value[0]}T00:00:00`);
+    const dateTo = toUtc(`${dateRange.value[1]}T23:59:59.999`);
+    if (dateFrom) filter.dateFrom = dateFrom;
+    if (dateTo) filter.dateTo = dateTo;
   }
   return filter;
 }
 
-function toUtcDayStart(value: string) {
-  return new Date(`${value}T00:00:00`).toISOString();
-}
-
-function toUtcDayEnd(value: string) {
-  return new Date(`${value}T23:59:59.999`).toISOString();
-}
-
-function isOverdue(item: any) {
+function isOverdue(item: TaskRow) {
   return (
     item.status !== "done" &&
     Boolean(item.dueDate) &&
-    new Date(item.dueDate).getTime() < Date.now()
+    new Date(item.dueDate as string).getTime() < Date.now()
   );
-}
-
-function formatDueDate(item: any) {
-  return item.dueDate ? new Date(item.dueDate).toLocaleString() : "无截止时间";
-}
-
-function transitionLabel(item: any) {
-  return item.status === "todo" ? "开始" : "完成";
-}
-
-function transitionSuccessText(item: any) {
-  return item.status === "todo" ? "已开始" : "已完成";
 }
 
 function setTransitionBusy(id: string, busy: boolean) {
@@ -178,6 +288,7 @@ async function save() {
       title: form.title.trim(),
       note: form.note || null,
       dueDate: toUtc(form.dueDate),
+      period: form.period,
       goalId: form.goalId ?? null,
       projectId: form.projectId ?? null,
     };
@@ -196,18 +307,18 @@ async function save() {
     closeDialog();
     await loadRows();
   } catch {
-    // call 已经弹出错误提示，这里只保留弹窗与输入，方便用户修正后重试。
+    // call 已经弹出错误提示，这里保留弹窗和输入，方便用户修正后重试。
   } finally {
     saving.value = false;
   }
 }
 
-async function transition(item: any, action: "advance" | "undo") {
+async function transition(item: TaskRow, action: "advance" | "undo") {
   if (transitioningIds[item.id]) return;
   setTransitionBusy(item.id, true);
   try {
     await call(() => window.lifeSystem.tasks.transition({ id: item.id, action }));
-    ElMessage.success(action === "undo" ? "已撤销完成" : transitionSuccessText(item));
+    ElMessage.success(action === "undo" ? "已撤销完成" : item.status === "todo" ? "已开始" : "已完成");
     await loadRows();
   } catch {
     // 单行 loading 复位后继续保留当前列表快照，避免连点时并发写入。
@@ -216,7 +327,7 @@ async function transition(item: any, action: "advance" | "undo") {
   }
 }
 
-async function remove(item: any) {
+async function remove(item: TaskRow) {
   try {
     await ElMessageBox.confirm("待办删除后不可恢复。", "确认删除", {
       type: "warning",
@@ -230,10 +341,19 @@ async function remove(item: any) {
     ElMessage.success("已删除");
     await loadRows();
   } catch {
-    // 取消之外的失败交给 call 提示，这里不关闭页面状态，方便再次重试。
+    // 删除失败交给 call 统一提示，这里只保持页面状态不丢。
   } finally {
     deletingId.value = null;
   }
+}
+
+function onPeriodChange(value: TaskPeriod) {
+  maybeApplyPeriodSuggestion(value);
+}
+
+function onDueDateChange(value: string | null | undefined) {
+  if (dueDateSyncLock.value) return;
+  dueDateTouched.value = Boolean(value);
 }
 
 onMounted(() => {
@@ -315,77 +435,84 @@ onMounted(() => {
     :empty-text="emptyText"
     @retry="loadRows"
   >
-    <div class="list">
-      <div
-        v-for="item in rows"
-        :key="item.id"
-        class="list-row task-row"
-        :class="{ 'task-row--overdue': isOverdue(item) }"
-      >
-        <div class="list-main">
-          <div class="task-title-line">
-            <el-tag v-if="isOverdue(item)" type="danger" size="small"
-              >已逾期</el-tag
-            >
-            <div
-              class="list-title task-title"
-              :class="{ 'task-title--done': item.status === 'done' }"
-            >
-              {{ item.title }}
-            </div>
+    <div v-if="groupedRows.length" class="task-groups">
+      <section v-for="group in groupedRows" :key="group.period" class="task-group">
+        <header class="task-group-head">
+          <div>
+            <h2>{{ group.title }}</h2>
           </div>
-          <div class="task-meta">
-            <div class="list-meta">
-              {{ labels[item.status] }} ·
-              <span :class="{ 'task-meta--overdue': isOverdue(item) }">
-                {{ formatDueDate(item) }}
-              </span>
+          <el-tag size="small" effect="plain">{{ group.count }}</el-tag>
+        </header>
+        <div class="list task-group-list">
+          <div
+            v-for="item in group.items"
+            :key="item.id"
+            class="list-row task-row"
+            :class="{ 'task-row--overdue': isOverdue(item) }"
+          >
+            <div class="list-main">
+              <div class="task-title-line">
+                <el-tag v-if="isOverdue(item)" type="danger" size="small">已逾期</el-tag>
+                <div class="list-title task-title" :class="{ 'task-title--done': item.status === 'done' }">
+                  {{ item.title }}
+                </div>
+              </div>
+              <div class="task-meta">
+                <div class="list-meta">
+                  {{ labels[item.status] }} ·
+                  <span :class="{ 'task-meta--overdue': isOverdue(item) }">
+                    {{ formatDueDate(item.dueDate) }}
+                  </span>
+                </div>
+                <div class="list-meta">
+                  <span>目标：{{ item.goalTitle || "未关联" }}</span>
+                  <span>·</span>
+                  <span>项目：{{ item.projectTitle || "未关联" }}</span>
+                </div>
+              </div>
             </div>
-            <div class="list-meta">
-              <span>目标：{{ item.goalTitle || "未关联" }}</span>
-              <span>·</span>
-              <span>项目：{{ item.projectTitle || "未关联" }}</span>
+            <div class="row-actions">
+              <el-button
+                v-if="item.status !== 'done'"
+                size="small"
+                :icon="Right"
+                :loading="Boolean(transitioningIds[item.id])"
+                :disabled="Boolean(transitioningIds[item.id])"
+                @click="transition(item, 'advance')"
+              >
+                {{ item.status === "todo" ? "开始" : "完成" }}
+              </el-button>
+              <el-button
+                v-if="item.status !== 'done'"
+                text
+                :icon="Edit"
+                title="编辑"
+                :disabled="Boolean(transitioningIds[item.id])"
+                @click="openEdit(item)"
+              />
+              <el-button
+                v-else
+                size="small"
+                :icon="RefreshLeft"
+                :loading="Boolean(transitioningIds[item.id])"
+                :disabled="Boolean(transitioningIds[item.id])"
+                @click="transition(item, 'undo')"
+              >
+                撤销完成
+              </el-button>
+              <el-button
+                text
+                type="danger"
+                :icon="Delete"
+                title="删除"
+                :loading="deletingId === item.id"
+                :disabled="Boolean(transitioningIds[item.id]) || deletingId === item.id"
+                @click="remove(item)"
+              />
             </div>
           </div>
         </div>
-        <div class="row-actions">
-          <el-button
-            v-if="item.status !== 'done'"
-            size="small"
-            :icon="Right"
-            :loading="Boolean(transitioningIds[item.id])"
-            :disabled="Boolean(transitioningIds[item.id])"
-            @click="transition(item, 'advance')"
-            >{{ transitionLabel(item) }}</el-button
-          >
-          <el-button
-            v-if="item.status !== 'done'"
-            text
-            :icon="Edit"
-            title="编辑"
-            :disabled="Boolean(transitioningIds[item.id])"
-            @click="openEdit(item)"
-          />
-          <el-button
-            v-else
-            size="small"
-            :icon="RefreshLeft"
-            :loading="Boolean(transitioningIds[item.id])"
-            :disabled="Boolean(transitioningIds[item.id])"
-            @click="transition(item, 'undo')"
-            >撤销完成</el-button
-          >
-          <el-button
-            text
-            type="danger"
-            :icon="Delete"
-            title="删除"
-            :loading="deletingId === item.id"
-            :disabled="Boolean(transitioningIds[item.id]) || deletingId === item.id"
-            @click="remove(item)"
-          />
-        </div>
-      </div>
+      </section>
     </div>
   </PageState>
 
@@ -410,12 +537,29 @@ onMounted(() => {
           placeholder="请输入标题"
         />
       </el-form-item>
+      <el-form-item label="时间范围">
+        <el-select
+          v-model="form.period"
+          placeholder="选择范围"
+          class="task-full"
+          @change="onPeriodChange"
+        >
+          <el-option
+            v-for="item in periodOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
       <el-form-item label="截止时间">
         <el-date-picker
           v-model="form.dueDate"
           type="datetime"
           value-format="YYYY-MM-DDTHH:mm"
           placeholder="可选"
+          class="task-full"
+          @change="onDueDateChange"
         />
       </el-form-item>
       <el-form-item label="备注" prop="note">
@@ -494,6 +638,38 @@ onMounted(() => {
   min-width: 260px;
 }
 
+.task-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.task-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task-group-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 2px;
+}
+
+.task-group-head h2 {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.task-group-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .task-row {
   transition:
     background-color 0.2s ease,
@@ -542,6 +718,10 @@ onMounted(() => {
 
 .task-inline-fields :deep(.el-select),
 .task-inline-fields :deep(.el-date-editor) {
+  width: 100%;
+}
+
+.task-full {
   width: 100%;
 }
 
